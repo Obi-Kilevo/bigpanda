@@ -1,0 +1,577 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Panda World Tourism - Register</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--    <style>-->
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            min-height: 100vh;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);-->
+<!--            overflow: hidden;-->
+<!--            position: relative;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        /* Animated Globe Background */-->
+<!--        .globe-container {-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            z-index: -1;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .globe {-->
+<!--            position: absolute;-->
+<!--            width: 800px;-->
+<!--            height: 800px;-->
+<!--            border-radius: 50%;-->
+<!--            background: rgba(255, 255, 255, 0.05);-->
+<!--            box-shadow:-->
+<!--                    inset 0 0 50px #fff,-->
+<!--                    inset 20px 0 80px rgba(0, 0, 255, 0.2),-->
+<!--                    inset -20px 0 80px rgba(255, 0, 0, 0.2),-->
+<!--                    inset 20px 0 300px rgba(0, 0, 255, 0.2),-->
+<!--                    inset -20px 0 300px rgba(255, 0, 0, 0.2),-->
+<!--                    0 0 50px #fff,-->
+<!--                    -10px 0 80px rgba(0, 0, 255, 0.2),-->
+<!--                    10px 0 80px rgba(255, 0, 0, 0.2);-->
+<!--            animation: rotate 60s linear infinite;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%);-->
+<!--        }-->
+
+<!--        @keyframes rotate {-->
+<!--            0% {-->
+<!--                background-position: 0 0;-->
+<!--            }-->
+<!--            100% {-->
+<!--                background-position: 800px 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Form Container */-->
+<!--        .container {-->
+<!--            width: 100%;-->
+<!--            max-width: 450px;-->
+<!--            padding: 30px;-->
+<!--            margin: 20px;-->
+<!--            backdrop-filter: blur(10px);-->
+<!--            background: rgba(255, 255, 255, 0.85);-->
+<!--            border-radius: 20px;-->
+<!--            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);-->
+<!--            overflow: hidden;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        /* Panda Decoration */-->
+<!--        .panda-decoration {-->
+<!--            position: absolute;-->
+<!--            width: 120px;-->
+<!--            height: 120px;-->
+<!--            background: #000;-->
+<!--            border-radius: 50%;-->
+<!--            top: -50px;-->
+<!--            right: -50px;-->
+<!--            z-index: 1;-->
+<!--        }-->
+
+<!--        .panda-decoration::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 40px;-->
+<!--            height: 40px;-->
+<!--            background: #fff;-->
+<!--            border-radius: 50%;-->
+<!--            top: 30px;-->
+<!--            left: 20px;-->
+<!--        }-->
+
+<!--        .panda-decoration::after {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 40px;-->
+<!--            height: 40px;-->
+<!--            background: #fff;-->
+<!--            border-radius: 50%;-->
+<!--            top: 30px;-->
+<!--            right: 20px;-->
+<!--        }-->
+
+<!--        /* Header */-->
+<!--        .header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #2c3e50;-->
+<!--            font-size: 28px;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            color: #7f8c8d;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+
+<!--        /* Form Elements */-->
+<!--        .form-group {-->
+<!--            margin-bottom: 20px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .form-group label {-->
+<!--            display: block;-->
+<!--            margin-bottom: 8px;-->
+<!--            font-weight: 600;-->
+<!--            color: #2c3e50;-->
+<!--        }-->
+
+<!--        .form-group input {-->
+<!--            width: 100%;-->
+<!--            padding: 15px;-->
+<!--            border: 2px solid #ddd;-->
+<!--            border-radius: 10px;-->
+<!--            font-size: 16px;-->
+<!--            transition: all 0.3s;-->
+<!--        }-->
+
+<!--        .form-group input:focus {-->
+<!--            border-color: #3498db;-->
+<!--            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);-->
+<!--            outline: none;-->
+<!--        }-->
+
+<!--        .form-group i {-->
+<!--            position: absolute;-->
+<!--            right: 15px;-->
+<!--            top: 42px;-->
+<!--            color: #7f8c8d;-->
+<!--        }-->
+
+<!--        /* Terms */-->
+<!--        .terms {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .terms input {-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+
+<!--        .terms label {-->
+<!--            color: #7f8c8d;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        .terms a {-->
+<!--            color: #3498db;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+
+<!--        /* Buttons */-->
+<!--        .btn {-->
+<!--            width: 100%;-->
+<!--            padding: 15px;-->
+<!--            border: none;-->
+<!--            border-radius: 10px;-->
+<!--            font-size: 16px;-->
+<!--            font-weight: 600;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s;-->
+<!--        }-->
+
+<!--        .btn-register {-->
+<!--            background: #e74c3c;-->
+<!--            color: white;-->
+<!--            margin-bottom: 15px;-->
+<!--        }-->
+
+<!--        .btn-register:hover {-->
+<!--            background: #c0392b;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);-->
+<!--        }-->
+
+<!--        .btn-social {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            background: #f5f5f5;-->
+<!--            color: #333;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        .btn-social i {-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+
+<!--        .btn-google:hover {-->
+<!--            background: #dd4b39;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        .btn-facebook:hover {-->
+<!--            background: #3b5998;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        /* Divider */-->
+<!--        .divider {-->
+<!--            text-align: center;-->
+<!--            margin: 20px 0;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .divider::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            left: 0;-->
+<!--            top: 50%;-->
+<!--            width: 100%;-->
+<!--            height: 1px;-->
+<!--            background: #ddd;-->
+<!--            z-index: 1;-->
+<!--        }-->
+
+<!--        .divider span {-->
+<!--            background: white;-->
+<!--            padding: 0 15px;-->
+<!--            position: relative;-->
+<!--            z-index: 2;-->
+<!--            color: #7f8c8d;-->
+<!--        }-->
+
+<!--        /* Footer */-->
+<!--        .footer {-->
+<!--            text-align: center;-->
+<!--            margin-top: 20px;-->
+<!--            color: #7f8c8d;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        .footer a {-->
+<!--            color: #3498db;-->
+<!--            text-decoration: none;-->
+<!--            font-weight: 600;-->
+<!--        }-->
+
+<!--        /* Responsive */-->
+<!--        @media (max-width: 500px) {-->
+<!--            .container {-->
+<!--                padding: 20px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 24px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Animation for form */-->
+<!--        @keyframes fadeIn {-->
+<!--            from {-->
+<!--                opacity: 0;-->
+<!--                transform: translateY(20px);-->
+<!--            }-->
+<!--            to {-->
+<!--                opacity: 1;-->
+<!--                transform: translateY(0);-->
+<!--            }-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            animation: fadeIn 1s ease-out;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Animated Globe Background &ndash;&gt;-->
+<!--<div class="globe-container">-->
+<!--    <div class="globe"></div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Registration Form Container &ndash;&gt;-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Panda Decoration &ndash;&gt;-->
+<!--    <div class="panda-decoration"></div>-->
+
+<!--    &lt;!&ndash; Header &ndash;&gt;-->
+<!--    <div class="header">-->
+<!--        <h1>Join Panda World Tourism</h1>-->
+<!--        <p>Create an account to personalize your experience</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Registration Form &ndash;&gt;-->
+<!--    <form id="registrationForm">-->
+<!--        <div class="form-group">-->
+<!--            <label for="fullname">Full Name</label>-->
+<!--            <input type="text" id="fullname" placeholder="Enter your full name" required>-->
+<!--            <i class="fas fa-user"></i>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="email">Email Address</label>-->
+<!--            <input type="email" id="email" placeholder="Enter your email" required>-->
+<!--            <i class="fas fa-envelope"></i>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="password">Password</label>-->
+<!--            <input type="password" id="password" placeholder="Create a password" required>-->
+<!--            <i class="fas fa-lock"></i>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="confirmPassword">Confirm Password</label>-->
+<!--            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>-->
+<!--            <i class="fas fa-lock"></i>-->
+<!--        </div>-->
+
+<!--        <div class="terms">-->
+<!--            <input type="checkbox" id="terms" required>-->
+<!--            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>-->
+<!--        </div>-->
+
+<!--        <button type="submit" class="btn btn-register">Create Account</button>-->
+<!--    </form>-->
+
+<!--    <div class="divider">-->
+<!--        <span>Or register with</span>-->
+<!--    </div>-->
+
+<!--    <button class="btn btn-social btn-google">-->
+<!--        <i class="fab fa-google"></i> Sign up with Google-->
+<!--    </button>-->
+
+<!--    <button class="btn btn-social btn-facebook">-->
+<!--        <i class="fab fa-facebook-f"></i> Sign up with Facebook-->
+<!--    </button>-->
+
+<!--    <div class="footer">-->
+<!--        Already have an account? <a href="#">Sign In</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // Form validation-->
+<!--    document.getElementById('registrationForm').addEventListener('submit', function(e) {-->
+<!--        e.preventDefault();-->
+
+<!--        const password = document.getElementById('password').value;-->
+<!--        const confirmPassword = document.getElementById('confirmPassword').value;-->
+
+<!--        if (password !== confirmPassword) {-->
+<!--            alert('Passwords do not match!');-->
+<!--            return;-->
+<!--        }-->
+
+<!--        // If everything is valid, show success message-->
+<!--        alert('Registration successful! Welcome to Panda World Tourism.');-->
+<!--        this.reset();-->
+<!--    });-->
+
+<!--    // Add some interactive effects to inputs-->
+<!--    const inputs = document.querySelectorAll('input');-->
+<!--    inputs.forEach(input => {-->
+<!--        input.addEventListener('focus', () => {-->
+<!--            input.parentElement.classList.add('focused');-->
+<!--        });-->
+
+<!--        input.addEventListener('blur', () => {-->
+<!--            input.parentElement.classList.remove('focused');-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!-- language-widget.html (Thymeleaf fragment) -->
+<!-- Drop this near the end of <body> in your layout template -->
+<!— CSRF meta tags (needed if you use Spring Security) -->
+<meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}"/>
+
+<style>
+    .lang-fab {
+        position: fixed;
+        right: 18px;
+        bottom: 22px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        background: linear-gradient(135deg,#0b74de,#0066c8);
+        color: white;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        z-index: 1100;
+    }
+    .lang-menu {
+        position: fixed;
+        right: 18px;
+        bottom: 82px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        overflow: hidden;
+        z-index: 1100;
+        min-width: 200px;
+        display: none;
+        font-family: Arial, sans-serif;
+    }
+    .lang-item {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding: 10px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .lang-item:last-child { border-bottom: none; }
+    .lang-item:hover { background: #f7fbff; }
+    .lang-code {
+        font-weight: 600;
+        min-width:40px;
+        text-align:center;
+        font-size:13px;
+    }
+    .lang-label { flex:1; font-size:14px; }
+    .lang-active { color: #0b74de; font-weight:700; }
+</style>
+
+<!-- Floating action button -->
+<div id="langFab" class="lang-fab" title="Change language" role="button" aria-label="Change language">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12A9 9 0 1 1 3 12 9 9 0 0 1 21 12z"></path>
+        <path d="M2 12h20"></path>
+        <path d="M12 2a15 15 0 0 0 0 20"></path>
+    </svg>
+</div>
+
+<!-- Language menu -->
+<div id="langMenu" class="lang-menu" role="menu" aria-hidden="true">
+    <!-- Adjust data-lang values to match your LocaleResolver / messages files -->
+    <div class="lang-item" data-lang="en" role="menuitem">
+        <div class="lang-code">EN</div>
+        <div class="lang-label" th:text="#{language.english}">English</div>
+    </div>
+
+    <div class="lang-item" data-lang="zh-CN" role="menuitem">
+        <div class="lang-code">中</div>
+        <div class="lang-label" th:text="#{language.chinese}">中文(简体)</div>
+    </div>
+
+    <div class="lang-item" data-lang="sw" role="menuitem">
+        <div class="lang-code">SW</div>
+        <div class="lang-label" th:text="#{language.swahili}">Kiswahili</div>
+    </div>
+
+    <div class="lang-item" data-lang="fr" role="menuitem">
+        <div class="lang-code">FR</div>
+        <div class="lang-label" th:text="#{language.french}">Français</div>
+    </div>
+
+    <div class="lang-item" data-lang="es" role="menuitem">
+        <div class="lang-code">ES</div>
+        <div class="lang-label" th:text="#{language.spanish}">Español</div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    (function(){
+        const fab = document.getElementById('langFab');
+        const menu = document.getElementById('langMenu');
+
+        fab.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const visible = menu.style.display === 'block';
+            menu.style.display = visible ? 'none' : 'block';
+            menu.setAttribute('aria-hidden', visible ? 'true' : 'false');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!fab.contains(e.target) && !menu.contains(e.target)) {
+                menu.style.display = 'none';
+                menu.setAttribute('aria-hidden','true');
+            }
+        });
+
+        menu.querySelectorAll('.lang-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const lang = item.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+
+        function getCsrfHeader() {
+            const tokenMeta = document.querySelector('meta[name="_csrf"]');
+            const headerMeta = document.querySelector('meta[name="_csrf_header"]');
+            if (tokenMeta && headerMeta) {
+                return { name: headerMeta.getAttribute('content'), value: tokenMeta.getAttribute('content') };
+            }
+            return null;
+        }
+
+        function changeLanguage(lang) {
+            const url = /*[[@{/change-language}]]*/ '/change-language';
+            const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+            const csrf = getCsrfHeader();
+            if (csrf) headers[csrf.name] = csrf.value;
+
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: new URLSearchParams({ lang: lang })
+            })
+                .then(r => {
+                    if (!r.ok) throw new Error('Network response not OK');
+                    return r.json();
+                })
+                .then(json => {
+                    // Reload so server-side messages are applied
+                    window.location.reload();
+                })
+                .catch(err => {
+                    console.error('Language change failed', err);
+                    // fallback: use query param to trigger LocaleChangeInterceptor
+                    window.location.href = window.location.pathname + '?lang=' + encodeURIComponent(lang);
+                });
+        }
+
+        // highlight active language if cookie exists
+        function readCookie(name) {
+            const match = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return match ? decodeURIComponent(match.pop()) : null;
+        }
+        try {
+            const current = readCookie('APP_LOCALE') || navigator.language || 'en';
+            const normalized = current.replace('_','-');
+            const selected = menu.querySelector('[data-lang="'+ normalized +'"]') || menu.querySelector('[data-lang="'+ current +'"]');
+            if (selected) selected.querySelector('.lang-label').classList.add('lang-active');
+        } catch(e){}
+    })();
+    /*]]>*/
+</script>
+

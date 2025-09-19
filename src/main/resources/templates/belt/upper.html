@@ -1,0 +1,2743 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Panda World - Tourism App</title>-->
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--  <style>-->
+<!--    * {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      box-sizing: border-box;-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--    }-->
+
+<!--    body {-->
+<!--      background-color: #f8f9fa;-->
+<!--      padding: 20px;-->
+<!--      min-height: 100vh;-->
+<!--      background: linear-gradient(135deg, #f5f9f5 0%, #e8f4e8 100%);-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--    }-->
+
+<!--    .header {-->
+<!--      background-color: white;-->
+<!--      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);-->
+<!--      padding: 20px 80px; /* Increased side padding from 60px to 80px */-->
+<!--      border-radius: 20px;-->
+<!--      max-width: 1250px; /* Further reduced max-width from 1300px to 1250px */-->
+<!--      width: 100%;-->
+<!--      margin: 20px auto;-->
+<!--      position: sticky;-->
+<!--      top: 20px;-->
+<!--      z-index: 100;-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      border: 1px solid rgba(76, 175, 80, 0.1);-->
+<!--    }-->
+
+<!--    .header:hover {-->
+<!--      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .header-container {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: space-between;-->
+<!--    }-->
+
+<!--    .logo-section {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 15px;-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .logo-section:hover {-->
+<!--      transform: scale(1.02);-->
+<!--    }-->
+
+<!--    .logo-img {-->
+<!--      width: 60px;-->
+<!--      height: 60px;-->
+<!--      border-radius: 15px;-->
+<!--      object-fit: cover;-->
+<!--      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);-->
+<!--      transition: all 0.3s ease;-->
+<!--      border: 2px solid white;-->
+<!--    }-->
+
+<!--    .logo-img:hover {-->
+<!--      transform: rotate(5deg) scale(1.1);-->
+<!--      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);-->
+<!--    }-->
+
+<!--    .logo-text {-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--    }-->
+
+<!--    .app-name {-->
+<!--      font-size: 28px;-->
+<!--      font-weight: 800;-->
+<!--      color: #2c3e50;-->
+<!--      letter-spacing: 0.5px;-->
+<!--      line-height: 1.1;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(5px);-->
+<!--    }-->
+
+<!--    .app-name span {-->
+<!--      color: #4CAF50;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover span {-->
+<!--      text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);-->
+<!--    }-->
+
+<!--    .app-email {-->
+<!--      font-size: 14px;-->
+<!--      color: #7f8c8d;-->
+<!--      margin-top: 4px;-->
+<!--      font-weight: 500;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-email:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(3px);-->
+<!--    }-->
+
+<!--    .nav-menu {-->
+<!--      display: flex;-->
+<!--      list-style: none;-->
+<!--      gap: 35px;-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-item {-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-link {-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-weight: 500;-->
+<!--      font-size: 17px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      padding: 8px 0;-->
+<!--      display: block;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .nav-link:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .nav-link::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 0;-->
+<!--      height: 2px;-->
+<!--      bottom: 0;-->
+<!--      left: 0;-->
+<!--      background-color: #4CAF50;-->
+<!--      transition: width 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::before {-->
+<!--      width: 100%;-->
+<!--    }-->
+
+<!--    .nav-link::after {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 8px;-->
+<!--      height: 8px;-->
+<!--      border-radius: 50%;-->
+<!--      background-color: #4CAF50;-->
+<!--      top: 50%;-->
+<!--      left: -15px;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::after {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    /* Enhanced Dropdown Styles */-->
+<!--    .dropdown {-->
+<!--      position: absolute;-->
+<!--      top: 100%;-->
+<!--      left: 0;-->
+<!--      background: white;-->
+<!--      width: 220px;-->
+<!--      border-radius: 12px;-->
+<!--      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);-->
+<!--      opacity: 0;-->
+<!--      visibility: hidden;-->
+<!--      transform: translateY(15px) scale(0.95);-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      z-index: 1000;-->
+<!--      padding: 15px 0;-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown {-->
+<!--      opacity: 1;-->
+<!--      visibility: visible;-->
+<!--      transform: translateY(10px) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a {-->
+<!--      display: block;-->
+<!--      padding: 12px 25px;-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-size: 15px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      opacity: 0;-->
+<!--      transform: translateX(-10px);-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown a {-->
+<!--      opacity: 1;-->
+<!--      transform: translateX(0);-->
+<!--    }-->
+
+<!--    .dropdown a::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 6px;-->
+<!--      height: 6px;-->
+<!--      border-radius: 50%;-->
+<!--      background: #4CAF50;-->
+<!--      left: 10px;-->
+<!--      top: 50%;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .dropdown a:hover::before {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a:hover {-->
+<!--      color: #4CAF50;-->
+<!--      background: rgba(76, 175, 80, 0.08);-->
+<!--      padding-left: 30px;-->
+<!--    }-->
+
+<!--    /* Sequential animations for dropdown items */-->
+<!--    .dropdown a:nth-child(1) {-->
+<!--      transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(2) {-->
+<!--      transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(3) {-->
+<!--      transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(4) {-->
+<!--      transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(5) {-->
+<!--      transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+
+<!--    .mobile-toggle {-->
+<!--      display: none;-->
+<!--      font-size: 24px;-->
+<!--      background: none;-->
+<!--      border: none;-->
+<!--      color: #2c3e50;-->
+<!--      cursor: pointer;-->
+<!--      transition: all 0.3s ease;-->
+<!--      padding: 8px;-->
+<!--      border-radius: 8px;-->
+<!--    }-->
+
+<!--    .mobile-toggle:hover {-->
+<!--      background-color: rgba(76, 175, 80, 0.1);-->
+<!--      color: #4CAF50;-->
+<!--      transform: rotate(90deg);-->
+<!--    }-->
+
+<!--    /* Demo content */-->
+<!--    .demo-content {-->
+<!--      max-width: 1000px;-->
+<!--      width: 100%;-->
+<!--      margin: 40px auto;-->
+<!--      padding: 30px;-->
+<!--      background: white;-->
+<!--      border-radius: 20px;-->
+<!--      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);-->
+<!--    }-->
+
+<!--    .demo-title {-->
+<!--      font-size: 28px;-->
+<!--      color: #2c3e50;-->
+<!--      margin-bottom: 20px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    .demo-text {-->
+<!--      font-size: 18px;-->
+<!--      color: #7f8c8d;-->
+<!--      line-height: 1.6;-->
+<!--      text-align: center;-->
+<!--      max-width: 800px;-->
+<!--      margin: 0 auto;-->
+<!--    }-->
+
+<!--    @media (max-width: 1000px) {-->
+<!--      .nav-menu {-->
+<!--        gap: 20px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 850px) {-->
+<!--      .header {-->
+<!--        padding: 20px 50px; /* Adjusted for medium screens */-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        gap: 15px;-->
+<!--      }-->
+
+<!--      .nav-link {-->
+<!--        font-size: 16px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 24px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 768px) {-->
+<!--      .header {-->
+<!--        padding: 15px 40px; /* Adjusted for small screens */-->
+<!--        margin: 15px auto;-->
+<!--        top: 15px;-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        display: none;-->
+<!--      }-->
+
+<!--      .mobile-toggle {-->
+<!--        display: block;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 22px;-->
+<!--      }-->
+
+<!--      .logo-img {-->
+<!--        width: 50px;-->
+<!--        height: 50px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 480px) {-->
+<!--      .header {-->
+<!--        padding: 15px 30px; /* Adjusted for mobile screens */-->
+<!--      }-->
+
+<!--      .logo-text {-->
+<!--        max-width: 120px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 20px;-->
+<!--      }-->
+
+<!--      .app-email {-->
+<!--        font-size: 12px;-->
+<!--      }-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="header">-->
+<!--  <div class="header-container">-->
+<!--    <div class="logo-section">-->
+<!--      <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">-->
+<!--      <div class="logo-text">-->
+<!--        <div class="app-name">PANDA <span>WORLD</span></div>-->
+<!--        <div class="app-email">bigpandasafaris@gmail.com</div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <ul class="nav-menu">-->
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Adventure</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/parkspanda/one">Wild Beest Safari</a>-->
+<!--          <a href="/parkspanda/two">Honeymoons</a>-->
+<!--          <a href="/parkspanda/three">Family</a>-->
+<!--          <a href="/parkspanda/four">Day trip</a>-->
+<!--          <a href="/parkspanda/five">Celebration trips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Travel Insights</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/dest/ngorongoro">Destinations</a>-->
+<!--          <a href="/dest/serengeti">Wildlife Guides</a>-->
+<!--          <a href="/dest/kilimanjaro">Travel Tips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Plan My Safari</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/boxthree">Plan my Big Safari</a>-->
+<!--          <a href="/customize">Customize Trip</a>-->
+<!--          <a href="/itineraries">Sample Itineraries</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Blog</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/un/work">Travel Tips</a>-->
+<!--          <a href="/stories">Adventure Stories</a>-->
+<!--          <a href="/conservation">Conservation</a>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+
+<!--    <button class="mobile-toggle">-->
+<!--      <i class="fas fa-bars"></i>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--<div class="demo-content">-->
+<!--  <h2 class="demo-title">Panda World Safari Adventures</h2>-->
+<!--  <p class="demo-text">Hover over the navigation items to see the beautiful dropdown animations. Each menu item fades in sequentially with smooth transitions for a modern and engaging user experience.</p>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--  // Enhanced JavaScript for interactive effects-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    const header = document.querySelector('.header');-->
+<!--    const navLinks = document.querySelectorAll('.nav-link');-->
+<!--    const mobileToggle = document.querySelector('.mobile-toggle');-->
+<!--    const dropdowns = document.querySelectorAll('.dropdown');-->
+
+<!--    // Add subtle pulse animation to header-->
+<!--    setInterval(() => {-->
+<!--      header.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.1)';-->
+<!--      setTimeout(() => {-->
+<!--        header.style.boxShadow = '0 5px 28px rgba(76, 175, 80, 0.15)';-->
+<!--      }, 1000);-->
+<!--    }, 2000);-->
+
+<!--    // Enhanced hover effect for navigation links-->
+<!--    navLinks.forEach(link => {-->
+<!--      link.addEventListener('mouseenter', () => {-->
+<!--        link.style.transform = 'translateY(-3px)';-->
+<!--        link.style.color = '#4CAF50';-->
+<!--      });-->
+
+<!--      link.addEventListener('mouseleave', () => {-->
+<!--        link.style.transform = 'translateY(0)';-->
+<!--        link.style.color = '#34495e';-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Mobile menu toggle with animation-->
+<!--    mobileToggle.addEventListener('click', function() {-->
+<!--      this.style.transform = 'rotate(180deg)';-->
+<!--      alert('Mobile menu would open here. This will be implemented in your Spring Boot application.');-->
+<!--      setTimeout(() => {-->
+<!--        this.style.transform = 'rotate(0)';-->
+<!--      }, 300);-->
+<!--    });-->
+
+<!--    // Add subtle animation to logo on page load-->
+<!--    const logoImg = document.querySelector('.logo-img');-->
+<!--    setTimeout(() => {-->
+<!--      logoImg.style.transform = 'scale(1.1)';-->
+<!--      setTimeout(() => {-->
+<!--        logoImg.style.transform = 'scale(1)';-->
+<!--      }, 300);-->
+<!--    }, 500);-->
+
+<!--    // Add proximity detection for dropdowns-->
+<!--    document.addEventListener('mousemove', (e) => {-->
+<!--      const mouseY = e.clientY;-->
+<!--      dropdowns.forEach(dropdown => {-->
+<!--        const rect = dropdown.getBoundingClientRect();-->
+<!--        const distance = Math.abs(mouseY - rect.top);-->
+
+<!--        if (distance < 100) {-->
+<!--          dropdown.parentElement.classList.add('hover-effect');-->
+<!--        } else {-->
+<!--          dropdown.parentElement.classList.remove('hover-effect');-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Panda World - Tourism App</title>-->
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--  <style>-->
+<!--    * {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      box-sizing: border-box;-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--    }-->
+
+<!--    body {-->
+<!--      background-color: #f8f9fa;-->
+<!--      padding: 20px;-->
+<!--      min-height: 100vh;-->
+<!--      background: linear-gradient(135deg, #f5f9f5 0%, #e8f4e8 100%);-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--    }-->
+
+<!--    .header {-->
+<!--      background-color: white;-->
+<!--      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);-->
+<!--      padding: 20px 60px; /* Increased side padding from 50px to 60px */-->
+<!--      border-radius: 20px;-->
+<!--      max-width: 1300px; /* Further reduced max-width from 1350px to 1300px */-->
+<!--      width: 100%;-->
+<!--      margin: 20px auto;-->
+<!--      position: sticky;-->
+<!--      top: 20px;-->
+<!--      z-index: 100;-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      border: 1px solid rgba(76, 175, 80, 0.1);-->
+<!--    }-->
+
+<!--    .header:hover {-->
+<!--      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .header-container {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: space-between;-->
+<!--    }-->
+
+<!--    .logo-section {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 15px;-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .logo-section:hover {-->
+<!--      transform: scale(1.02);-->
+<!--    }-->
+
+<!--    .logo-img {-->
+<!--      width: 60px;-->
+<!--      height: 60px;-->
+<!--      border-radius: 15px;-->
+<!--      object-fit: cover;-->
+<!--      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);-->
+<!--      transition: all 0.3s ease;-->
+<!--      border: 2px solid white;-->
+<!--    }-->
+
+<!--    .logo-img:hover {-->
+<!--      transform: rotate(5deg) scale(1.1);-->
+<!--      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);-->
+<!--    }-->
+
+<!--    .logo-text {-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--    }-->
+
+<!--    .app-name {-->
+<!--      font-size: 28px;-->
+<!--      font-weight: 800;-->
+<!--      color: #2c3e50;-->
+<!--      letter-spacing: 0.5px;-->
+<!--      line-height: 1.1;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(5px);-->
+<!--    }-->
+
+<!--    .app-name span {-->
+<!--      color: #4CAF50;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover span {-->
+<!--      text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);-->
+<!--    }-->
+
+<!--    .app-email {-->
+<!--      font-size: 14px;-->
+<!--      color: #7f8c8d;-->
+<!--      margin-top: 4px;-->
+<!--      font-weight: 500;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-email:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(3px);-->
+<!--    }-->
+
+<!--    .nav-menu {-->
+<!--      display: flex;-->
+<!--      list-style: none;-->
+<!--      gap: 35px;-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-item {-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-link {-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-weight: 500;-->
+<!--      font-size: 17px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      padding: 8px 0;-->
+<!--      display: block;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .nav-link:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .nav-link::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 0;-->
+<!--      height: 2px;-->
+<!--      bottom: 0;-->
+<!--      left: 0;-->
+<!--      background-color: #4CAF50;-->
+<!--      transition: width 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::before {-->
+<!--      width: 100%;-->
+<!--    }-->
+
+<!--    .nav-link::after {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 8px;-->
+<!--      height: 8px;-->
+<!--      border-radius: 50%;-->
+<!--      background-color: #4CAF50;-->
+<!--      top: 50%;-->
+<!--      left: -15px;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::after {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    /* Enhanced Dropdown Styles */-->
+<!--    .dropdown {-->
+<!--      position: absolute;-->
+<!--      top: 100%;-->
+<!--      left: 0;-->
+<!--      background: white;-->
+<!--      width: 220px;-->
+<!--      border-radius: 12px;-->
+<!--      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);-->
+<!--      opacity: 0;-->
+<!--      visibility: hidden;-->
+<!--      transform: translateY(15px) scale(0.95);-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      z-index: 1000;-->
+<!--      padding: 15px 0;-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown {-->
+<!--      opacity: 1;-->
+<!--      visibility: visible;-->
+<!--      transform: translateY(10px) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a {-->
+<!--      display: block;-->
+<!--      padding: 12px 25px;-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-size: 15px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      opacity: 0;-->
+<!--      transform: translateX(-10px);-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown a {-->
+<!--      opacity: 1;-->
+<!--      transform: translateX(0);-->
+<!--    }-->
+
+<!--    .dropdown a::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 6px;-->
+<!--      height: 6px;-->
+<!--      border-radius: 50%;-->
+<!--      background: #4CAF50;-->
+<!--      left: 10px;-->
+<!--      top: 50%;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .dropdown a:hover::before {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a:hover {-->
+<!--      color: #4CAF50;-->
+<!--      background: rgba(76, 175, 80, 0.08);-->
+<!--      padding-left: 30px;-->
+<!--    }-->
+
+<!--    /* Sequential animations for dropdown items */-->
+<!--    .dropdown a:nth-child(1) {-->
+<!--      transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(2) {-->
+<!--      transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(3) {-->
+<!--      transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(4) {-->
+<!--      transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(5) {-->
+<!--      transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+
+<!--    .mobile-toggle {-->
+<!--      display: none;-->
+<!--      font-size: 24px;-->
+<!--      background: none;-->
+<!--      border: none;-->
+<!--      color: #2c3e50;-->
+<!--      cursor: pointer;-->
+<!--      transition: all 0.3s ease;-->
+<!--      padding: 8px;-->
+<!--      border-radius: 8px;-->
+<!--    }-->
+
+<!--    .mobile-toggle:hover {-->
+<!--      background-color: rgba(76, 175, 80, 0.1);-->
+<!--      color: #4CAF50;-->
+<!--      transform: rotate(90deg);-->
+<!--    }-->
+
+<!--    /* Demo content */-->
+<!--    .demo-content {-->
+<!--      max-width: 1000px;-->
+<!--      width: 100%;-->
+<!--      margin: 40px auto;-->
+<!--      padding: 30px;-->
+<!--      background: white;-->
+<!--      border-radius: 20px;-->
+<!--      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);-->
+<!--    }-->
+
+<!--    .demo-title {-->
+<!--      font-size: 28px;-->
+<!--      color: #2c3e50;-->
+<!--      margin-bottom: 20px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    .demo-text {-->
+<!--      font-size: 18px;-->
+<!--      color: #7f8c8d;-->
+<!--      line-height: 1.6;-->
+<!--      text-align: center;-->
+<!--      max-width: 800px;-->
+<!--      margin: 0 auto;-->
+<!--    }-->
+
+<!--    @media (max-width: 1000px) {-->
+<!--      .nav-menu {-->
+<!--        gap: 20px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 850px) {-->
+<!--      .header {-->
+<!--        padding: 20px 40px; /* Adjusted for medium screens */-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        gap: 15px;-->
+<!--      }-->
+
+<!--      .nav-link {-->
+<!--        font-size: 16px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 24px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 768px) {-->
+<!--      .header {-->
+<!--        padding: 15px 30px; /* Adjusted for small screens */-->
+<!--        margin: 15px auto;-->
+<!--        top: 15px;-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        display: none;-->
+<!--      }-->
+
+<!--      .mobile-toggle {-->
+<!--        display: block;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 22px;-->
+<!--      }-->
+
+<!--      .logo-img {-->
+<!--        width: 50px;-->
+<!--        height: 50px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 480px) {-->
+<!--      .header {-->
+<!--        padding: 15px 20px; /* Adjusted for mobile screens */-->
+<!--      }-->
+
+<!--      .logo-text {-->
+<!--        max-width: 120px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 20px;-->
+<!--      }-->
+
+<!--      .app-email {-->
+<!--        font-size: 12px;-->
+<!--      }-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="header">-->
+<!--  <div class="header-container">-->
+<!--    <div class="logo-section">-->
+<!--      <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">-->
+<!--      <div class="logo-text">-->
+<!--        <div class="app-name">PANDA <span>WORLD</span></div>-->
+<!--        <div class="app-email">bigpandasafaris@gmail.com</div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <ul class="nav-menu">-->
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Adventure</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/parkspanda/one">Wild Beest Safari</a>-->
+<!--          <a href="/parkspanda/two">Honeymoons</a>-->
+<!--          <a href="/parkspanda/three">Family</a>-->
+<!--          <a href="/parkspanda/four">Day trip</a>-->
+<!--          <a href="/parkspanda/five">Celebration trips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Travel Insights</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/dest/ngorongoro">Destinations</a>-->
+<!--          <a href="/dest/serengeti">Wildlife Guides</a>-->
+<!--          <a href="/dest/kilimanjaro">Travel Tips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Plan My Safari</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/boxthree">Plan my Big Safari</a>-->
+<!--          <a href="/customize">Customize Trip</a>-->
+<!--          <a href="/itineraries">Sample Itineraries</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Blog</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/un/work">Travel Tips</a>-->
+<!--          <a href="/stories">Adventure Stories</a>-->
+<!--          <a href="/conservation">Conservation</a>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+
+<!--    <button class="mobile-toggle">-->
+<!--      <i class="fas fa-bars"></i>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--<div class="demo-content">-->
+<!--  <h2 class="demo-title">Panda World Safari Adventures</h2>-->
+<!--  <p class="demo-text">Hover over the navigation items to see the beautiful dropdown animations. Each menu item fades in sequentially with smooth transitions for a modern and engaging user experience.</p>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--  // Enhanced JavaScript for interactive effects-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    const header = document.querySelector('.header');-->
+<!--    const navLinks = document.querySelectorAll('.nav-link');-->
+<!--    const mobileToggle = document.querySelector('.mobile-toggle');-->
+<!--    const dropdowns = document.querySelectorAll('.dropdown');-->
+
+<!--    // Add subtle pulse animation to header-->
+<!--    setInterval(() => {-->
+<!--      header.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.1)';-->
+<!--      setTimeout(() => {-->
+<!--        header.style.boxShadow = '0 5px 28px rgba(76, 175, 80, 0.15)';-->
+<!--      }, 1000);-->
+<!--    }, 2000);-->
+
+<!--    // Enhanced hover effect for navigation links-->
+<!--    navLinks.forEach(link => {-->
+<!--      link.addEventListener('mouseenter', () => {-->
+<!--        link.style.transform = 'translateY(-3px)';-->
+<!--        link.style.color = '#4CAF50';-->
+<!--      });-->
+
+<!--      link.addEventListener('mouseleave', () => {-->
+<!--        link.style.transform = 'translateY(0)';-->
+<!--        link.style.color = '#34495e';-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Mobile menu toggle with animation-->
+<!--    mobileToggle.addEventListener('click', function() {-->
+<!--      this.style.transform = 'rotate(180deg)';-->
+<!--      alert('Mobile menu would open here. This will be implemented in your Spring Boot application.');-->
+<!--      setTimeout(() => {-->
+<!--        this.style.transform = 'rotate(0)';-->
+<!--      }, 300);-->
+<!--    });-->
+
+<!--    // Add subtle animation to logo on page load-->
+<!--    const logoImg = document.querySelector('.logo-img');-->
+<!--    setTimeout(() => {-->
+<!--      logoImg.style.transform = 'scale(1.1)';-->
+<!--      setTimeout(() => {-->
+<!--        logoImg.style.transform = 'scale(1)';-->
+<!--      }, 300);-->
+<!--    }, 500);-->
+
+<!--    // Add proximity detection for dropdowns-->
+<!--    document.addEventListener('mousemove', (e) => {-->
+<!--      const mouseY = e.clientY;-->
+<!--      dropdowns.forEach(dropdown => {-->
+<!--        const rect = dropdown.getBoundingClientRect();-->
+<!--        const distance = Math.abs(mouseY - rect.top);-->
+
+<!--        if (distance < 100) {-->
+<!--          dropdown.parentElement.classList.add('hover-effect');-->
+<!--        } else {-->
+<!--          dropdown.parentElement.classList.remove('hover-effect');-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Panda World - Tourism App</title>-->
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--  <style>-->
+<!--    * {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      box-sizing: border-box;-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--    }-->
+
+
+
+
+
+<!--    body {-->
+<!--      background-color: #ffffff; /* Changed to pure white */-->
+<!--      /*padding: 20px;*/-->
+<!--      padding: 0;-->
+<!--      min-height: 100vh;-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--    }-->
+
+<!--    .header {-->
+<!--      background-color: white;-->
+<!--      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);-->
+<!--      padding: 20px 90px; /* Increased side padding from 80px to 90px */-->
+<!--      border-radius: 20px;-->
+<!--      max-width: 1220px; /* Further reduced max-width from 1250px to 1220px */-->
+<!--      width: 100%;-->
+<!--      /*margin: 20px auto;*/-->
+<!--      margin: 0 auto;-->
+<!--      position: sticky;-->
+<!--      top: 20px;-->
+<!--      z-index: 100;-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      border: 1px solid rgba(76, 175, 80, 0.1);-->
+<!--    }-->
+
+
+
+<!--    .header:hover {-->
+<!--      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .header-container {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: space-between;-->
+<!--    }-->
+
+<!--    .logo-section {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 15px;-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .logo-section:hover {-->
+<!--      transform: scale(1.02);-->
+<!--    }-->
+
+<!--    .logo-img {-->
+<!--      width: 60px;-->
+<!--      height: 60px;-->
+<!--      border-radius: 15px;-->
+<!--      object-fit: cover;-->
+<!--      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);-->
+<!--      transition: all 0.3s ease;-->
+<!--      border: 2px solid white;-->
+<!--    }-->
+
+<!--    .logo-img:hover {-->
+<!--      transform: rotate(5deg) scale(1.1);-->
+<!--      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);-->
+<!--    }-->
+
+<!--    .logo-text {-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--    }-->
+
+<!--    .app-name {-->
+<!--      font-size: 28px;-->
+<!--      font-weight: 800;-->
+<!--      color: #2c3e50;-->
+<!--      letter-spacing: 0.5px;-->
+<!--      line-height: 1.1;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(5px);-->
+<!--    }-->
+
+<!--    .app-name span {-->
+<!--      color: #4CAF50;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover span {-->
+<!--      text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);-->
+<!--    }-->
+
+<!--    .app-email {-->
+<!--      font-size: 14px;-->
+<!--      color: #7f8c8d;-->
+<!--      margin-top: 4px;-->
+<!--      font-weight: 500;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-email:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(3px);-->
+<!--    }-->
+
+<!--    .nav-menu {-->
+<!--      display: flex;-->
+<!--      list-style: none;-->
+<!--      gap: 35px;-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-item {-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-link {-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-weight: 500;-->
+<!--      font-size: 17px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      padding: 8px 0;-->
+<!--      display: block;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .nav-link:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .nav-link::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 0;-->
+<!--      height: 2px;-->
+<!--      bottom: 0;-->
+<!--      left: 0;-->
+<!--      background-color: #4CAF50;-->
+<!--      transition: width 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::before {-->
+<!--      width: 100%;-->
+<!--    }-->
+
+<!--    .nav-link::after {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 8px;-->
+<!--      height: 8px;-->
+<!--      border-radius: 50%;-->
+<!--      background-color: #4CAF50;-->
+<!--      top: 50%;-->
+<!--      left: -15px;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::after {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    /* Enhanced Dropdown Styles with Dynamic Background */-->
+<!--    .dropdown {-->
+<!--      position: absolute;-->
+<!--      top: 100%;-->
+<!--      left: 0;-->
+<!--      width: 240px; /* Slightly wider */-->
+<!--      border-radius: 16px; /* More rounded corners */-->
+<!--      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);-->
+<!--      opacity: 0;-->
+<!--      visibility: hidden;-->
+<!--      transform: translateY(15px) scale(0.95);-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      z-index: 1000;-->
+<!--      padding: 15px 0;-->
+<!--      overflow: hidden;-->
+<!--      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);-->
+<!--    }-->
+
+<!--    .dropdown::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      top: 0;-->
+<!--      left: 0;-->
+<!--      right: 0;-->
+<!--      height: 4px;-->
+<!--      background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39, #FFC107, #FF9800, #FF5722);-->
+<!--      background-size: 600% 100%;-->
+<!--      animation: gradientFlow 8s ease infinite;-->
+<!--      z-index: 2;-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown {-->
+<!--      opacity: 1;-->
+<!--      visibility: visible;-->
+<!--      transform: translateY(10px) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a {-->
+<!--      display: block;-->
+<!--      padding: 14px 25px; /* Slightly more padding */-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-size: 15px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      opacity: 0;-->
+<!--      transform: translateX(-10px);-->
+<!--      z-index: 1;-->
+<!--      border-left: 3px solid transparent;-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown a {-->
+<!--      opacity: 1;-->
+<!--      transform: translateX(0);-->
+<!--    }-->
+
+<!--    .dropdown a::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 6px;-->
+<!--      height: 6px;-->
+<!--      border-radius: 50%;-->
+<!--      background: #4CAF50;-->
+<!--      left: 12px;-->
+<!--      top: 50%;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .dropdown a:hover::before {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a:hover {-->
+<!--      color: #4CAF50;-->
+<!--      background: rgba(76, 175, 80, 0.08);-->
+<!--      padding-left: 32px;-->
+<!--      border-left-color: #4CAF50;-->
+<!--    }-->
+
+<!--    /* Sequential animations for dropdown items */-->
+<!--    .dropdown a:nth-child(1) {-->
+<!--      transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(2) {-->
+<!--      transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(3) {-->
+<!--      transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(4) {-->
+<!--      transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(5) {-->
+<!--      transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+
+<!--    /* Gradient animation for dropdown top border */-->
+<!--    @keyframes gradientFlow {-->
+<!--      0% { background-position: 0% 50%; }-->
+<!--      50% { background-position: 100% 50%; }-->
+<!--      100% { background-position: 0% 50%; }-->
+<!--    }-->
+
+<!--    .mobile-toggle {-->
+<!--      display: none;-->
+<!--      font-size: 24px;-->
+<!--      background: none;-->
+<!--      border: none;-->
+<!--      color: #2c3e50;-->
+<!--      cursor: pointer;-->
+<!--      transition: all 0.3s ease;-->
+<!--      padding: 8px;-->
+<!--      border-radius: 8px;-->
+<!--    }-->
+
+<!--    .mobile-toggle:hover {-->
+<!--      background-color: rgba(76, 175, 80, 0.1);-->
+<!--      color: #4CAF50;-->
+<!--      transform: rotate(90deg);-->
+<!--    }-->
+
+<!--    /* Demo content */-->
+<!--    .demo-content {-->
+<!--      max-width: 1000px;-->
+<!--      width: 100%;-->
+<!--      margin: 40px auto;-->
+<!--      padding: 30px;-->
+<!--      background: white;-->
+<!--      border-radius: 20px;-->
+<!--      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);-->
+<!--    }-->
+
+<!--    .demo-title {-->
+<!--      font-size: 28px;-->
+<!--      color: #2c3e50;-->
+<!--      margin-bottom: 20px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    .demo-text {-->
+<!--      font-size: 18px;-->
+<!--      color: #7f8c8d;-->
+<!--      line-height: 1.6;-->
+<!--      text-align: center;-->
+<!--      max-width: 800px;-->
+<!--      margin: 0 auto;-->
+<!--    }-->
+
+<!--    @media (max-width: 1000px) {-->
+<!--      .nav-menu {-->
+<!--        gap: 20px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 850px) {-->
+<!--      .header {-->
+<!--        padding: 20px 60px; /* Adjusted for medium screens */-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        gap: 15px;-->
+<!--      }-->
+
+<!--      .nav-link {-->
+<!--        font-size: 16px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 24px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 768px) {-->
+<!--      .header {-->
+<!--        padding: 15px 50px; /* Adjusted for small screens */-->
+<!--        margin: 15px auto;-->
+<!--        top: 15px;-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        display: none;-->
+<!--      }-->
+
+<!--      .mobile-toggle {-->
+<!--        display: block;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 22px;-->
+<!--      }-->
+
+<!--      .logo-img {-->
+<!--        width: 50px;-->
+<!--        height: 50px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 480px) {-->
+<!--      .header {-->
+<!--        padding: 15px 40px; /* Adjusted for mobile screens */-->
+<!--      }-->
+
+<!--      .logo-text {-->
+<!--        max-width: 120px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 20px;-->
+<!--      }-->
+
+<!--      .app-email {-->
+<!--        font-size: 12px;-->
+<!--      }-->
+<!--    }-->
+
+
+
+
+
+
+
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="header">-->
+<!--  <div class="header-container">-->
+<!--    <div class="logo-section">-->
+<!--      <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">-->
+<!--      <div class="logo-text">-->
+<!--        <div class="app-name">PANDA <span>WORLD</span></div>-->
+<!--        <div class="app-email">bigpandasafaris@gmail.com</div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <ul class="nav-menu">-->
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Adventure</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/parkspanda/one">Wild Beest Safari</a>-->
+<!--          <a href="/parkspanda/two">Honeymoons</a>-->
+<!--          <a href="/parkspanda/three">Family</a>-->
+<!--          <a href="/parkspanda/four">Day trip</a>-->
+<!--          <a href="/parkspanda/five">Celebration trips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Travel Insights</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/dest/ngorongoro">Destinations</a>-->
+<!--          <a href="/dest/serengeti">Wildlife Guides</a>-->
+<!--          <a href="/dest/kilimanjaro">Travel Tips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Plan My Safari</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/boxthree">Plan my Big Safari</a>-->
+<!--          <a href="/customize">Customize Trip</a>-->
+<!--          <a href="/itineraries">Sample Itineraries</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Blog</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/un/work">Travel Tips</a>-->
+<!--          <a href="/stories">Adventure Stories</a>-->
+<!--          <a href="/conservation">Conservation</a>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+
+<!--    <button class="mobile-toggle">-->
+<!--      <i class="fas fa-bars"></i>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--&lt;!&ndash;<div class="demo-content">&ndash;&gt;-->
+<!--&lt;!&ndash;  <h2 class="demo-title">Panda World Safari Adventures</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;  <p class="demo-text">Hover over the navigation items to see the beautiful dropdown animations with dynamic gradient borders. Each menu item fades in sequentially with smooth transitions for a modern and engaging user experience.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<script>-->
+<!--  // Enhanced JavaScript for interactive effects-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    const header = document.querySelector('.header');-->
+<!--    const navLinks = document.querySelectorAll('.nav-link');-->
+<!--    const mobileToggle = document.querySelector('.mobile-toggle');-->
+<!--    const dropdowns = document.querySelectorAll('.dropdown');-->
+
+<!--    // Add subtle pulse animation to header-->
+<!--    setInterval(() => {-->
+<!--      header.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.1)';-->
+<!--      setTimeout(() => {-->
+<!--        header.style.boxShadow = '0 5px 28px rgba(76, 175, 80, 0.15)';-->
+<!--      }, 1000);-->
+<!--    }, 2000);-->
+
+<!--    // Enhanced hover effect for navigation links-->
+<!--    navLinks.forEach(link => {-->
+<!--      link.addEventListener('mouseenter', () => {-->
+<!--        link.style.transform = 'translateY(-3px)';-->
+<!--        link.style.color = '#4CAF50';-->
+<!--      });-->
+
+<!--      link.addEventListener('mouseleave', () => {-->
+<!--        link.style.transform = 'translateY(0)';-->
+<!--        link.style.color = '#34495e';-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Mobile menu toggle with animation-->
+<!--    mobileToggle.addEventListener('click', function() {-->
+<!--      this.style.transform = 'rotate(180deg)';-->
+<!--      alert('Mobile menu would open here. This will be implemented in your Spring Boot application.');-->
+<!--      setTimeout(() => {-->
+<!--        this.style.transform = 'rotate(0)';-->
+<!--      }, 300);-->
+<!--    });-->
+
+<!--    // Add subtle animation to logo on page load-->
+<!--    const logoImg = document.querySelector('.logo-img');-->
+<!--    setTimeout(() => {-->
+<!--      logoImg.style.transform = 'scale(1.1)';-->
+<!--      setTimeout(() => {-->
+<!--        logoImg.style.transform = 'scale(1)';-->
+<!--      }, 300);-->
+<!--    }, 500);-->
+
+<!--    // Add proximity detection for dropdowns-->
+<!--    document.addEventListener('mousemove', (e) => {-->
+<!--      const mouseY = e.clientY;-->
+<!--      dropdowns.forEach(dropdown => {-->
+<!--        const rect = dropdown.getBoundingClientRect();-->
+<!--        const distance = Math.abs(mouseY - rect.top);-->
+
+<!--        if (distance < 100) {-->
+<!--          dropdown.parentElement.classList.add('hover-effect');-->
+<!--        } else {-->
+<!--          dropdown.parentElement.classList.remove('hover-effect');-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Dynamic dropdown background colors-->
+<!--    const colors = [-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%)',-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%)',-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #e0f2f1 100%)'-->
+<!--    ];-->
+
+<!--    let colorIndex = 0;-->
+
+<!--    setInterval(() => {-->
+<!--      dropdowns.forEach(dropdown => {-->
+<!--        if (dropdown.parentElement.classList.contains('hover-effect')) {-->
+<!--          dropdown.style.background = colors[colorIndex];-->
+<!--        }-->
+<!--      });-->
+<!--      colorIndex = (colorIndex + 1) % colors.length;-->
+<!--    }, 4000);-->
+<!--  });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panda World - Tourism App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #ffffff; /* Changed to pure white */
+      /*padding: 20px;*/
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      background-color: white;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+      padding: 20px 90px; /* Increased side padding from 80px to 90px */
+      border-radius: 20px;
+      max-width: 1220px; /* Further reduced max-width from 1250px to 1220px */
+      width: 100%;
+      /*margin: 20px auto;*/
+      margin: 0 auto;
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(76, 175, 80, 0.1);
+    }
+
+
+
+    .header:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-section:hover {
+      transform: scale(1.02);
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid white;
+    }
+
+    .logo-img:hover {
+      transform: rotate(5deg) scale(1.1);
+      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: #2c3e50;
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+      transition: all 0.3s ease;
+    }
+
+    .app-name:hover {
+      color: #4CAF50;
+      transform: translateX(5px);
+    }
+
+    .app-name span {
+      color: #4CAF50;
+      transition: all 0.3s ease;
+    }
+
+    .app-name:hover span {
+      text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+    }
+
+    .app-email {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin-top: 4px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .app-email:hover {
+      color: #4CAF50;
+      transform: translateX(3px);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 35px;
+      position: relative;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #34495e;
+      font-weight: 500;
+      font-size: 17px;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 8px 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: #4CAF50;
+      transform: translateY(-2px);
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #4CAF50;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::before {
+      width: 100%;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      top: 50%;
+      left: -15px;
+      transform: translateY(-50%) scale(0);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      transform: translateY(-50%) scale(1);
+    }
+
+    /* Enhanced Dropdown Styles with Dynamic Background */
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 240px; /* Slightly wider */
+      border-radius: 16px; /* More rounded corners */
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px) scale(0.95);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+      padding: 15px 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    }
+
+    .dropdown::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39, #FFC107, #FF9800, #FF5722);
+      background-size: 600% 100%;
+      animation: gradientFlow 8s ease infinite;
+      z-index: 2;
+    }
+
+    .nav-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(10px) scale(1);
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 14px 25px; /* Slightly more padding */
+      text-decoration: none;
+      color: #34495e;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-10px);
+      z-index: 1;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover .dropdown a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .dropdown a::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CAF50;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%) scale(0);
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown a:hover::before {
+      transform: translateY(-50%) scale(1);
+    }
+
+    .dropdown a:hover {
+      color: #4CAF50;
+      background: rgba(76, 175, 80, 0.08);
+      padding-left: 32px;
+      border-left-color: #4CAF50;
+    }
+
+    /* Sequential animations for dropdown items */
+    .dropdown a:nth-child(1) {
+      transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;
+    }
+    .dropdown a:nth-child(2) {
+      transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;
+    }
+    .dropdown a:nth-child(3) {
+      transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;
+    }
+    .dropdown a:nth-child(4) {
+      transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;
+    }
+    .dropdown a:nth-child(5) {
+      transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;
+    }
+
+    /* Gradient animation for dropdown top border */
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .mobile-toggle:hover {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: #4CAF50;
+      transform: rotate(90deg);
+    }
+
+    /* Demo content */
+    .demo-content {
+      max-width: 1000px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .demo-title {
+      font-size: 28px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .demo-text {
+      font-size: 18px;
+      color: #7f8c8d;
+      line-height: 1.6;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1000px) {
+      .nav-menu {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .header {
+        padding: 20px 60px; /* Adjusted for medium screens */
+      }
+
+      .nav-menu {
+        gap: 15px;
+      }
+
+      .nav-link {
+        font-size: 16px;
+      }
+
+      .app-name {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px 50px; /* Adjusted for small screens */
+        margin: 15px auto;
+        top: 15px;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .app-name {
+        font-size: 22px;
+      }
+
+      .logo-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 15px 40px; /* Adjusted for mobile screens */
+      }
+
+      .logo-text {
+        max-width: 120px;
+      }
+
+      .app-name {
+        font-size: 20px;
+      }
+
+      .app-email {
+        font-size: 12px;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+
+<header class="header">
+  <div class="header-container">
+    <div class="logo-section">
+      <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">
+      <div class="logo-text">
+        <div class="app-name">PANDA <span>WORLD</span></div>
+        <div class="app-email">bigpandasafaris@gmail.com</div>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="#" class="nav-link">Adventure</a>
+<!--        <div class="dropdown">-->
+<!--&lt;!&ndash;          <a href="/parkspanda/one">Wild Beest Safari</a>&ndash;&gt;-->
+<!--          <a href="/parkspanda/one" target="_top">Wild Beest Safari</a>-->
+<!--          <a href="/parkspanda/two">Honeymoons</a>-->
+<!--          <a href="/parkspanda/three">Family</a>-->
+<!--          <a href="/parkspanda/four">Day trip</a>-->
+<!--          <a href="/parkspanda/five">Celebration trips</a>-->
+<!--        </div>-->
+
+        <!-- In ALL your dropdown menus, change every link like this -->
+        <div class="dropdown">
+<!--          <a href="/parkspanda/one" target="_top">Wild Beest Safari</a>-->
+          <a href="http://localhost:9000/parkspanda/one" target="_top">Wild Beest Safari</a>
+<!--          <a href="/parkspanda/two" target="_top">Honeymoons</a>-->
+<!--          <a href="/parkspanda/three" target="_top">Family</a>-->
+<!--          <a href="/parkspanda/four" target="_top">Day trip</a>-->
+<!--          <a href="/parkspanda/five" target="_top">Celebration trips</a>-->
+        </div>
+
+
+      </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link">Travel Insights</a>
+        <div class="dropdown">
+          <a href="/dest/ngorongoro">Destinations</a>
+          <a href="/dest/serengeti">Wildlife Guides</a>
+          <a href="/dest/kilimanjaro">Travel Tips</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link">Plan My Safari</a>
+        <div class="dropdown">
+          <a href="/boxthree">Plan my Big Safari</a>
+          <a href="/customize">Customize Trip</a>
+          <a href="/itineraries">Sample Itineraries</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link">Blog</a>
+        <div class="dropdown">
+          <a href="/un/work">Travel Tips</a>
+          <a href="/stories">Adventure Stories</a>
+          <a href="/conservation">Conservation</a>
+        </div>
+      </li>
+    </ul>
+
+    <button class="mobile-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<!--<div class="demo-content">-->
+<!--  <h2 class="demo-title">Panda World Safari Adventures</h2>-->
+<!--  <p class="demo-text">Hover over the navigation items to see the beautiful dropdown animations with dynamic gradient borders. Each menu item fades in sequentially with smooth transitions for a modern and engaging user experience.</p>-->
+<!--</div>-->
+
+<script>
+  // Enhanced JavaScript for interactive effects
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    // Add subtle pulse animation to header
+    setInterval(() => {
+      header.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.1)';
+      setTimeout(() => {
+        header.style.boxShadow = '0 5px 28px rgba(76, 175, 80, 0.15)';
+      }, 1000);
+    }, 2000);
+
+    // Enhanced hover effect for navigation links
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        link.style.transform = 'translateY(-3px)';
+        link.style.color = '#4CAF50';
+      });
+
+      link.addEventListener('mouseleave', () => {
+        link.style.transform = 'translateY(0)';
+        link.style.color = '#34495e';
+      });
+    });
+
+    // Mobile menu toggle with animation
+    mobileToggle.addEventListener('click', function() {
+      this.style.transform = 'rotate(180deg)';
+      alert('Mobile menu would open here. This will be implemented in your Spring Boot application.');
+      setTimeout(() => {
+        this.style.transform = 'rotate(0)';
+      }, 300);
+    });
+
+    // Add subtle animation to logo on page load
+    const logoImg = document.querySelector('.logo-img');
+    setTimeout(() => {
+      logoImg.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        logoImg.style.transform = 'scale(1)';
+      }, 300);
+    }, 500);
+
+    // Add proximity detection for dropdowns
+    document.addEventListener('mousemove', (e) => {
+      const mouseY = e.clientY;
+      dropdowns.forEach(dropdown => {
+        const rect = dropdown.getBoundingClientRect();
+        const distance = Math.abs(mouseY - rect.top);
+
+        if (distance < 100) {
+          dropdown.parentElement.classList.add('hover-effect');
+        } else {
+          dropdown.parentElement.classList.remove('hover-effect');
+        }
+      });
+    });
+
+    // Dynamic dropdown background colors
+    const colors = [
+      'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+      'linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%)',
+      'linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%)',
+      'linear-gradient(135deg, #ffffff 0%, #e0f2f1 100%)'
+    ];
+
+    let colorIndex = 0;
+
+    setInterval(() => {
+      dropdowns.forEach(dropdown => {
+        if (dropdown.parentElement.classList.contains('hover-effect')) {
+          dropdown.style.background = colors[colorIndex];
+        }
+      });
+      colorIndex = (colorIndex + 1) % colors.length;
+    }, 4000);
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Panda World - Tourism App</title>-->
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--  <style>-->
+<!--    * {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      box-sizing: border-box;-->
+<!--      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--    }-->
+
+<!--    /* Header specific styles */-->
+<!--    .panda-header {-->
+<!--      background-color: white;-->
+<!--      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);-->
+<!--      padding: 15px 90px;-->
+<!--      border-radius: 20px;-->
+<!--      width: 100%;-->
+<!--      position: sticky;-->
+<!--      top: 20px;-->
+<!--      z-index: 1000; /* Increased z-index to ensure it stays on top */-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      border: 1px solid rgba(76, 175, 80, 0.1);-->
+<!--      margin-bottom: 0; /* Remove any bottom margin */-->
+<!--    }-->
+
+<!--    .panda-header:hover {-->
+<!--      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .header-container {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: space-between;-->
+<!--    }-->
+
+<!--    .logo-section {-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      gap: 15px;-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .logo-section:hover {-->
+<!--      transform: scale(1.02);-->
+<!--    }-->
+
+<!--    .logo-img {-->
+<!--      width: 60px;-->
+<!--      height: 60px;-->
+<!--      border-radius: 15px;-->
+<!--      object-fit: cover;-->
+<!--      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);-->
+<!--      transition: all 0.3s ease;-->
+<!--      border: 2px solid white;-->
+<!--    }-->
+
+<!--    .logo-img:hover {-->
+<!--      transform: rotate(5deg) scale(1.1);-->
+<!--      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);-->
+<!--    }-->
+
+<!--    .logo-text {-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--    }-->
+
+<!--    .app-name {-->
+<!--      font-size: 28px;-->
+<!--      font-weight: 800;-->
+<!--      color: #2c3e50;-->
+<!--      letter-spacing: 0.5px;-->
+<!--      line-height: 1.1;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(5px);-->
+<!--    }-->
+
+<!--    .app-name span {-->
+<!--      color: #4CAF50;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-name:hover span {-->
+<!--      text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);-->
+<!--    }-->
+
+<!--    .app-email {-->
+<!--      font-size: 14px;-->
+<!--      color: #7f8c8d;-->
+<!--      margin-top: 4px;-->
+<!--      font-weight: 500;-->
+<!--      transition: all 0.3s ease;-->
+<!--    }-->
+
+<!--    .app-email:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateX(3px);-->
+<!--    }-->
+
+<!--    .nav-menu {-->
+<!--      display: flex;-->
+<!--      list-style: none;-->
+<!--      gap: 35px;-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-item {-->
+<!--      position: relative;-->
+<!--    }-->
+
+<!--    .nav-link {-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-weight: 500;-->
+<!--      font-size: 17px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      padding: 8px 0;-->
+<!--      display: block;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    .nav-link:hover {-->
+<!--      color: #4CAF50;-->
+<!--      transform: translateY(-2px);-->
+<!--    }-->
+
+<!--    .nav-link::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 0;-->
+<!--      height: 2px;-->
+<!--      bottom: 0;-->
+<!--      left: 0;-->
+<!--      background-color: #4CAF50;-->
+<!--      transition: width 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::before {-->
+<!--      width: 100%;-->
+<!--    }-->
+
+<!--    .nav-link::after {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 8px;-->
+<!--      height: 8px;-->
+<!--      border-radius: 50%;-->
+<!--      background-color: #4CAF50;-->
+<!--      top: 50%;-->
+<!--      left: -15px;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .nav-link:hover::after {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    /* Enhanced Dropdown Styles with Dynamic Background */-->
+<!--    .dropdown {-->
+<!--      position: absolute;-->
+<!--      top: 100%;-->
+<!--      left: 0;-->
+<!--      width: 240px;-->
+<!--      border-radius: 16px;-->
+<!--      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);-->
+<!--      opacity: 0;-->
+<!--      visibility: hidden;-->
+<!--      transform: translateY(15px) scale(0.95);-->
+<!--      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--      z-index: 1001;-->
+<!--      padding: 15px 0;-->
+<!--      overflow: hidden;-->
+<!--      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);-->
+<!--    }-->
+
+<!--    .dropdown::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      top: 0;-->
+<!--      left: 0;-->
+<!--      right: 0;-->
+<!--      height: 4px;-->
+<!--      background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39, #FFC107, #FF9800, #FF5722);-->
+<!--      background-size: 600% 100%;-->
+<!--      animation: gradientFlow 8s ease infinite;-->
+<!--      z-index: 2;-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown {-->
+<!--      opacity: 1;-->
+<!--      visibility: visible;-->
+<!--      transform: translateY(10px) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a {-->
+<!--      display: block;-->
+<!--      padding: 14px 25px;-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-size: 15px;-->
+<!--      transition: all 0.3s ease;-->
+<!--      position: relative;-->
+<!--      opacity: 0;-->
+<!--      transform: translateX(-10px);-->
+<!--      z-index: 1;-->
+<!--      border-left: 3px solid transparent;-->
+<!--    }-->
+
+<!--    .nav-item:hover .dropdown a {-->
+<!--      opacity: 1;-->
+<!--      transform: translateX(0);-->
+<!--    }-->
+
+<!--    .dropdown a::before {-->
+<!--      content: '';-->
+<!--      position: absolute;-->
+<!--      width: 6px;-->
+<!--      height: 6px;-->
+<!--      border-radius: 50%;-->
+<!--      background: #4CAF50;-->
+<!--      left: 12px;-->
+<!--      top: 50%;-->
+<!--      transform: translateY(-50%) scale(0);-->
+<!--      transition: transform 0.3s ease;-->
+<!--    }-->
+
+<!--    .dropdown a:hover::before {-->
+<!--      transform: translateY(-50%) scale(1);-->
+<!--    }-->
+
+<!--    .dropdown a:hover {-->
+<!--      color: #4CAF50;-->
+<!--      background: rgba(76, 175, 80, 0.08);-->
+<!--      padding-left: 32px;-->
+<!--      border-left-color: #4CAF50;-->
+<!--    }-->
+
+<!--    /* Sequential animations for dropdown items */-->
+<!--    .dropdown a:nth-child(1) {-->
+<!--      transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(2) {-->
+<!--      transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(3) {-->
+<!--      transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(4) {-->
+<!--      transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+<!--    .dropdown a:nth-child(5) {-->
+<!--      transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;-->
+<!--    }-->
+
+<!--    /* Gradient animation for dropdown top border */-->
+<!--    @keyframes gradientFlow {-->
+<!--      0% { background-position: 0% 50%; }-->
+<!--      50% { background-position: 100% 50%; }-->
+<!--      100% { background-position: 0% 50%; }-->
+<!--    }-->
+
+<!--    .mobile-toggle {-->
+<!--      display: none;-->
+<!--      font-size: 24px;-->
+<!--      background: none;-->
+<!--      border: none;-->
+<!--      color: #2c3e50;-->
+<!--      cursor: pointer;-->
+<!--      transition: all 0.3s ease;-->
+<!--      padding: 8px;-->
+<!--      border-radius: 8px;-->
+<!--    }-->
+
+<!--    .mobile-toggle:hover {-->
+<!--      background-color: rgba(76, 175, 80, 0.1);-->
+<!--      color: #4CAF50;-->
+<!--      transform: rotate(90deg);-->
+<!--    }-->
+
+<!--    /* Mobile menu styles */-->
+<!--    .mobile-menu {-->
+<!--      display: none;-->
+<!--      position: absolute;-->
+<!--      top: 100%;-->
+<!--      left: 0;-->
+<!--      width: 100%;-->
+<!--      background: white;-->
+<!--      border-radius: 0 0 20px 20px;-->
+<!--      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);-->
+<!--      padding: 20px;-->
+<!--      z-index: 1000;-->
+<!--    }-->
+
+<!--    .mobile-menu.active {-->
+<!--      display: block;-->
+<!--    }-->
+
+<!--    .mobile-nav-item {-->
+<!--      margin-bottom: 15px;-->
+<!--    }-->
+
+<!--    .mobile-nav-link {-->
+<!--      display: block;-->
+<!--      padding: 12px 15px;-->
+<!--      text-decoration: none;-->
+<!--      color: #34495e;-->
+<!--      font-weight: 500;-->
+<!--      font-size: 18px;-->
+<!--      border-bottom: 1px solid #eee;-->
+<!--    }-->
+
+<!--    .mobile-dropdown {-->
+<!--      display: none;-->
+<!--      padding-left: 20px;-->
+<!--      margin-top: 10px;-->
+<!--    }-->
+
+<!--    .mobile-dropdown a {-->
+<!--      display: block;-->
+<!--      padding: 10px 15px;-->
+<!--      text-decoration: none;-->
+<!--      color: #7f8c8d;-->
+<!--      font-size: 16px;-->
+<!--      transition: color 0.3s ease;-->
+<!--    }-->
+
+<!--    .mobile-dropdown a:hover {-->
+<!--      color: #4CAF50;-->
+<!--    }-->
+
+<!--    @media (max-width: 1000px) {-->
+<!--      .nav-menu {-->
+<!--        gap: 20px;-->
+<!--      }-->
+
+<!--      .panda-header {-->
+<!--        padding: 15px 60px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 850px) {-->
+<!--      .panda-header {-->
+<!--        padding: 15px 40px;-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        gap: 15px;-->
+<!--      }-->
+
+<!--      .nav-link {-->
+<!--        font-size: 16px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 24px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 768px) {-->
+<!--      .panda-header {-->
+<!--        padding: 15px 30px;-->
+<!--        position: relative;-->
+<!--        top: 0;-->
+<!--        border-radius: 15px;-->
+<!--      }-->
+
+<!--      .nav-menu {-->
+<!--        display: none;-->
+<!--      }-->
+
+<!--      .mobile-toggle {-->
+<!--        display: block;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 22px;-->
+<!--      }-->
+
+<!--      .logo-img {-->
+<!--        width: 50px;-->
+<!--        height: 50px;-->
+<!--      }-->
+<!--    }-->
+
+<!--    @media (max-width: 480px) {-->
+<!--      .panda-header {-->
+<!--        padding: 12px 20px;-->
+<!--      }-->
+
+<!--      .logo-text {-->
+<!--        max-width: 120px;-->
+<!--      }-->
+
+<!--      .app-name {-->
+<!--        font-size: 20px;-->
+<!--      }-->
+
+<!--      .app-email {-->
+<!--        font-size: 12px;-->
+<!--      }-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; The header with a more specific class name to avoid conflicts &ndash;&gt;-->
+<!--<header class="panda-header">-->
+<!--  <div class="header-container">-->
+<!--    <div class="logo-section">-->
+<!--      <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">-->
+<!--      <div class="logo-text">-->
+<!--        <div class="app-name">PANDA <span>WORLD</span></div>-->
+<!--        <div class="app-email">bigpandasafaris@gmail.com</div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <ul class="nav-menu">-->
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Adventure</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/parkspanda/one">Wild Beest Safari</a>-->
+<!--          <a href="/parkspanda/two">Honeymoons</a>-->
+<!--          <a href="/parkspanda/three">Family</a>-->
+<!--          <a href="/parkspanda/four">Day trip</a>-->
+<!--          <a href="/parkspanda/five">Celebration trips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Travel Insights</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/dest/ngorongoro">Destinations</a>-->
+<!--          <a href="/dest/serengeti">Wildlife Guides</a>-->
+<!--          <a href="/dest/kilimanjaro">Travel Tips</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Plan My Safari</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/boxthree">Plan my Big Safari</a>-->
+<!--          <a href="/customize">Customize Trip</a>-->
+<!--          <a href="/itineraries">Sample Itineraries</a>-->
+<!--        </div>-->
+<!--      </li>-->
+
+<!--      <li class="nav-item">-->
+<!--        <a href="#" class="nav-link">Blog</a>-->
+<!--        <div class="dropdown">-->
+<!--          <a href="/un/work">Travel Tips</a>-->
+<!--          <a href="/stories">Adventure Stories</a>-->
+<!--          <a href="/conservation">Conservation</a>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--    </ul>-->
+
+<!--    <button class="mobile-toggle">-->
+<!--      <i class="fas fa-bars"></i>-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Mobile menu (hidden by default) &ndash;&gt;-->
+<!--  <div class="mobile-menu">-->
+<!--    <div class="mobile-nav-item">-->
+<!--      <a href="#" class="mobile-nav-link">Adventure</a>-->
+<!--      <div class="mobile-dropdown">-->
+<!--        <a href="/parkspanda/one">Wild Beest Safari</a>-->
+<!--        <a href="/parkspanda/two">Honeymoons</a>-->
+<!--        <a href="/parkspanda/three">Family</a>-->
+<!--        <a href="/parkspanda/four">Day trip</a>-->
+<!--        <a href="/parkspanda/five">Celebration trips</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="mobile-nav-item">-->
+<!--      <a href="#" class="mobile-nav-link">Travel Insights</a>-->
+<!--      <div class="mobile-dropdown">-->
+<!--        <a href="/dest/ngorongoro">Destinations</a>-->
+<!--        <a href="/dest/serengeti">Wildlife Guides</a>-->
+<!--        <a href="/dest/kilimanjaro">Travel Tips</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="mobile-nav-item">-->
+<!--      <a href="#" class="mobile-nav-link">Plan My Safari</a>-->
+<!--      <div class="mobile-dropdown">-->
+<!--        <a href="/boxthree">Plan my Big Safari</a>-->
+<!--        <a href="/customize">Customize Trip</a>-->
+<!--        <a href="/itineraries">Sample Itineraries</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="mobile-nav-item">-->
+<!--      <a href="#" class="mobile-nav-link">Blog</a>-->
+<!--      <div class="mobile-dropdown">-->
+<!--        <a href="/un/work">Travel Tips</a>-->
+<!--        <a href="/stories">Adventure Stories</a>-->
+<!--        <a href="/conservation">Conservation</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--<script>-->
+<!--  // Enhanced JavaScript for interactive effects-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    const header = document.querySelector('.panda-header');-->
+<!--    const navLinks = document.querySelectorAll('.nav-link');-->
+<!--    const mobileToggle = document.querySelector('.mobile-toggle');-->
+<!--    const mobileMenu = document.querySelector('.mobile-menu');-->
+<!--    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');-->
+<!--    const dropdowns = document.querySelectorAll('.dropdown');-->
+
+<!--    // Mobile menu toggle functionality-->
+<!--    mobileToggle.addEventListener('click', function() {-->
+<!--      this.classList.toggle('active');-->
+<!--      mobileMenu.classList.toggle('active');-->
+
+<!--      // Toggle between hamburger and close icon-->
+<!--      const icon = this.querySelector('i');-->
+<!--      if (mobileMenu.classList.contains('active')) {-->
+<!--        icon.classList.remove('fa-bars');-->
+<!--        icon.classList.add('fa-times');-->
+<!--        this.style.transform = 'rotate(90deg)';-->
+<!--      } else {-->
+<!--        icon.classList.remove('fa-times');-->
+<!--        icon.classList.add('fa-bars');-->
+<!--        this.style.transform = 'rotate(0)';-->
+<!--      }-->
+<!--    });-->
+
+<!--    // Toggle mobile dropdowns-->
+<!--    mobileNavLinks.forEach(link => {-->
+<!--      link.addEventListener('click', function(e) {-->
+<!--        e.preventDefault();-->
+<!--        const dropdown = this.nextElementSibling;-->
+<!--        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Close mobile menu when clicking outside-->
+<!--    document.addEventListener('click', function(e) {-->
+<!--      if (!header.contains(e.target) && mobileMenu.classList.contains('active')) {-->
+<!--        mobileMenu.classList.remove('active');-->
+<!--        mobileToggle.querySelector('i').classList.remove('fa-times');-->
+<!--        mobileToggle.querySelector('i').classList.add('fa-bars');-->
+<!--        mobileToggle.style.transform = 'rotate(0)';-->
+
+<!--        // Hide all dropdowns-->
+<!--        document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {-->
+<!--          dropdown.style.display = 'none';-->
+<!--        });-->
+<!--      }-->
+<!--    });-->
+
+<!--    // Enhanced hover effect for navigation links-->
+<!--    navLinks.forEach(link => {-->
+<!--      link.addEventListener('mouseenter', () => {-->
+<!--        link.style.transform = 'translateY(-3px)';-->
+<!--        link.style.color = '#4CAF50';-->
+<!--      });-->
+
+<!--      link.addEventListener('mouseleave', () => {-->
+<!--        link.style.transform = 'translateY(0)';-->
+<!--        link.style.color = '#34495e';-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Add subtle animation to logo on page load-->
+<!--    const logoImg = document.querySelector('.logo-img');-->
+<!--    setTimeout(() => {-->
+<!--      logoImg.style.transform = 'scale(1.1)';-->
+<!--      setTimeout(() => {-->
+<!--        logoImg.style.transform = 'scale(1)';-->
+<!--      }, 300);-->
+<!--    }, 500);-->
+
+<!--    // Dynamic dropdown background colors-->
+<!--    const colors = [-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%)',-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%)',-->
+<!--      'linear-gradient(135deg, #ffffff 0%, #e0f2f1 100%)'-->
+<!--    ];-->
+
+<!--    let colorIndex = 0;-->
+
+<!--    setInterval(() => {-->
+<!--      dropdowns.forEach(dropdown => {-->
+<!--        if (dropdown.parentElement.classList.contains('hover-effect')) {-->
+<!--          dropdown.style.background = colors[colorIndex];-->
+<!--        }-->
+<!--      });-->
+<!--      colorIndex = (colorIndex + 1) % colors.length;-->
+<!--    }, 4000);-->
+<!--  });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

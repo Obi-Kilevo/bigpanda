@@ -1,0 +1,2504 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Wildebeest Information</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background: linear-gradient(135deg, #f4f9f9 0%, #e4f0f0 100%);-->
+<!--            color: #333;-->
+<!--            overflow-x: hidden;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        /* Header */-->
+<!--        .header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #00695c;-->
+<!--            font-size: 2.8rem;-->
+<!--            margin-bottom: 10px;-->
+<!--            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            color: #4a635f;-->
+<!--            font-size: 1.2rem;-->
+<!--            max-width: 700px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+
+<!--        /* Flip Card Container */-->
+<!--        .flip-container {-->
+<!--            width: 90%;-->
+<!--            max-width: 800px;-->
+<!--            height: 450px;-->
+<!--            margin: 30px auto;-->
+<!--            perspective: 1200px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            position: relative;-->
+<!--            transform-style: preserve-3d;-->
+<!--            transition: transform 0.8s;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 10px 30px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        .flip-card-face {-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            backface-visibility: hidden;-->
+<!--            border-radius: 12px;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .flip-card-front {-->
+<!--            transform: rotateY(0deg);-->
+<!--        }-->
+
+<!--        .flip-card-back {-->
+<!--            transform: rotateY(180deg);-->
+<!--        }-->
+
+<!--        .flip-card img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        /* Content Section */-->
+<!--        .content {-->
+<!--            max-width: 900px;-->
+<!--            margin: 40px auto;-->
+<!--            padding: 30px;-->
+<!--            background: white;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 6px 20px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .content h2 {-->
+<!--            color: #00695c;-->
+<!--            border-bottom: 2px solid #e0f2f1;-->
+<!--            padding-bottom: 10px;-->
+<!--            margin-top: 0;-->
+<!--        }-->
+
+<!--        .content ul {-->
+<!--            padding-left: 20px;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .content li {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        /* Back button */-->
+<!--        .back-btn {-->
+<!--            display: inline-block;-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px 28px;-->
+<!--            background: #00897b;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            text-decoration: none;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s;-->
+<!--            font-weight: 600;-->
+<!--            box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .back-btn:hover {-->
+<!--            background: #004d40;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 6px 12px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        /* Fullscreen mode */-->
+<!--        .fullscreen {-->
+<!--            position: fixed !important;-->
+<!--            width: 100vw !important;-->
+<!--            height: 100vh !important;-->
+<!--            top: 0 !important;-->
+<!--            left: 0 !important;-->
+<!--            margin: 0 !important;-->
+<!--            z-index: 9999;-->
+<!--            perspective: 2000px;-->
+<!--            transition: all 0.8s ease;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card-face {-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        /* Overlay for fullscreen mode */-->
+<!--        .overlay {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            background: rgba(0, 0, 0, 0.8);-->
+<!--            z-index: 9998;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.8s ease;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        .overlay.active {-->
+<!--            opacity: 1;-->
+<!--            pointer-events: all;-->
+<!--        }-->
+
+<!--        /* Navigation dots */-->
+<!--        .dots {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .dot {-->
+<!--            width: 12px;-->
+<!--            height: 12px;-->
+<!--            background: #ccc;-->
+<!--            border-radius: 50%;-->
+<!--            margin: 0 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .dot.active {-->
+<!--            background: #00897b;-->
+<!--        }-->
+
+<!--        /* Responsive design */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .flip-container {-->
+<!--                height: 350px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 2.2rem;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                padding: 20px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .flip-container {-->
+<!--                height: 250px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 1.8rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--    <div class="header">-->
+<!--        <h1>Wildebeest: The Great Migrators</h1>-->
+<!--        <p>Discover the fascinating journey of Africa's most spectacular migrators</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Flip Card Container &ndash;&gt;-->
+<!--    <div class="flip-container">-->
+<!--        <div class="flip-card" id="flipCard">-->
+<!--            &lt;!&ndash; Front face (first image) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-front">-->
+<!--                <img src="/playone/img5.png" alt="Wildebeest herd migrating">-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Back faces (subsequent images) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img6.png" alt="Wildebeest crossing river">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img7.png" alt="Wildebeest in savanna">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img8.png" alt="Close-up of wildebeest">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Navigation dots &ndash;&gt;-->
+<!--    <div class="dots" id="dotsContainer">-->
+<!--        <div class="dot active" data-index="0"></div>-->
+<!--        <div class="dot" data-index="1"></div>-->
+<!--        <div class="dot" data-index="2"></div>-->
+<!--        <div class="dot" data-index="3"></div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Content Section &ndash;&gt;-->
+<!--    <div class="content">-->
+<!--        <h2>About Wildebeests</h2>-->
+<!--        <p>-->
+<!--            Wildebeest, also known as gnus, are large antelopes native to Africa. They are famous-->
+<!--            for their spectacular annual migration across the Serengeti and Maasai Mara, which is-->
+<!--            considered one of the Seven Natural Wonders of Africa.-->
+<!--        </p>-->
+
+<!--        <h2>Key Facts</h2>-->
+<!--        <ul>-->
+<!--            <li><b>Scientific Name:</b> Connochaetes</li>-->
+<!--            <li><b>Habitat:</b> Grasslands and open woodlands of eastern and southern Africa.</li>-->
+<!--            <li><b>Diet:</b> Primarily grazers, feeding on short grasses.</li>-->
+<!--            <li><b>Migration:</b> Over 1.5 million wildebeest migrate annually in search of water and fresh pasture, covering up to 1,800 miles.</li>-->
+<!--            <li><b>Predators:</b> Lions, hyenas, cheetahs, and crocodiles often prey on them during migration.</li>-->
+<!--            <li><b>Lifespan:</b> Up to 20 years in the wild.</li>-->
+<!--        </ul>-->
+
+<!--        <h2>Conservation Status</h2>-->
+<!--        <p>-->
+<!--            Wildebeests are currently listed as Least Concern by the IUCN, but they face threats from-->
+<!--            habitat loss, drought, and illegal hunting. Their migration routes are also increasingly-->
+<!--            fragmented by human development.-->
+<!--        </p>-->
+
+<!--        <a href="/btwo" class="back-btn" id="backBtn">Back to Previous Page</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Fullscreen overlay &ndash;&gt;-->
+<!--<div class="overlay" id="overlay"></div>-->
+
+<!--<script>-->
+<!--    const flipCard = document.getElementById('flipCard');-->
+<!--    const faces = Array.from(flipCard.querySelectorAll('.flip-card-face'));-->
+<!--    const dots = Array.from(document.querySelectorAll('.dot'));-->
+<!--    const overlay = document.getElementById('overlay');-->
+<!--    const container = document.querySelector('.flip-container');-->
+<!--    const body = document.body;-->
+
+<!--    let currentIndex = 0;-->
+<!--    let normalSpeed = 3000;-->
+<!--    let intervalId;-->
+<!--    let isFullscreen = false;-->
+
+<!--    // Initialize: show only the first face-->
+<!--    faces.forEach((face, idx) => {-->
+<!--        if (idx > 0) {-->
+<!--            face.style.opacity = 0;-->
+<!--        }-->
+<!--    });-->
+
+<!--    function showNextImage() {-->
+<!--        const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--        // Hide current face-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show next face-->
+<!--        faces[nextIndex].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[nextIndex].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--        currentIndex = nextIndex;-->
+<!--    }-->
+
+<!--    function goToImage(index) {-->
+<!--        // Hide current face-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show target face-->
+<!--        faces[index].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[index].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (index)}deg)`;-->
+
+<!--        currentIndex = index;-->
+<!--    }-->
+
+<!--    function startSlideshow(speed) {-->
+<!--        clearInterval(intervalId);-->
+<!--        intervalId = setInterval(showNextImage, speed);-->
+<!--    }-->
+
+<!--    // Start normal slideshow-->
+<!--    startSlideshow(normalSpeed);-->
+
+<!--    // Add click events to dots-->
+<!--    dots.forEach(dot => {-->
+<!--        dot.addEventListener('click', function() {-->
+<!--            const index = parseInt(this.getAttribute('data-index'));-->
+<!--            goToImage(index);-->
+<!--            // Restart slideshow with new timing-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Back button: fullscreen fast flip and redirect-->
+<!--    document.getElementById('backBtn').addEventListener('click', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const targetUrl = this.href;-->
+
+<!--        if (isFullscreen) return;-->
+<!--        isFullscreen = true;-->
+
+<!--        // Disable scrolling-->
+<!--        body.style.overflow = 'hidden';-->
+
+<!--        // Activate overlay with a faster transition-->
+<!--        overlay.style.transition = 'opacity 0.5s ease';-->
+<!--        overlay.classList.add('active');-->
+
+<!--        // Make flip container fullscreen with faster transition-->
+<!--        container.style.transition = 'all 0.5s ease';-->
+<!--        container.classList.add('fullscreen');-->
+
+<!--        // Pause normal slideshow-->
+<!--        clearInterval(intervalId);-->
+
+<!--        // Speed up the flip animation-->
+<!--        flipCard.style.transition = 'transform 0.3s ease';-->
+
+<!--        // Fast flipping animation - show all images multiple times very quickly-->
+<!--        let flipsCompleted = 0;-->
+<!--        const totalFlips = 12; // Show all images multiple times-->
+<!--        const flipSpeed = 100; // Very fast flips (100ms)-->
+
+<!--        // Function to perform rapid flipping-->
+<!--        function performRapidFlip() {-->
+<!--            if (flipsCompleted >= totalFlips) {-->
+<!--                // All flips completed, now fade out-->
+<!--                fadeOutAndRedirect(targetUrl);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Show next image-->
+<!--            const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--            // Hide current face-->
+<!--            faces[currentIndex].style.opacity = 0;-->
+
+<!--            // Show next face-->
+<!--            faces[nextIndex].style.opacity = 1;-->
+
+<!--            // Apply flip animation-->
+<!--            flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--            currentIndex = nextIndex;-->
+<!--            flipsCompleted++;-->
+
+<!--            // Schedule next flip-->
+<!--            setTimeout(performRapidFlip, flipSpeed);-->
+<!--        }-->
+
+<!--        // Function to fade out and redirect-->
+<!--        function fadeOutAndRedirect(url) {-->
+<!--            // Create fade out effect-->
+<!--            container.style.transition = 'opacity 0.8s ease';-->
+<!--            container.style.opacity = 0;-->
+
+<!--            overlay.style.transition = 'opacity 0.8s ease';-->
+<!--            overlay.style.opacity = 0;-->
+
+<!--            // Redirect after fade completes-->
+<!--            setTimeout(() => {-->
+<!--                window.location.href = url;-->
+<!--            }, 800);-->
+<!--        }-->
+
+<!--        // Start the rapid flipping after a brief pause-->
+<!--        setTimeout(performRapidFlip, 200);-->
+<!--    });-->
+
+<!--    // Pause slideshow when hovering over the flip card-->
+<!--    flipCard.addEventListener('mouseenter', function() {-->
+<!--        clearInterval(intervalId);-->
+<!--    });-->
+
+<!--    // Resume slideshow when mouse leaves the flip card-->
+<!--    flipCard.addEventListener('mouseleave', function() {-->
+<!--        if (!isFullscreen) {-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Wildebeest Information</title>-->
+<!--    <style>-->
+<!--        /* Your existing CSS remains exactly the same */-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background: linear-gradient(135deg, #f4f9f9 0%, #e4f0f0 100%);-->
+<!--            color: #333;-->
+<!--            overflow-x: hidden;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        /* Header */-->
+<!--        .header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #00695c;-->
+<!--            font-size: 2.8rem;-->
+<!--            margin-bottom: 10px;-->
+<!--            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            color: #4a635f;-->
+<!--            font-size: 1.2rem;-->
+<!--            max-width: 700px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+
+<!--        /* Flip Card Container */-->
+<!--        .flip-container {-->
+<!--            width: 90%;-->
+<!--            max-width: 800px;-->
+<!--            height: 450px;-->
+<!--            margin: 30px auto;-->
+<!--            perspective: 1200px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            position: relative;-->
+<!--            transform-style: preserve-3d;-->
+<!--            transition: transform 0.8s;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 10px 30px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        .flip-card-face {-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            backface-visibility: hidden;-->
+<!--            border-radius: 12px;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .flip-card-front {-->
+<!--            transform: rotateY(0deg);-->
+<!--        }-->
+
+<!--        .flip-card-back {-->
+<!--            transform: rotateY(180deg);-->
+<!--        }-->
+
+<!--        .flip-card img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        /* Content Section */-->
+<!--        .content {-->
+<!--            max-width: 900px;-->
+<!--            margin: 40px auto;-->
+<!--            padding: 30px;-->
+<!--            background: white;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 6px 20px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .content h2 {-->
+<!--            color: #00695c;-->
+<!--            border-bottom: 2px solid #e0f2f1;-->
+<!--            padding-bottom: 10px;-->
+<!--            margin-top: 0;-->
+<!--        }-->
+
+<!--        .content ul {-->
+<!--            padding-left: 20px;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .content li {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        /* Back button */-->
+<!--        .back-btn {-->
+<!--            display: inline-block;-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px 28px;-->
+<!--            background: #00897b;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            text-decoration: none;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s;-->
+<!--            font-weight: 600;-->
+<!--            box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .back-btn:hover {-->
+<!--            background: #004d40;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 6px 12px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        /* Fullscreen mode */-->
+<!--        .fullscreen {-->
+<!--            position: fixed !important;-->
+<!--            width: 100vw !important;-->
+<!--            height: 100vh !important;-->
+<!--            top: 0 !important;-->
+<!--            left: 0 !important;-->
+<!--            margin: 0 !important;-->
+<!--            z-index: 9999;-->
+<!--            perspective: 2000px;-->
+<!--            transition: all 0.8s ease;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card-face {-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        /* Overlay for fullscreen mode */-->
+<!--        .overlay {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            background: rgba(0, 0, 0, 0.8);-->
+<!--            z-index: 9998;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.8s ease;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        .overlay.active {-->
+<!--            opacity: 1;-->
+<!--            pointer-events: all;-->
+<!--        }-->
+
+<!--        /* Navigation dots */-->
+<!--        .dots {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .dot {-->
+<!--            width: 12px;-->
+<!--            height: 12px;-->
+<!--            background: #ccc;-->
+<!--            border-radius: 50%;-->
+<!--            margin: 0 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .dot.active {-->
+<!--            background: #00897b;-->
+<!--        }-->
+
+<!--        /* Responsive design */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .flip-container {-->
+<!--                height: 350px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 2.2rem;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                padding: 20px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .flip-container {-->
+<!--                height: 250px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 1.8rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--    <div class="header">-->
+<!--        <h1>Wildebeest: The Great Migrators</h1>-->
+<!--        <p>Discover the fascinating journey of Africa's most spectacular migrators</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Flip Card Container &ndash;&gt;-->
+<!--    <div class="flip-container">-->
+<!--        <div class="flip-card" id="flipCard">-->
+<!--            &lt;!&ndash; Front face (first image) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-front">-->
+<!--                <img src="/playone/img5.png" alt="Wildebeest herd migrating">-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Back faces (subsequent images) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img6.png" alt="Wildebeest crossing river">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img7.png" alt="Wildebeest in savanna">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img8.png" alt="Close-up of wildebeest">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Navigation dots &ndash;&gt;-->
+<!--    <div class="dots" id="dotsContainer">-->
+<!--        <div class="dot active" data-index="0"></div>-->
+<!--        <div class="dot" data-index="1"></div>-->
+<!--        <div class="dot" data-index="2"></div>-->
+<!--        <div class="dot" data-index="3"></div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Content Section &ndash;&gt;-->
+<!--    <div class="content">-->
+<!--        <h2>About Wildebeests</h2>-->
+<!--        <p>-->
+<!--            Wildebeest, also known as gnus, are large antelopes native to Africa. They are famous-->
+<!--            for their spectacular annual migration across the Serengeti and Maasai Mara, which is-->
+<!--            considered one of the Seven Natural Wonders of Africa.-->
+<!--        </p>-->
+
+<!--        <h2>Key Facts</h2>-->
+<!--        <ul>-->
+<!--            <li><b>Scientific Name:</b> Connochaetes</li>-->
+<!--            <li><b>Habitat:</b> Grasslands and open woodlands of eastern and southern Africa.</li>-->
+<!--            <li><b>Diet:</b> Primarily grazers, feeding on short grasses.</li>-->
+<!--            <li><b>Migration:</b> Over 1.5 million wildebeest migrate annually in search of water and fresh pasture, covering up to 1,800 miles.</li>-->
+<!--            <li><b>Predators:</b> Lions, hyenas, cheetahs, and crocodiles often prey on them during migration.</li>-->
+<!--            <li><b>Lifespan:</b> Up to 20 years in the wild.</li>-->
+<!--        </ul>-->
+
+<!--        <h2>Conservation Status</h2>-->
+<!--        <p>-->
+<!--            Wildebeests are currently listed as Least Concern by the IUCN, but they face threats from-->
+<!--            habitat loss, drought, and illegal hunting. Their migration routes are also increasingly-->
+<!--            fragmented by human development.-->
+<!--        </p>-->
+
+<!--        <a href="/btwo" class="back-btn" id="backBtn">Back to Previous Page</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Fullscreen overlay &ndash;&gt;-->
+<!--<div class="overlay" id="overlay"></div>-->
+
+<!--<script>-->
+<!--    const flipCard = document.getElementById('flipCard');-->
+<!--    const faces = Array.from(flipCard.querySelectorAll('.flip-card-face'));-->
+<!--    const dots = Array.from(document.querySelectorAll('.dot'));-->
+<!--    const overlay = document.getElementById('overlay');-->
+<!--    const container = document.querySelector('.flip-container');-->
+<!--    const body = document.body;-->
+
+<!--    let currentIndex = 0;-->
+<!--    let normalSpeed = 3000;-->
+<!--    let intervalId;-->
+<!--    let isFullscreen = false;-->
+
+<!--    // Initialize: show only the first face-->
+<!--    faces.forEach((face, idx) => {-->
+<!--        if (idx > 0) {-->
+<!--            face.style.opacity = 0;-->
+<!--        }-->
+<!--    });-->
+
+<!--    function showNextImage() {-->
+<!--        const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--        // Hide current face-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show next face-->
+<!--        faces[nextIndex].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[nextIndex].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--        currentIndex = nextIndex;-->
+<!--    }-->
+
+<!--    function goToImage(index) {-->
+<!--        // Hide current face-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show target face-->
+<!--        faces[index].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[index].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (index)}deg)`;-->
+
+<!--        currentIndex = index;-->
+<!--    }-->
+
+<!--    function startSlideshow(speed) {-->
+<!--        clearInterval(intervalId);-->
+<!--        intervalId = setInterval(showNextImage, speed);-->
+<!--    }-->
+
+<!--    // Start normal slideshow-->
+<!--    startSlideshow(normalSpeed);-->
+
+<!--    // Add click events to dots-->
+<!--    dots.forEach(dot => {-->
+<!--        dot.addEventListener('click', function() {-->
+<!--            const index = parseInt(this.getAttribute('data-index'));-->
+<!--            goToImage(index);-->
+<!--            // Restart slideshow with new timing-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Back button: fullscreen fast flip and redirect-->
+<!--    document.getElementById('backBtn').addEventListener('click', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const targetUrl = this.href;-->
+
+<!--        if (isFullscreen) return;-->
+<!--        isFullscreen = true;-->
+
+<!--        // Disable scrolling-->
+<!--        body.style.overflow = 'hidden';-->
+
+<!--        // Activate overlay with a faster transition-->
+<!--        overlay.style.transition = 'opacity 0.5s ease';-->
+<!--        overlay.classList.add('active');-->
+
+<!--        // Make flip container fullscreen with faster transition-->
+<!--        container.style.transition = 'all 0.5s ease';-->
+<!--        container.classList.add('fullscreen');-->
+
+<!--        // Pause normal slideshow-->
+<!--        clearInterval(intervalId);-->
+
+<!--        // Speed up the flip animation-->
+<!--        flipCard.style.transition = 'transform 0.3s ease';-->
+
+<!--        // Fast flipping animation - show all images multiple times very quickly-->
+<!--        let flipsCompleted = 0;-->
+<!--        const totalFlips = 12; // Show all images multiple times-->
+<!--        const flipSpeed = 100; // Very fast flips (100ms)-->
+
+<!--        // Function to perform rapid flipping-->
+<!--        function performRapidFlip() {-->
+<!--            if (flipsCompleted >= totalFlips) {-->
+<!--                // All flips completed, now fade out-->
+<!--                fadeOutAndRedirect(targetUrl);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Show next image-->
+<!--            const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--            // Hide current face-->
+<!--            faces[currentIndex].style.opacity = 0;-->
+
+<!--            // Show next face-->
+<!--            faces[nextIndex].style.opacity = 1;-->
+
+<!--            // Apply flip animation-->
+<!--            flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--            currentIndex = nextIndex;-->
+<!--            flipsCompleted++;-->
+
+<!--            // Schedule next flip-->
+<!--            setTimeout(performRapidFlip, flipSpeed);-->
+<!--        }-->
+
+<!--        // Function to fade out and redirect-->
+<!--        function fadeOutAndRedirect(url) {-->
+<!--            // Create fade out effect-->
+<!--            container.style.transition = 'opacity 0.8s ease';-->
+<!--            container.style.opacity = 0;-->
+
+<!--            overlay.style.transition = 'opacity 0.8s ease';-->
+<!--            overlay.style.opacity = 0;-->
+
+<!--            // Redirect after fade completes-->
+<!--            setTimeout(() => {-->
+<!--                window.location.href = url;-->
+<!--            }, 800);-->
+<!--        }-->
+
+<!--        // Start the rapid flipping after a brief pause-->
+<!--        setTimeout(performRapidFlip, 200);-->
+<!--    });-->
+
+<!--    // Pause slideshow when hovering over the flip card-->
+<!--    flipCard.addEventListener('mouseenter', function() {-->
+<!--        clearInterval(intervalId);-->
+<!--    });-->
+
+<!--    // Resume slideshow when mouse leaves the flip card-->
+<!--    flipCard.addEventListener('mouseleave', function() {-->
+<!--        if (!isFullscreen) {-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Wildebeest: The Great Migrators</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background: linear-gradient(135deg, #f4f9f9 0%, #e4f0f0 100%);-->
+<!--            color: #333;-->
+<!--            overflow-x: hidden;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        /* Header */-->
+<!--        .header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #00695c;-->
+<!--            font-size: 2.8rem;-->
+<!--            margin-bottom: 10px;-->
+<!--            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            color: #4a635f;-->
+<!--            font-size: 1.2rem;-->
+<!--            max-width: 700px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+
+<!--        /* Flip Card Container */-->
+<!--        .flip-container {-->
+<!--            width: 90%;-->
+<!--            max-width: 800px;-->
+<!--            height: 450px;-->
+<!--            margin: 30px auto;-->
+<!--            perspective: 1200px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            position: relative;-->
+<!--            transform-style: preserve-3d;-->
+<!--            transition: transform 0.8s;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 10px 30px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        .flip-card-face {-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            backface-visibility: hidden;-->
+<!--            border-radius: 12px;-->
+<!--            overflow: hidden;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.5s ease;-->
+<!--        }-->
+
+<!--        .flip-card-face.active {-->
+<!--            opacity: 1;-->
+<!--        }-->
+
+<!--        .flip-card-front {-->
+<!--            transform: rotateY(0deg);-->
+<!--        }-->
+
+<!--        .flip-card-back {-->
+<!--            transform: rotateY(180deg);-->
+<!--        }-->
+
+<!--        .flip-card img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        /* Content Section */-->
+<!--        .content {-->
+<!--            max-width: 900px;-->
+<!--            margin: 40px auto;-->
+<!--            padding: 30px;-->
+<!--            background: white;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 6px 20px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .content h2 {-->
+<!--            color: #00695c;-->
+<!--            border-bottom: 2px solid #e0f2f1;-->
+<!--            padding-bottom: 10px;-->
+<!--            margin-top: 0;-->
+<!--        }-->
+
+<!--        .content ul {-->
+<!--            padding-left: 20px;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .content li {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        /* Back button */-->
+<!--        .back-btn {-->
+<!--            display: inline-block;-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px 28px;-->
+<!--            background: #00897b;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            text-decoration: none;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s;-->
+<!--            font-weight: 600;-->
+<!--            box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .back-btn:hover {-->
+<!--            background: #004d40;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 6px 12px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        /* Fullscreen mode */-->
+<!--        .fullscreen {-->
+<!--            position: fixed !important;-->
+<!--            width: 100vw !important;-->
+<!--            height: 100vh !important;-->
+<!--            top: 0 !important;-->
+<!--            left: 0 !important;-->
+<!--            margin: 0 !important;-->
+<!--            z-index: 9999;-->
+<!--            perspective: 2000px;-->
+<!--            transition: all 0.8s ease;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card-face {-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        /* Overlay for fullscreen mode */-->
+<!--        .overlay {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            background: rgba(0, 0, 0, 0.8);-->
+<!--            z-index: 9998;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.8s ease;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        .overlay.active {-->
+<!--            opacity: 1;-->
+<!--            pointer-events: all;-->
+<!--        }-->
+
+<!--        /* Navigation dots */-->
+<!--        .dots {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .dot {-->
+<!--            width: 12px;-->
+<!--            height: 12px;-->
+<!--            background: #ccc;-->
+<!--            border-radius: 50%;-->
+<!--            margin: 0 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .dot.active {-->
+<!--            background: #00897b;-->
+<!--        }-->
+
+<!--        /* Responsive design */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .flip-container {-->
+<!--                height: 350px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 2.2rem;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                padding: 20px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .flip-container {-->
+<!--                height: 250px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 1.8rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--    <div class="header">-->
+<!--        <h1>Wildebeest: The Great Migrators</h1>-->
+<!--        <p>Discover the fascinating journey of Africa's most spectacular migrators</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Flip Card Container &ndash;&gt;-->
+<!--    <div class="flip-container">-->
+<!--        <div class="flip-card" id="flipCard">-->
+<!--            &lt;!&ndash; Front face (first image) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-front active">-->
+<!--                <img src="/playone/img5.png" alt="Wildebeest herd migrating">-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Back faces (subsequent images) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img6.png" alt="Wildebeest crossing river">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img7.png" alt="Wildebeest in savanna">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img8.png" alt="Close-up of wildebeest">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Navigation dots &ndash;&gt;-->
+<!--    <div class="dots" id="dotsContainer">-->
+<!--        <div class="dot active" data-index="0"></div>-->
+<!--        <div class="dot" data-index="1"></div>-->
+<!--        <div class="dot" data-index="2"></div>-->
+<!--        <div class="dot" data-index="3"></div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Content Section &ndash;&gt;-->
+<!--    <div class="content">-->
+<!--        <h2>About Wildebeests</h2>-->
+<!--        <p>-->
+<!--            Wildebeest, also known as gnus, are large antelopes native to Africa. They are famous-->
+<!--            for their spectacular annual migration across the Serengeti and Maasai Mara, which is-->
+<!--            considered one of the Seven Natural Wonders of Africa.-->
+<!--        </p>-->
+
+<!--        <h2>Key Facts</h2>-->
+<!--        <ul>-->
+<!--            <li><b>Scientific Name:</b> Connochaetes</li>-->
+<!--            <li><b>Habitat:</b> Grasslands and open woodlands of eastern and southern Africa.</li>-->
+<!--            <li><b>Diet:</b> Primarily grazers, feeding on short grasses.</li>-->
+<!--            <li><b>Migration:</b> Over 1.5 million wildebeest migrate annually in search of water and fresh pasture, covering up to 1,800 miles.</li>-->
+<!--            <li><b>Predators:</b> Lions, hyenas, cheetahs, and crocodiles often prey on them during migration.</li>-->
+<!--            <li><b>Lifespan:</b> Up to 20 years in the wild.</li>-->
+<!--        </ul>-->
+
+<!--        <h2>Conservation Status</h2>-->
+<!--        <p>-->
+<!--            Wildebeests are currently listed as Least Concern by the IUCN, but they face threats from-->
+<!--            habitat loss, drought, and illegal hunting. Their migration routes are also increasingly-->
+<!--            fragmented by human development.-->
+<!--        </p>-->
+
+<!--        <a href="/btwo" class="back-btn" id="backBtn">Back to Previous Page</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Fullscreen overlay &ndash;&gt;-->
+<!--<div class="overlay" id="overlay"></div>-->
+
+<!--<script>-->
+<!--    const flipCard = document.getElementById('flipCard');-->
+<!--    const faces = Array.from(flipCard.querySelectorAll('.flip-card-face'));-->
+<!--    const dots = Array.from(document.querySelectorAll('.dot'));-->
+<!--    const overlay = document.getElementById('overlay');-->
+<!--    const container = document.querySelector('.flip-container');-->
+<!--    const body = document.body;-->
+
+<!--    let currentIndex = 0;-->
+<!--    let normalSpeed = 3000;-->
+<!--    let intervalId;-->
+<!--    let isFullscreen = false;-->
+
+<!--    // Initialize: show only the first face-->
+<!--    faces.forEach((face, idx) => {-->
+<!--        if (idx > 0) {-->
+<!--            face.style.opacity = 0;-->
+<!--        }-->
+<!--    });-->
+
+<!--    function showNextImage() {-->
+<!--        const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--        // Hide current face-->
+<!--        faces[currentIndex].classList.remove('active');-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show next face-->
+<!--        faces[nextIndex].classList.add('active');-->
+<!--        faces[nextIndex].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[nextIndex].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--        currentIndex = nextIndex;-->
+<!--    }-->
+
+<!--    function goToImage(index) {-->
+<!--        // Hide current face-->
+<!--        faces[currentIndex].classList.remove('active');-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show target face-->
+<!--        faces[index].classList.add('active');-->
+<!--        faces[index].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[index].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (index)}deg)`;-->
+
+<!--        currentIndex = index;-->
+<!--    }-->
+
+<!--    function startSlideshow(speed) {-->
+<!--        clearInterval(intervalId);-->
+<!--        intervalId = setInterval(showNextImage, speed);-->
+<!--    }-->
+
+<!--    // Start normal slideshow-->
+<!--    startSlideshow(normalSpeed);-->
+
+<!--    // Add click events to dots-->
+<!--    dots.forEach(dot => {-->
+<!--        dot.addEventListener('click', function() {-->
+<!--            const index = parseInt(this.getAttribute('data-index'));-->
+<!--            goToImage(index);-->
+<!--            // Restart slideshow with new timing-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Back button: fullscreen fast flip and redirect-->
+<!--    document.getElementById('backBtn').addEventListener('click', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const targetUrl = this.href;-->
+
+<!--        if (isFullscreen) return;-->
+<!--        isFullscreen = true;-->
+
+<!--        // Disable scrolling-->
+<!--        body.style.overflow = 'hidden';-->
+
+<!--        // Activate overlay with a faster transition-->
+<!--        overlay.style.transition = 'opacity 0.5s ease';-->
+<!--        overlay.classList.add('active');-->
+
+<!--        // Make flip container fullscreen with faster transition-->
+<!--        container.style.transition = 'all 0.5s ease';-->
+<!--        container.classList.add('fullscreen');-->
+
+<!--        // Pause normal slideshow-->
+<!--        clearInterval(intervalId);-->
+
+<!--        // Speed up the flip animation-->
+<!--        flipCard.style.transition = 'transform 0.3s ease';-->
+
+<!--        // Fast flipping animation - show all images multiple times very quickly-->
+<!--        let flipsCompleted = 0;-->
+<!--        const totalFlips = 12; // Show all images multiple times-->
+<!--        const flipSpeed = 100; // Very fast flips (100ms)-->
+
+<!--        // Function to perform rapid flipping-->
+<!--        function performRapidFlip() {-->
+<!--            if (flipsCompleted >= totalFlips) {-->
+<!--                // All flips completed, now fade out-->
+<!--                fadeOutAndRedirect(targetUrl);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Show next image-->
+<!--            const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--            // Hide current face-->
+<!--            faces[currentIndex].classList.remove('active');-->
+<!--            faces[currentIndex].style.opacity = 0;-->
+
+<!--            // Show next face-->
+<!--            faces[nextIndex].classList.add('active');-->
+<!--            faces[nextIndex].style.opacity = 1;-->
+
+<!--            // Apply flip animation-->
+<!--            flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--            currentIndex = nextIndex;-->
+<!--            flipsCompleted++;-->
+
+<!--            // Schedule next flip-->
+<!--            setTimeout(performRapidFlip, flipSpeed);-->
+<!--        }-->
+
+<!--        // Function to fade out and redirect-->
+<!--        function fadeOutAndRedirect(url) {-->
+<!--            // Create fade out effect-->
+<!--            container.style.transition = 'opacity 0.8s ease';-->
+<!--            container.style.opacity = 0;-->
+
+<!--            overlay.style.transition = 'opacity 0.8s ease';-->
+<!--            overlay.style.opacity = 0;-->
+
+<!--            // Redirect after fade completes-->
+<!--            setTimeout(() => {-->
+<!--                window.location.href = url;-->
+<!--            }, 800);-->
+<!--        }-->
+
+<!--        // Start the rapid flipping after a brief pause-->
+<!--        setTimeout(performRapidFlip, 200);-->
+<!--    });-->
+
+<!--    // Pause slideshow when hovering over the flip card-->
+<!--    flipCard.addEventListener('mouseenter', function() {-->
+<!--        clearInterval(intervalId);-->
+<!--    });-->
+
+<!--    // Resume slideshow when mouse leaves the flip card-->
+<!--    flipCard.addEventListener('mouseleave', function() {-->
+<!--        if (!isFullscreen) {-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Wildebeest: The Great Migrators</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background: linear-gradient(135deg, #f4f9f9 0%, #e4f0f0 100%);-->
+<!--            color: #333;-->
+<!--            overflow-x: hidden;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        /* Header */-->
+<!--        .header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #00695c;-->
+<!--            font-size: 2.8rem;-->
+<!--            margin-bottom: 10px;-->
+<!--            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            color: #4a635f;-->
+<!--            font-size: 1.2rem;-->
+<!--            max-width: 700px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+
+<!--        /* Flip Card Container */-->
+<!--        .flip-container {-->
+<!--            width: 90%;-->
+<!--            max-width: 800px;-->
+<!--            height: 450px;-->
+<!--            margin: 30px auto;-->
+<!--            perspective: 1200px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            position: relative;-->
+<!--            transform-style: preserve-3d;-->
+<!--            transition: transform 0.8s;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 10px 30px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        .flip-card-face {-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            backface-visibility: hidden;-->
+<!--            border-radius: 12px;-->
+<!--            overflow: hidden;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.5s ease;-->
+<!--        }-->
+
+<!--        .flip-card-face.active {-->
+<!--            opacity: 1;-->
+<!--        }-->
+
+<!--        .flip-card-front {-->
+<!--            transform: rotateY(0deg);-->
+<!--        }-->
+
+<!--        .flip-card-back {-->
+<!--            transform: rotateY(180deg);-->
+<!--        }-->
+
+<!--        .flip-card img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        /* Content Section */-->
+<!--        .content {-->
+<!--            max-width: 900px;-->
+<!--            margin: 40px auto;-->
+<!--            padding: 30px;-->
+<!--            background: white;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 6px 20px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .content h2 {-->
+<!--            color: #00695c;-->
+<!--            border-bottom: 2px solid #e0f2f1;-->
+<!--            padding-bottom: 10px;-->
+<!--            margin-top: 0;-->
+<!--        }-->
+
+<!--        .content ul {-->
+<!--            padding-left: 20px;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .content li {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        /* Back button */-->
+<!--        .back-btn {-->
+<!--            display: inline-block;-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px 28px;-->
+<!--            background: #00897b;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            text-decoration: none;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s;-->
+<!--            font-weight: 600;-->
+<!--            box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .back-btn:hover {-->
+<!--            background: #004d40;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 6px 12px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        /* Fullscreen mode */-->
+<!--        .fullscreen {-->
+<!--            position: fixed !important;-->
+<!--            width: 100vw !important;-->
+<!--            height: 100vh !important;-->
+<!--            top: 0 !important;-->
+<!--            left: 0 !important;-->
+<!--            margin: 0 !important;-->
+<!--            z-index: 9999;-->
+<!--            perspective: 2000px;-->
+<!--            transition: all 0.8s ease;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card-face {-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        /* Overlay for fullscreen mode */-->
+<!--        .overlay {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            background: rgba(0, 0, 0, 0.8);-->
+<!--            z-index: 9998;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.8s ease;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        .overlay.active {-->
+<!--            opacity: 1;-->
+<!--            pointer-events: all;-->
+<!--        }-->
+
+<!--        /* Navigation dots */-->
+<!--        .dots {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .dot {-->
+<!--            width: 12px;-->
+<!--            height: 12px;-->
+<!--            background: #ccc;-->
+<!--            border-radius: 50%;-->
+<!--            margin: 0 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .dot.active {-->
+<!--            background: #00897b;-->
+<!--        }-->
+
+<!--        /* Image error handling */-->
+<!--        .image-error {-->
+<!--            background: linear-gradient(45deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0 100%);-->
+<!--            background-size: 20px 20px;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            color: #888;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        /* Responsive design */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .flip-container {-->
+<!--                height: 350px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 2.2rem;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                padding: 20px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .flip-container {-->
+<!--                height: 250px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 1.8rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--    <div class="header">-->
+<!--        <h1>Wildebeest: The Great Migrators</h1>-->
+<!--        <p>Discover the fascinating journey of Africa's most spectacular migrators</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Flip Card Container &ndash;&gt;-->
+<!--    <div class="flip-container">-->
+<!--        <div class="flip-card" id="flipCard">-->
+<!--            &lt;!&ndash; Front face (first image) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-front active">-->
+<!--                <img src="/playone/img5.png" alt="Wildebeest herd migrating" onerror="this.parentNode.classList.add('image-error'); this.alt='Image failed to load';">-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Back faces (subsequent images) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img6.png" alt="Wildebeest crossing river" onerror="this.parentNode.classList.add('image-error'); this.alt='Image failed to load';">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img7.png" alt="Wildebeest in savanna" onerror="this.parentNode.classList.add('image-error'); this.alt='Image failed to load';">-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img8.png" alt="Close-up of wildebeest" onerror="this.parentNode.classList.add('image-error'); this.alt='Image failed to load';">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Navigation dots &ndash;&gt;-->
+<!--    <div class="dots" id="dotsContainer">-->
+<!--        <div class="dot active" data-index="0"></div>-->
+<!--        <div class="dot" data-index="1"></div>-->
+<!--        <div class="dot" data-index="2"></div>-->
+<!--        <div class="dot" data-index="3"></div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Content Section &ndash;&gt;-->
+<!--    <div class="content">-->
+<!--        <h2>About Wildebeests</h2>-->
+<!--        <p>-->
+<!--            Wildebeest, also known as gnus, are large antelopes native to Africa. They are famous-->
+<!--            for their spectacular annual migration across the Serengeti and Maasai Mara, which is-->
+<!--            considered one of the Seven Natural Wonders of Africa.-->
+<!--        </p>-->
+
+<!--        <h2>Key Facts</h2>-->
+<!--        <ul>-->
+<!--            <li><b>Scientific Name:</b> Connochaetes</li>-->
+<!--            <li><b>Habitat:</b> Grasslands and open woodlands of eastern and southern Africa.</li>-->
+<!--            <li><b>Diet:</b> Primarily grazers, feeding on short grasses.</li>-->
+<!--            <li><b>Migration:</b> Over 1.5 million wildebeest migrate annually in search of water and fresh pasture, covering up to 1,800 miles.</li>-->
+<!--            <li><b>Predators:</b> Lions, hyenas, cheetahs, and crocodiles often prey on them during migration.</li>-->
+<!--            <li><b>Lifespan:</b> Up to 20 years in the wild.</li>-->
+<!--        </ul>-->
+
+<!--        <h2>Conservation Status</h2>-->
+<!--        <p>-->
+<!--            Wildebeests are currently listed as Least Concern by the IUCN, but they face threats from-->
+<!--            habitat loss, drought, and illegal hunting. Their migration routes are also increasingly-->
+<!--            fragmented by human development.-->
+<!--        </p>-->
+
+<!--        <a href="/btwo" class="back-btn" id="backBtn">Back to Previous Page</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Fullscreen overlay &ndash;&gt;-->
+<!--<div class="overlay" id="overlay"></div>-->
+
+<!--<script>-->
+<!--    const flipCard = document.getElementById('flipCard');-->
+<!--    const faces = Array.from(flipCard.querySelectorAll('.flip-card-face'));-->
+<!--    const dots = Array.from(document.querySelectorAll('.dot'));-->
+<!--    const overlay = document.getElementById('overlay');-->
+<!--    const container = document.querySelector('.flip-container');-->
+<!--    const body = document.body;-->
+
+<!--    let currentIndex = 0;-->
+<!--    let normalSpeed = 3000;-->
+<!--    let intervalId;-->
+<!--    let isFullscreen = false;-->
+
+<!--    // Preload images to prevent display issues-->
+<!--    function preloadImages() {-->
+<!--        const imageUrls = [-->
+<!--            '/playone/img5.png',-->
+<!--            '/playone/img6.png',-->
+<!--            '/playone/img7.png',-->
+<!--            '/playone/img8.png'-->
+<!--        ];-->
+
+<!--        imageUrls.forEach(url => {-->
+<!--            const img = new Image();-->
+<!--            img.src = url;-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Initialize: show only the first face-->
+<!--    faces.forEach((face, idx) => {-->
+<!--        if (idx > 0) {-->
+<!--            face.style.opacity = 0;-->
+<!--        }-->
+<!--    });-->
+
+<!--    function showNextImage() {-->
+<!--        const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--        // Hide current face-->
+<!--        faces[currentIndex].classList.remove('active');-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show next face-->
+<!--        faces[nextIndex].classList.add('active');-->
+<!--        faces[nextIndex].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[nextIndex].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--        currentIndex = nextIndex;-->
+<!--    }-->
+
+<!--    function goToImage(index) {-->
+<!--        // Hide current face-->
+<!--        faces[currentIndex].classList.remove('active');-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show target face-->
+<!--        faces[index].classList.add('active');-->
+<!--        faces[index].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[index].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (index)}deg)`;-->
+
+<!--        currentIndex = index;-->
+<!--    }-->
+
+<!--    function startSlideshow(speed) {-->
+<!--        clearInterval(intervalId);-->
+<!--        intervalId = setInterval(showNextImage, speed);-->
+<!--    }-->
+
+<!--    // Preload images and start slideshow-->
+<!--    preloadImages();-->
+<!--    startSlideshow(normalSpeed);-->
+
+<!--    // Add click events to dots-->
+<!--    dots.forEach(dot => {-->
+<!--        dot.addEventListener('click', function() {-->
+<!--            const index = parseInt(this.getAttribute('data-index'));-->
+<!--            goToImage(index);-->
+<!--            // Restart slideshow with new timing-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Back button: fullscreen fast flip and redirect-->
+<!--    document.getElementById('backBtn').addEventListener('click', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const targetUrl = this.href;-->
+
+<!--        if (isFullscreen) return;-->
+<!--        isFullscreen = true;-->
+
+<!--        // Disable scrolling-->
+<!--        body.style.overflow = 'hidden';-->
+
+<!--        // Activate overlay with a faster transition-->
+<!--        overlay.style.transition = 'opacity 0.5s ease';-->
+<!--        overlay.classList.add('active');-->
+
+<!--        // Make flip container fullscreen with faster transition-->
+<!--        container.style.transition = 'all 0.5s ease';-->
+<!--        container.classList.add('fullscreen');-->
+
+<!--        // Pause normal slideshow-->
+<!--        clearInterval(intervalId);-->
+
+<!--        // Speed up the flip animation-->
+<!--        flipCard.style.transition = 'transform 0.3s ease';-->
+
+<!--        // Fast flipping animation - show all images multiple times very quickly-->
+<!--        let flipsCompleted = 0;-->
+<!--        const totalFlips = 12; // Show all images multiple times-->
+<!--        const flipSpeed = 100; // Very fast flips (100ms)-->
+
+<!--        // Function to perform rapid flipping-->
+<!--        function performRapidFlip() {-->
+<!--            if (flipsCompleted >= totalFlips) {-->
+<!--                // All flips completed, now fade out-->
+<!--                fadeOutAndRedirect(targetUrl);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Show next image-->
+<!--            const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--            // Hide current face-->
+<!--            faces[currentIndex].classList.remove('active');-->
+<!--            faces[currentIndex].style.opacity = 0;-->
+
+<!--            // Show next face-->
+<!--            faces[nextIndex].classList.add('active');-->
+<!--            faces[nextIndex].style.opacity = 1;-->
+
+<!--            // Apply flip animation-->
+<!--            flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--            currentIndex = nextIndex;-->
+<!--            flipsCompleted++;-->
+
+<!--            // Schedule next flip-->
+<!--            setTimeout(performRapidFlip, flipSpeed);-->
+<!--        }-->
+
+<!--        // Function to fade out and redirect-->
+<!--        function fadeOutAndRedirect(url) {-->
+<!--            // Create fade out effect-->
+<!--            container.style.transition = 'opacity 0.8s ease';-->
+<!--            container.style.opacity = 0;-->
+
+<!--            overlay.style.transition = 'opacity 0.8s ease';-->
+<!--            overlay.style.opacity = 0;-->
+
+<!--            // Redirect after fade completes-->
+<!--            setTimeout(() => {-->
+<!--                window.location.href = url;-->
+<!--            }, 800);-->
+<!--        }-->
+
+<!--        // Start the rapid flipping after a brief pause-->
+<!--        setTimeout(performRapidFlip, 200);-->
+<!--    });-->
+
+<!--    // Pause slideshow when hovering over the flip card-->
+<!--    flipCard.addEventListener('mouseenter', function() {-->
+<!--        clearInterval(intervalId);-->
+<!--    });-->
+
+<!--    // Resume slideshow when mouse leaves the flip card-->
+<!--    flipCard.addEventListener('mouseleave', function() {-->
+<!--        if (!isFullscreen) {-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Wildebeest: The Great Migrators</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            background: linear-gradient(135deg, #f4f9f9 0%, #e4f0f0 100%);-->
+<!--            color: #333;-->
+<!--            overflow-x: hidden;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        /* Header */-->
+<!--        .header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #00695c;-->
+<!--            font-size: 2.8rem;-->
+<!--            margin-bottom: 10px;-->
+<!--            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .header p {-->
+<!--            color: #4a635f;-->
+<!--            font-size: 1.2rem;-->
+<!--            max-width: 700px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+
+<!--        /* Flip Card Container */-->
+<!--        .flip-container {-->
+<!--            width: 90%;-->
+<!--            max-width: 800px;-->
+<!--            height: 450px;-->
+<!--            margin: 30px auto;-->
+<!--            perspective: 1200px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            position: relative;-->
+<!--            transform-style: preserve-3d;-->
+<!--            transition: transform 0.8s;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 10px 30px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        .flip-card-face {-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            backface-visibility: hidden;-->
+<!--            border-radius: 12px;-->
+<!--            overflow: hidden;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.5s ease;-->
+<!--        }-->
+
+<!--        .flip-card-face.active {-->
+<!--            opacity: 1;-->
+<!--        }-->
+
+<!--        .flip-card-front {-->
+<!--            transform: rotateY(0deg);-->
+<!--        }-->
+
+<!--        .flip-card-back {-->
+<!--            transform: rotateY(180deg);-->
+<!--        }-->
+
+<!--        .flip-card img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        /* Content Section */-->
+<!--        .content {-->
+<!--            max-width: 900px;-->
+<!--            margin: 40px auto;-->
+<!--            padding: 30px;-->
+<!--            background: white;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 6px 20px rgba(0,0,0,0.08);-->
+<!--        }-->
+
+<!--        .content h2 {-->
+<!--            color: #00695c;-->
+<!--            border-bottom: 2px solid #e0f2f1;-->
+<!--            padding-bottom: 10px;-->
+<!--            margin-top: 0;-->
+<!--        }-->
+
+<!--        .content ul {-->
+<!--            padding-left: 20px;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .content li {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+
+<!--        /* Back button */-->
+<!--        .back-btn {-->
+<!--            display: inline-block;-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px 28px;-->
+<!--            background: #00897b;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            text-decoration: none;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s;-->
+<!--            font-weight: 600;-->
+<!--            box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        .back-btn:hover {-->
+<!--            background: #004d40;-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 6px 12px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        /* Fullscreen mode */-->
+<!--        .fullscreen {-->
+<!--            position: fixed !important;-->
+<!--            width: 100vw !important;-->
+<!--            height: 100vh !important;-->
+<!--            top: 0 !important;-->
+<!--            left: 0 !important;-->
+<!--            margin: 0 !important;-->
+<!--            z-index: 9999;-->
+<!--            perspective: 2000px;-->
+<!--            transition: all 0.8s ease;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        .fullscreen .flip-card-face {-->
+<!--            border-radius: 0;-->
+<!--        }-->
+
+<!--        /* Overlay for fullscreen mode */-->
+<!--        .overlay {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            background: rgba(0, 0, 0, 0.8);-->
+<!--            z-index: 9998;-->
+<!--            opacity: 0;-->
+<!--            transition: opacity 0.8s ease;-->
+<!--            pointer-events: none;-->
+<!--        }-->
+
+<!--        .overlay.active {-->
+<!--            opacity: 1;-->
+<!--            pointer-events: all;-->
+<!--        }-->
+
+<!--        /* Navigation dots */-->
+<!--        .dots {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .dot {-->
+<!--            width: 12px;-->
+<!--            height: 12px;-->
+<!--            background: #ccc;-->
+<!--            border-radius: 50%;-->
+<!--            margin: 0 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background 0.3s;-->
+<!--        }-->
+
+<!--        .dot.active {-->
+<!--            background: #00897b;-->
+<!--        }-->
+
+<!--        /* Image error handling */-->
+<!--        .image-error {-->
+<!--            background: linear-gradient(45deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0 100%);-->
+<!--            background-size: 20px 20px;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            color: #888;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .image-error p {-->
+<!--            margin: 10px 0;-->
+<!--            text-align: center;-->
+<!--            padding: 0 20px;-->
+<!--        }-->
+
+<!--        .image-error .error-icon {-->
+<!--            font-size: 3rem;-->
+<!--            margin-bottom: 15px;-->
+<!--        }-->
+
+<!--        /* Debug info */-->
+<!--        .debug-info {-->
+<!--            background-color: #f8d7da;-->
+<!--            color: #721c24;-->
+<!--            padding: 10px;-->
+<!--            border-radius: 5px;-->
+<!--            margin: 10px 0;-->
+<!--            font-size: 0.9rem;-->
+<!--            display: none;-->
+<!--        }-->
+
+<!--        /* Responsive design */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .flip-container {-->
+<!--                height: 350px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 2.2rem;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                padding: 20px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .flip-container {-->
+<!--                height: 250px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 1.8rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--    <div class="header">-->
+<!--        <h1>Wildebeest: The Great Migrators</h1>-->
+<!--        <p>Discover the fascinating journey of Africa's most spectacular migrators</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Debug info (can be enabled if needed) &ndash;&gt;-->
+<!--    <div class="debug-info" id="debugInfo">-->
+<!--        Image loading issues detected. Check console for details.-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Flip Card Container &ndash;&gt;-->
+<!--    <div class="flip-container">-->
+<!--        <div class="flip-card" id="flipCard">-->
+<!--            &lt;!&ndash; Front face (first image) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-front active">-->
+<!--                <img src="/playone/img5.png" alt="Wildebeest herd migrating" onerror="handleImageError(this, 5)">-->
+<!--                <div class="fallback-content" style="display:none">-->
+<!--                    <h3>Wildebeest Migration</h3>-->
+<!--                    <p>Large herd of wildebeest migrating across the savanna</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Back faces (subsequent images) &ndash;&gt;-->
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img6.png" alt="Wildebeest crossing river" onerror="handleImageError(this, 6)">-->
+<!--                <div class="fallback-content" style="display:none">-->
+<!--                    <h3>River Crossing</h3>-->
+<!--                    <p>Wildebeest bravely crossing crocodile-infested rivers</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img7.png" alt="Wildebeest in savanna" onerror="handleImageError(this, 7)">-->
+<!--                <div class="fallback-content" style="display:none">-->
+<!--                    <h3>Savanna Landscape</h3>-->
+<!--                    <p>Wildebeest grazing on the vast African savanna</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="flip-card-face flip-card-back">-->
+<!--                <img src="/playone/img8.png" alt="Close-up of wildebeest" onerror="handleImageError(this, 8)">-->
+<!--                <div class="fallback-content" style="display:none">-->
+<!--                    <h3>Close Up</h3>-->
+<!--                    <p>Close-up view of a wildebeest showing distinctive features</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Navigation dots &ndash;&gt;-->
+<!--    <div class="dots" id="dotsContainer">-->
+<!--        <div class="dot active" data-index="0"></div>-->
+<!--        <div class="dot" data-index="1"></div>-->
+<!--        <div class="dot" data-index="2"></div>-->
+<!--        <div class="dot" data-index="3"></div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Content Section &ndash;&gt;-->
+<!--    <div class="content">-->
+<!--        <h2>About Wildebeests</h2>-->
+<!--        <p>-->
+<!--            Wildebeest, also known as gnus, are large antelopes native to Africa. They are famous-->
+<!--            for their spectacular annual migration across the Serengeti and Maasai Mara, which is-->
+<!--            considered one of the Seven Natural Wonders of Africa.-->
+<!--        </p>-->
+
+<!--        <h2>Key Facts</h2>-->
+<!--        <ul>-->
+<!--            <li><b>Scientific Name:</b> Connochaetes</li>-->
+<!--            <li><b>Habitat:</b> Grasslands and open woodlands of eastern and southern Africa.</li>-->
+<!--            <li><b>Diet:</b> Primarily grazers, feeding on short grasses.</li>-->
+<!--            <li><b>Migration:</b> Over 1.5 million wildebeest migrate annually in search of water and fresh pasture, covering up to 1,800 miles.</li>-->
+<!--            <li><b>Predators:</b> Lions, hyenas, cheetahs, and crocodiles often prey on them during migration.</li>-->
+<!--            <li><b>Lifespan:</b> Up to 20 years in the wild.</li>-->
+<!--        </ul>-->
+
+<!--        <h2>Conservation Status</h2>-->
+<!--        <p>-->
+<!--            Wildebeests are currently listed as Least Concern by the IUCN, but they face threats from-->
+<!--            habitat loss, drought, and illegal hunting. Their migration routes are also increasingly-->
+<!--            fragmented by human development.-->
+<!--        </p>-->
+
+<!--        <a href="/btwo" class="back-btn" id="backBtn">Back to Previous Page</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Fullscreen overlay &ndash;&gt;-->
+<!--<div class="overlay" id="overlay"></div>-->
+
+<!--<script>-->
+<!--    const flipCard = document.getElementById('flipCard');-->
+<!--    const faces = Array.from(flipCard.querySelectorAll('.flip-card-face'));-->
+<!--    const dots = Array.from(document.querySelectorAll('.dot'));-->
+<!--    const overlay = document.getElementById('overlay');-->
+<!--    const container = document.querySelector('.flip-container');-->
+<!--    const body = document.body;-->
+<!--    const debugInfo = document.getElementById('debugInfo');-->
+
+<!--    let currentIndex = 0;-->
+<!--    let normalSpeed = 3000;-->
+<!--    let intervalId;-->
+<!--    let isFullscreen = false;-->
+<!--    let hasImageErrors = false;-->
+
+<!--    // Handle image loading errors-->
+<!--    function handleImageError(imgElement, imageNumber) {-->
+<!--        console.error(`Error loading image ${imageNumber}: ${imgElement.src}`);-->
+<!--        hasImageErrors = true;-->
+<!--        debugInfo.style.display = 'block';-->
+
+<!--        const parent = imgElement.parentNode;-->
+<!--        parent.classList.add('image-error');-->
+
+<!--        // Hide the broken image and show fallback content-->
+<!--        imgElement.style.display = 'none';-->
+<!--        const fallback = parent.querySelector('.fallback-content');-->
+<!--        if (fallback) {-->
+<!--            fallback.style.display = 'flex';-->
+<!--        }-->
+
+<!--        // Log the error for debugging-->
+<!--        debugInfo.innerHTML += `<br>Image ${imageNumber} failed to load: ${imgElement.src}`;-->
+<!--    }-->
+
+<!--    // Try alternative image paths if primary fails-->
+<!--    function tryAlternativeImage(imgElement, imageNumber) {-->
+<!--        const alternatives = [-->
+<!--            `/playone/img${imageNumber}.png`,-->
+<!--            `/playone/IMG${imageNumber}.PNG`,-->
+<!--            `/playone/image${imageNumber}.jpg`,-->
+<!--            `/playone/image${imageNumber}.jpeg`,-->
+<!--            `https://placehold.co/800x450/4a635f/white?text=Wildebeest+${imageNumber}`-->
+<!--        ];-->
+
+<!--        let currentTry = 0;-->
+
+<!--        function tryNext() {-->
+<!--            if (currentTry < alternatives.length) {-->
+<!--                imgElement.src = alternatives[currentTry];-->
+<!--                currentTry++;-->
+<!--            }-->
+<!--        }-->
+
+<!--        imgElement.onerror = tryNext;-->
+<!--        tryNext();-->
+<!--    }-->
+
+<!--    // Initialize: show only the first face-->
+<!--    faces.forEach((face, idx) => {-->
+<!--        if (idx > 0) {-->
+<!--            face.style.opacity = 0;-->
+<!--        }-->
+<!--    });-->
+
+<!--    function showNextImage() {-->
+<!--        const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--        // Hide current face-->
+<!--        faces[currentIndex].classList.remove('active');-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show next face-->
+<!--        faces[nextIndex].classList.add('active');-->
+<!--        faces[nextIndex].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[nextIndex].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--        currentIndex = nextIndex;-->
+<!--    }-->
+
+<!--    function goToImage(index) {-->
+<!--        // Hide current face-->
+<!--        faces[currentIndex].classList.remove('active');-->
+<!--        faces[currentIndex].style.opacity = 0;-->
+
+<!--        // Show target face-->
+<!--        faces[index].classList.add('active');-->
+<!--        faces[index].style.opacity = 1;-->
+
+<!--        // Update active dot-->
+<!--        dots[currentIndex].classList.remove('active');-->
+<!--        dots[index].classList.add('active');-->
+
+<!--        // Apply flip animation-->
+<!--        flipCard.style.transform = `rotateY(${180 * (index)}deg)`;-->
+
+<!--        currentIndex = index;-->
+<!--    }-->
+
+<!--    function startSlideshow(speed) {-->
+<!--        clearInterval(intervalId);-->
+<!--        intervalId = setInterval(showNextImage, speed);-->
+<!--    }-->
+
+<!--    // Start normal slideshow-->
+<!--    startSlideshow(normalSpeed);-->
+
+<!--    // Add click events to dots-->
+<!--    dots.forEach(dot => {-->
+<!--        dot.addEventListener('click', function() {-->
+<!--            const index = parseInt(this.getAttribute('data-index'));-->
+<!--            goToImage(index);-->
+<!--            // Restart slideshow with new timing-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Back button: fullscreen fast flip and redirect-->
+<!--    document.getElementById('backBtn').addEventListener('click', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const targetUrl = this.href;-->
+
+<!--        if (isFullscreen) return;-->
+<!--        isFullscreen = true;-->
+
+<!--        // Disable scrolling-->
+<!--        body.style.overflow = 'hidden';-->
+
+<!--        // Activate overlay with a faster transition-->
+<!--        overlay.style.transition = 'opacity 0.5s ease';-->
+<!--        overlay.classList.add('active');-->
+
+<!--        // Make flip container fullscreen with faster transition-->
+<!--        container.style.transition = 'all 0.5s ease';-->
+<!--        container.classList.add('fullscreen');-->
+
+<!--        // Pause normal slideshow-->
+<!--        clearInterval(intervalId);-->
+
+<!--        // Speed up the flip animation-->
+<!--        flipCard.style.transition = 'transform 0.3s ease';-->
+
+<!--        // Fast flipping animation - show all images multiple times very quickly-->
+<!--        let flipsCompleted = 0;-->
+<!--        const totalFlips = 12; // Show all images multiple times-->
+<!--        const flipSpeed = 100; // Very fast flips (100ms)-->
+
+<!--        // Function to perform rapid flipping-->
+<!--        function performRapidFlip() {-->
+<!--            if (flipsCompleted >= totalFlips) {-->
+<!--                // All flips completed, now fade out-->
+<!--                fadeOutAndRedirect(targetUrl);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Show next image-->
+<!--            const nextIndex = (currentIndex + 1) % faces.length;-->
+
+<!--            // Hide current face-->
+<!--            faces[currentIndex].classList.remove('active');-->
+<!--            faces[currentIndex].style.opacity = 0;-->
+
+<!--            // Show next face-->
+<!--            faces[nextIndex].classList.add('active');-->
+<!--            faces[nextIndex].style.opacity = 1;-->
+
+<!--            // Apply flip animation-->
+<!--            flipCard.style.transform = `rotateY(${180 * (nextIndex)}deg)`;-->
+
+<!--            currentIndex = nextIndex;-->
+<!--            flipsCompleted++;-->
+
+<!--            // Schedule next flip-->
+<!--            setTimeout(performRapidFlip, flipSpeed);-->
+<!--        }-->
+
+<!--        // Function to fade out and redirect-->
+<!--        function fadeOutAndRedirect(url) {-->
+<!--            // Create fade out effect-->
+<!--            container.style.transition = 'opacity 0.8s ease';-->
+<!--            container.style.opacity = 0;-->
+
+<!--            overlay.style.transition = 'opacity 0.8s ease';-->
+<!--            overlay.style.opacity = 0;-->
+
+<!--            // Redirect after fade completes-->
+<!--            setTimeout(() => {-->
+<!--                window.location.href = url;-->
+<!--            }, 800);-->
+<!--        }-->
+
+<!--        // Start the rapid flipping after a brief pause-->
+<!--        setTimeout(performRapidFlip, 200);-->
+<!--    });-->
+
+<!--    // Pause slideshow when hovering over the flip card-->
+<!--    flipCard.addEventListener('mouseenter', function() {-->
+<!--        clearInterval(intervalId);-->
+<!--    });-->
+
+<!--    // Resume slideshow when mouse leaves the flip card-->
+<!--    flipCard.addEventListener('mouseleave', function() {-->
+<!--        if (!isFullscreen) {-->
+<!--            startSlideshow(normalSpeed);-->
+<!--        }-->
+<!--    });-->
+
+<!--    // Try to load alternative images for any that might fail-->
+<!--    document.querySelectorAll('img').forEach((img, index) => {-->
+<!--        img.addEventListener('error', function() {-->
+<!--            tryAlternativeImage(this, index + 5); // Images are numbered 5-8-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
