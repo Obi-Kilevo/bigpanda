@@ -15,7 +15,7 @@
         <th>Tour Package</th>
         <th>Tour Category</th>
         <th>Destination</th>
-        <th>Total Budget</th>
+
     </tr>
     <tr th:each="booking : ${bookings}">
         <td th:text="${booking.id}"></td>
@@ -26,7 +26,7 @@
         <td th:text="${booking.tourPackage}"></td>
         <td th:text="${booking.category}"></td>
         <td th:text="${booking.destination}"></td>
-        <td th:text="${booking.totalBudget}"></td>
+
     </tr>
 </table>
 </body>
