@@ -195,8 +195,8 @@ public class BookingEntity {
     @Column(name = "duration", nullable = false)
     private Integer duration;
 
-    @Column(name = "total_budget", nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalBudget;
+//    @Column(name = "total_budget", nullable = false, precision = 10, scale = 2)
+//    private BigDecimal totalBudget;
 
     @Column(name = "destination", nullable = false, length = 255)
     private String destination;
@@ -276,14 +276,6 @@ public class BookingEntity {
         this.duration = duration;
     }
 
-    public BigDecimal getTotalBudget() {
-        return totalBudget;
-    }
-
-    public void setTotalBudget(BigDecimal totalBudget) {
-        this.totalBudget = totalBudget;
-    }
-
     public String getDestination() {
         return destination;
     }
@@ -319,7 +311,6 @@ public class BookingEntity {
                 ", numberOfChildren=" + numberOfChildren +
                 ", tourPackage='" + tourPackage + '\'' +
                 ", duration=" + duration +
-                ", totalBudget=" + totalBudget +
                 ", destination='" + destination + '\'' +
                 ", createdAt=" + createdAt +
                 ", category='" + category + '\'' +

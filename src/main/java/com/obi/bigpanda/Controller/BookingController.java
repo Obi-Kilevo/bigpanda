@@ -87,21 +87,6 @@ public class BookingController {
         return "pandaone/bookings/bookings";
     }
 
-
-
-
-
-//@GetMapping("/form")
-//public String showBookingForm(@RequestParam(required = false) Long tourId, Model model) {
-//    BookingEntity booking = new BookingEntity();
-//    if (tourId != null) {
-//        booking.setTourId(tourId);
-//    }
-//    model.addAttribute("booking", booking);
-//    model.addAttribute("tours", adminRepository.findAll());
-//    return "pandaone/bookings/booking-form";
-//}
-
     @GetMapping("/form")
     public String showBookingForm(@RequestParam(required = false) Long tourId, Model model) {
         BookingEntity booking = new BookingEntity();
@@ -114,20 +99,8 @@ public class BookingController {
     }
 
 
-//    @GetMapping("/me")
-//    public String showMeForm(@RequestParam(required = false) Long tourId, Model model) {
-//        BookingEntity booking = new BookingEntity();
-//        if (tourId != null) {
-//            booking.setTourId(tourId);
-//        }
-//        model.addAttribute("booking", booking);
-//        return "pandaone/bookings/me"; // This should match your template name
-//    }
 
-
-
-
-    @GetMapping("/me")
+    @GetMapping ("/me")
     public String showMeForm(@RequestParam(required = false) Long tourId, Model model) {
         BookingEntity booking = new BookingEntity();
         if (tourId != null) {
@@ -145,6 +118,7 @@ public class BookingController {
 
 
 
+
     @PostMapping("/submit")
     public String submitBooking(@ModelAttribute BookingEntity booking) {
         booking.setCreatedAt(LocalDateTime.now());
@@ -155,17 +129,6 @@ public class BookingController {
                 "&tourPackage=" + booking.getTourPackage();
     }
 
-//    @PostMapping("/submit")
-//    public String submitBooking(@ModelAttribute BookingEntity booking) {
-//        booking.setCreatedAt(LocalDateTime.now()); // Add this line
-//        bookingRepository.save(booking);
-//        return "redirect:/bookings/confirmation";
-//    }
-
-//    @GetMapping("/confirmation")
-//    public String showConfirmation() {
-//        return "pandaone/bookings/booking-confirmation";
-//    }
 
     @GetMapping("/confirmation")
     public String showConfirmation(@RequestParam String userName, @RequestParam String tourPackage, Model model) {

@@ -16,38 +16,11 @@ import java.util.Locale;
 @RequestMapping("/parkspanda")
 public class NationalParksController {
 
-//    @GetMapping("/gorge")
-//    public String showGorgeForm(Model model) {
-//        return "olduvai/gorge";
-//    }
-
-
-
-
-
 
     @Autowired  // ← Add this annotation
     private SessionLocaleResolver localeResolver;
 
-//    @GetMapping("/gorge")
-//    public String showGorgeForm(@RequestParam(name="lang", required=false) String lang,
-//                                HttpServletRequest request,
-//                                HttpServletResponse response,
-//                                Model model) {  // ← Add Model parameter
-//
-//        if (lang != null) {
-//            Locale locale;
-//            switch(lang) {
-//                case "zh": locale = Locale.CHINESE; break;
-//                case "sw": locale = new Locale("sw"); break;
-//                case "de": locale = Locale.GERMAN; break;
-//                default:   locale = Locale.ENGLISH; break;
-//            }
-//            localeResolver.setLocale(request, response, locale);
-//            model.addAttribute("lang", lang);  // ← Add this line
-//        }
-//        return "olduvai/gorge";
-//    }
+
 @GetMapping("/gorge")
 public String showGorgeForm(@RequestParam(name="lang", required=false) String lang,
                             HttpServletRequest request,
@@ -78,11 +51,6 @@ public String showGorgeForm(@RequestParam(name="lang", required=false) String la
 
 
 
-
-//    @GetMapping("/kilimanjaro")
-//    public String showKilimanjaro(Model model) {
-//        return "kilimanjaro/parks";
-//    }
 
     @GetMapping("/kilimanjaro")
     public String showKilimanjaro(@RequestParam(name="lang", required=false) String lang,

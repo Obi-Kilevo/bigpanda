@@ -1,63 +1,4 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Book Tour</title>-->
-<!--</head>-->
-<!--<body>-->
 
-<!--<h2>Book Your Tour</h2>-->
-
-<!--<form th:action="@{/bookings/submit}" method="post" th:object="${booking}">-->
-
-<!--    &lt;!&ndash; Hidden field for tour_id &ndash;&gt;-->
-<!--    <input type="hidden" th:field="*{tourPackage}" />-->
-
-<!--    <input type="hidden" th:field="*{tourId}" />-->
-
-<!--    <label>Your Name:</label>-->
-<!--    <input type="text" th:field="*{userName}" required><br><br>-->
-
-<!--    <label>Your Email:</label>-->
-<!--    <input type="email" th:field="*{userEmail}" required><br><br>-->
-
-<!--    <label>Number of Adults:</label>-->
-<!--    <input type="number" th:field="*{numberOfAdults}" required min="1"><br><br>-->
-
-<!--    <label>Number of Children:</label>-->
-<!--    <input type="number" th:field="*{numberOfChildren}" required min="0"><br><br>-->
-
-<!--    <label>Tour Package:</label>-->
-<!--    <input type="text" th:field="*{tourPackage}" required><br><br>-->
-
-
-
-
-<!--    <div>-->
-<!--        <label>Tour Category:</label>-->
-<!--        <select th:field="*{category}" required>-->
-<!--            <option value="">Select Category</option>-->
-<!--            <option value="Family">Family</option>-->
-<!--            <option value="Marriage">Marriage</option>-->
-<!--            <option value="Divorce">Divorce</option>-->
-<!--        </select>-->
-<!--    </div>-->
-
-
-
-<!--    <label>Duration (days):</label>-->
-<!--    <input type="number" th:field="*{duration}" required min="1"><br><br>-->
-
-<!--    <label>Total Budget ($):</label>-->
-<!--    <input type="number" th:field="*{totalBudget}" step="0.01" required><br><br>-->
-
-<!--    <label>Destination:</label>-->
-<!--    <input type="text" th:field="*{destination}" required><br><br>-->
-
-<!--    <button type="submit">Complete Booking</button>-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->
 
 
 <!DOCTYPE html>
@@ -108,11 +49,15 @@
     <label>Duration (days):</label>
     <input type="number" th:field="*{duration}" required min="1"><br><br>
 
-    <label>Total Budget ($):</label>
-    <input type="number" th:field="*{totalBudget}" step="0.01" required><br><br>
 
-    <label>Destination:</label>
-    <input type="text" th:field="*{destination}" required><br><br>
+    <label>Destination:</label><br>
+    <select th:field="*{destination}" size="3" required>
+        <option value="Serengeti National Park">Serengeti National Park</option>
+        <option value="Arusha National Park">Arusha National Park</option>
+        <option value="Mikumi National Park">Mikumi National Park</option>
+    </select>
+    <br><br>
+
 
     <button type="submit">Complete Booking</button>
 </form>

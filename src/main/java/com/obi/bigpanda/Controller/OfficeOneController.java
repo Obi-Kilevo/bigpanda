@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/bigone")
-public class OfficeOneEntity {
+public class OfficeOneController {
 
 
     @GetMapping
@@ -24,5 +24,10 @@ public class OfficeOneEntity {
     @GetMapping("/about")
     private String aboutUs() {
         return "aboutUs/today";
+    }
+
+    @GetMapping("/dividerOne")
+    private String dividing() {
+        return "office/divide";
     }
 }
