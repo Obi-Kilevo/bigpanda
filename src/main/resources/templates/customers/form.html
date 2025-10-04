@@ -6,6 +6,8 @@
 <body>
 <h2>Register Customer</h2>
 
+<p th:if="${error}" style="color: red;" th:text="${error}"></p>
+
 <form th:action="@{/reg/submit}" th:object="${customer}" method="post">
   <label for="nickname">Nickname:</label><br>
   <input type="text" id="nickname" th:field="*{nickname}" required><br><br>
@@ -19,3 +21,4 @@
 <p th:if="${param.success}">Customer registered successfully!</p>
 </body>
 </html>
+

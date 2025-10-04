@@ -1,0 +1,27 @@
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Park Name</th>
+        <th>Guest Session ID</th>
+        <th>Liked At</th>
+    </tr>
+    <tr th:each="like : ${parkLikes}">
+        <td th:text="${like.id}"></td>
+        <td>
+            <span th:switch="${like.parkId}">
+                <span th:case="1">Arusha National Park</span>
+                <span th:case="2">Mount Kilimanjaro</span>
+                <span th:case="3">Kikuletwa Hot Spring</span>
+                <span th:case="4">Tarangire National Park</span>
+                <span th:case="5">Olduvai Gorge</span>
+                <span th:case="6">Ruaha National Park</span>
+                <span th:case="7">Ngorongoro Crater</span>
+                <span th:case="8">Mkomazi National Park</span>
+                <span th:case="9">Serengeti National Park</span>
+                <span th:case="10">Manyara National Park</span>
+            </span>
+        </td>
+        <td th:text="${like.guestSessionId}"></td>
+        <td th:text="${like.createdAt}"></td>
+    </tr>
+</table>

@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomersRepository extends JpaRepository<CustomersEntity, Long> {
     CustomersEntity findByNickname(String nickname);
+
+
+
 }

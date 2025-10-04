@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/hi")
 public class mamboController {
 
-    @GetMapping
-    public String showme() {
-        return "test/me";
-    }
+//    @GetMapping
+//    public String showme() {
+//        return "test/me";
+//    }
 
     @GetMapping("/m")
     public String manu() {
         return "test2/you";
 
+    }
+    @GetMapping("/hii")
+    public String showhii() {
+        return "test/hii";
     }
 
     @GetMapping("/kikuletwa")
