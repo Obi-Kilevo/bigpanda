@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Panda Safari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff; /* Changed to pure white */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 50px;
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #3498db;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 48px;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .welcome-text {
+            font-size: 28px;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .journey-text {
+            font-size: 24px;
+            color: #e74c3c;
+            font-weight: 600;
+            margin-bottom: 35px;
+        }
+
+        .love-text {
+            font-size: 32px;
+            font-weight: 700;
+            color: transparent;
+            background: linear-gradient(45deg, #e74c3c, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            height: 45px;
+            margin-top: 20px;
+        }
+
+        .love-text::after {
+            content: "|";
+            animation: blink 1s infinite;
+        }
+
+        .image-container {
+            position: relative;
+            width: 520px;
+            height: 360px;
+            margin-right: 2px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .fade-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .fade-image.active {
+            opacity: 1;
+        }
+
+        .image-note {
+            margin-top: 15px;
+            margin-right: 2px;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: right;
+            font-style: italic;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left-panel">
+        <div class="logo-title">
+            <img src="/uploads/panda.jpg" alt="Logo" class="logo">
+            <h1>Big Panda Safari</h1>
+        </div>
+        <p class="welcome-text">Welcome to Big Panda Safari</p>
+        <p class="journey-text">Your Journey Starts Here</p>
+        <div class="love-text" id="loveText"></div>
+    </div>
+
+    <div class="right-panel">
+        <div class="image-container">
+            <img src="/uploads/panda.jpg" alt="Panda" class="fade-image active">
+            <img src="/uploads/swala.png" alt="Swala" class="fade-image">
+        </div>
+        <!--        <div class="image-note">Images transition every 4 seconds</div>-->
+        <div class="image-note"> </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Image fading functionality
+        const images = document.querySelectorAll('.fade-image');
+        let currentIndex = 0;
+
+        function fadeImages() {
+            images.forEach(img => img.classList.remove('active'));
+            images[currentIndex].classList.add('active');
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        fadeImages();
+        setInterval(fadeImages, 4000);
+
+        // Auto-typing text functionality
+        const loveText = document.getElementById('loveText');
+        const messages = [
+            "We Love You",
+            "We Care About You",
+            "You Are Special",
+            "Welcome Home",
+            "Adventure Awaits"
+        ];
+
+        let messageIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function typeText() {
+            const currentMessage = messages[messageIndex];
+
+            if (isDeleting) {
+                // Deleting text
+                loveText.textContent = currentMessage.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                // Typing text
+                loveText.textContent = currentMessage.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+
+            // Check if we've finished typing the current message
+            if (!isDeleting && charIndex === currentMessage.length) {
+                // Pause at the end of typing
+                typingSpeed = 1500;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Move to next message after deleting
+                isDeleting = false;
+                messageIndex = (messageIndex + 1) % messages.length;
+                typingSpeed = 500;
+            }
+
+            setTimeout(typeText, typingSpeed);
+        }
+
+        // Start the typing animation
+        setTimeout(typeText, 1000);
+    });
+</script>
+</body>
+</html>

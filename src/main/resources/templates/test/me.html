@@ -168,10 +168,114 @@
             transform: translateY(-2px);
         }
 
+
+
+
+
+
+
+
+
+
+
+        .heart-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .heart-btn:hover {
+            background: #f8f9fa;
+            transform: scale(1.1);
+        }
+
+        .heart-btn i {
+            font-size: 1.2rem;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .heart-btn .fas {
+            color: #e25555;
+        }
+
+        .heart-btn.liked {
+            background: rgba(226, 85, 85, 0.1);
+        }
+
+
+
+
+
+
+
+
+/*//kuhusu cancel button*/
+        .suggestion-item.cancel-btn {
+            background: #dc3545;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: 2px solid #c82333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            transform: scale(1.05);
+        }
+
+        .suggestion-item.cancel-btn:hover {
+            background: #c82333;
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+
+        .suggestion-item.cancel-btn i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+
+
+
+
+
+
+        /*remove if no good effect*/
+
+        /*.like-status {*/
+        /*    position: absolute;*/
+        /*    top: 55px;*/
+        /*    right: 10px;*/
+        /*    background: rgba(255,255,255,0.9);*/
+        /*    padding: 2px 8px;*/
+        /*    border-radius: 10px;*/
+        /*    font-size: 0.8rem;*/
+        /*    font-weight: bold;*/
+        /*    color: #555;*/
+        /*    transition: all 0.3s ease;*/
+        /*}*/
     </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
 <div class="container">
+
+
+    <base href="http://localhost:9000/">
+
 
     <h2>Big Panda's Premier a National Park</h2>
     <div class="search-container">
@@ -187,53 +291,139 @@
 
     <div class="image-options">
         <a href="/hi/arusha" target="_top" class="image-option">
-            <img src="arusha/2.png" alt="Arusha">
+            <img src="/test/home/arusha/1.png" alt="Arusha">
             <div class="park-name">Arusha National Park</div>
+
+<!--            <button class="like-btn" data-park-id="1">Like</button>-->
+
+            <button class="heart-btn" data-park-id="1">
+                <i class="far fa-heart"></i>
+            </button>
+
+<!--            //i added tis line toooooo to every park-->
+            <div class="like-status">Like</div>
+
         </a>
 
         <a href="/hi/kilimanjaro" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Kilimanjaro">
+            <img src="test/kilimanjaro/1.png" alt="Kilimanjaro">
             <div class="park-name">Mount Kilimanjaro</div>
+
+<!--            <button class="like-btn" data-park-id="2">Like</button>-->
+
+
+            <button class="heart-btn" data-park-id="2">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/kikuletwa" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Kikuletwa">
+            <img src="test/home/kikuletwa/1.png" alt="Kikuletwa">
             <div class="park-name">Kikuletwa Hot Spring</div>
+
+<!--            <button class="like-btn" data-park-id="3">Like</button>-->
+
+            <button class="heart-btn" data-park-id="3">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/tarangire" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Tarangire">
+            <img src="test/tarangire/1.png" alt="Tarangire">
             <div class="park-name">Tarangire National Park</div>
+
+<!--            <button class="like-btn" data-park-id="4">Like</button>-->
+
+            <button class="heart-btn" data-park-id="4">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/olduvai" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Olduvai Gorge">
+            <img src="test/home/gorge/1.png" alt="Olduvai Gorge">
             <div class="park-name">Olduvai Gorge</div>
+
+<!--            <button class="like-btn" data-park-id="5">Like</button>-->
+
+            <button class="heart-btn" data-park-id="5">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/ruaha" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Ruaha">
+            <img src="test/home/ruaha/1.png" alt="Ruaha">
             <div class="park-name">Ruaha National Park</div>
+
+<!--            <button class="like-btn" data-park-id="6">Like</button>-->
+
+            <button class="heart-btn" data-park-id="6">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/ngorongoro" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Ngorongoro">
+            <img src="test/home/ngorongoro/1.png" alt="Ngorongoro">
             <div class="park-name">Ngorongoro Crater</div>
+
+<!--            <button class="like-btn" data-park-id="7">Like</button>-->
+
+            <button class="heart-btn" data-park-id="7">
+                <i class="far fa-heart"></i>
+            </button>
+
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/mkomazi" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Mkomazi">
+            <img src="test/home/mkomazi/1.png" alt="Mkomazi">
             <div class="park-name">Mkomazi National Park</div>
+
+<!--            <button class="like-btn" data-park-id="8">Like</button>-->
+
+            <button class="heart-btn" data-park-id="8">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/serengeti" target="_top" class="image-option">
-            <img src="arusha/4.png" alt="Serengeti">
+            <img src="test/home/serengeti/1.png" alt="Serengeti">
             <div class="park-name">Serengeti National Park</div>
+
+<!--            <button class="like-btn" data-park-id="9">Like</button>-->
+
+            <button class="heart-btn" data-park-id="9">
+                <i class="far fa-heart"></i>
+            </button>
+
+
+            <div class="like-status">Like</div>
         </a>
 
         <a href="/hi/manyara" target="_top" class="image-option">
-            <img src="arusha/8.png" alt="Manyara">
+            <img src="test/home/manyara/1.png" alt="Manyara">
             <div class="park-name">Manyara National Park</div>
+
+<!--            <button class="like-btn" data-park-id="10">Like</button>-->
+
+            <button class="heart-btn" data-park-id="10">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+
         </a>
 
     </div>
@@ -241,156 +431,419 @@
 </div>
 
 <script>
-    document.querySelectorAll('.image-option').forEach(option => {
-        option.addEventListener('click', function() {
-            window.location.href = this.getAttribute('data-target');
-        });
-    });
 
-// searching parks here, y last add
+    // for like/dislike status
+    // // Update text label
+    // const likeStatus = this.parentElement.querySelector('.like-status');
+    // if (likeStatus) {
+    //     likeStatus.textContent = newLikedState ? 'Liked' : 'Like';
+    // }
 
-    // Search functionality
+
+    // Park data for searching
+    // Park data for searching
+    const parks = [
+        { id: 1, name: "Arusha National Park" },
+        { id: 2, name: "Mount Kilimanjaro" },
+        { id: 3, name: "Kikuletwa Hot Spring" },
+        { id: 4, name: "Tarangire National Park" },
+        { id: 5, name: "Olduvai Gorge" },
+        { id: 6, name: "Ruaha National Park" },
+        { id: 7, name: "Ngorongoro Crater" },
+        { id: 8, name: "Mkomazi National Park" },
+        { id: 9, name: "Serengeti National Park" },
+        { id: 10, name: "Manyara National Park" }
+    ];
+
+    // Get DOM elements
     const searchInput = document.getElementById('parkSearch');
-    const parkOptions = document.querySelectorAll('.image-option');
-    const suggestions = document.getElementById('suggestions');
+    const suggestionsDiv = document.getElementById('suggestions');
     const suggestionList = document.getElementById('suggestionList');
 
-    // Get all park names
-    const allParkNames = Array.from(parkOptions).map(option =>
-        option.querySelector('.park-name').textContent
-    );
-
+    // Add input event listener for search
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase().trim();
-        let foundCount = 0;
 
-        parkOptions.forEach(option => {
-            const parkName = option.querySelector('.park-name').textContent.toLowerCase();
-            if (parkName.includes(searchTerm)) {
-                option.style.display = 'block';
-                foundCount++;
-            } else {
-                option.style.display = 'none';
-            }
-        });
+        // If search is empty, smoothly show all parks
+        if (searchTerm === '') {
+            smoothlyShowAllParks();
+            suggestionsDiv.classList.remove('show');
+            return;
+        }
 
-        // Show suggestions if no results
-        if (searchTerm.length > 0 && foundCount === 0) {
-            showSuggestions(searchTerm);
-            suggestions.classList.add('show');
-        } else {
-            suggestions.classList.remove('show');
+        // Find matches
+        const matches = parks.filter(park =>
+            park.name.toLowerCase().includes(searchTerm)
+        );
+
+        // If exact match found, show only that park
+        if (matches.length === 1 && matches[0].name.toLowerCase() === searchTerm) {
+            filterParks(matches[0].name);
+            suggestionsDiv.classList.remove('show');
+        }
+        // If close matches found, show them
+        else if (matches.length > 0) {
+            filterParksByMultiple(matches);
+            suggestionsDiv.classList.remove('show');
+        }
+        // If no matches, show all parks as options
+        else {
+            showAllParksAsOptions();
+            suggestionsDiv.classList.add('show');
         }
     });
 
-    function showSuggestions(searchTerm) {
+    // New function to smoothly show all parks with fade effect
+    function smoothlyShowAllParks() {
+        const parkElements = document.querySelectorAll('.image-option');
+
+        parkElements.forEach(element => {
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            element.style.opacity = '1';
+            element.style.transform = 'scale(1)';
+            element.style.display = 'block';
+        });
+    }
+
+    function filterParks(parkName) {
+        const parkElements = document.querySelectorAll('.image-option');
+
+        parkElements.forEach(element => {
+            const elementParkName = element.querySelector('.park-name').textContent;
+
+            // Add fade transition
+            element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+            if (elementParkName === parkName) {
+                // Show matching park with fade in
+                element.style.opacity = '1';
+                element.style.transform = 'scale(1)';
+                element.style.display = 'block';
+            } else {
+                // Hide non-matching parks with fade out
+                element.style.opacity = '0';
+                element.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    function filterParksByMultiple(matchingParks) {
+        const parkElements = document.querySelectorAll('.image-option');
+        const matchingNames = matchingParks.map(park => park.name);
+
+        parkElements.forEach(element => {
+            const elementParkName = element.querySelector('.park-name').textContent;
+
+            element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+            if (matchingNames.includes(elementParkName)) {
+                // Show matching parks
+                element.style.opacity = '1';
+                element.style.transform = 'scale(1)';
+                element.style.display = 'block';
+            } else {
+                // Hide non-matching parks
+                element.style.opacity = '0';
+                element.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    function showAllParksAsOptions() {
         suggestionList.innerHTML = '';
 
-        // Find similar park names
-        const similarParks = allParkNames.filter(parkName =>
-            parkName.toLowerCase().includes(searchTerm) ||
-            searchTerm.split(' ').some(word => parkName.toLowerCase().includes(word))
-        );
+        // Add larger, red cancel button
+        const cancelLi = document.createElement('li');
+        cancelLi.className = 'suggestion-item cancel-btn';
+        cancelLi.innerHTML = '<i class="fas fa-times"></i> Cancel & Show All Parks';
+        cancelLi.addEventListener('click', function() {
+            searchInput.value = '';
+            smoothlyShowAllParks();
+            suggestionsDiv.classList.remove('show');
+        });
+        suggestionList.appendChild(cancelLi);
 
-        // If no similar parks, show all parks as suggestions
-        const parksToShow = similarParks.length > 0 ? similarParks : allParkNames;
-
-        parksToShow.forEach(parkName => {
+        // Add all parks as options
+        parks.forEach(park => {
             const li = document.createElement('li');
             li.className = 'suggestion-item';
-            li.textContent = parkName;
-            li.addEventListener('click', () => {
-                searchInput.value = parkName;
-                searchInput.dispatchEvent(new Event('input'));
+            li.textContent = park.name;
+            li.addEventListener('click', function() {
+                searchInput.value = park.name;
+                filterParks(park.name);
+                suggestionsDiv.classList.remove('show');
             });
             suggestionList.appendChild(li);
         });
+
+        // Show all parks faded in background
+        const parkElements = document.querySelectorAll('.image-option');
+        parkElements.forEach(element => {
+            element.style.transition = 'opacity 0.3s ease';
+            element.style.opacity = '0.3';
+        });
     }
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.search-container')) {
+            suggestionsDiv.classList.remove('show');
+            // Restore full opacity when suggestions close
+            const parkElements = document.querySelectorAll('.image-option');
+            parkElements.forEach(element => {
+                element.style.opacity = '1';
+            });
+        }
+    });
+
+    // Clear search and show all parks when escape key is pressed
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            this.value = '';
+            smoothlyShowAllParks();
+            suggestionsDiv.classList.remove('show');
+        }
+    });
+    // Add this script to your me.html
+
+
+
+
+
+//
+// //hapa ni kwa ajili ya likes tu
+//     document.querySelectorAll('.heart-btn').forEach(button => {
+//         button.addEventListener('click', function(event) {
+//             event.preventDefault();
+//             event.stopPropagation(); // Prevent triggering the parent link
+//
+//             const parkId = this.getAttribute('data-park-id');
+//             const heartIcon = this.querySelector('i');
+//
+//             // Toggle visual state immediately for better user experience
+//             const isLiked = heartIcon.classList.contains('fas');
+//
+//             if (isLiked) {
+//                 // Currently liked - unlike it
+//                 heartIcon.classList.replace('fas', 'far');
+//                 this.classList.remove('liked');
+//             } else {
+//                 // Currently not liked - like it
+//                 heartIcon.classList.replace('far', 'fas');
+//                 this.classList.add('liked');
+//             }
+//
+//             // Send the like/unlike to your backend
+//             fetch('/likes/park/' + parkId, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     liked: !isLiked // Send the new state
+//                 })
+//             })
+//                 .then(response => {
+//                     if (!response.ok) {
+//                         // Revert visual state if server request failed
+//                         if (!isLiked) {
+//                             heartIcon.classList.replace('fas', 'far');
+//                             this.classList.remove('liked');
+//                         } else {
+//                             heartIcon.classList.replace('far', 'fas');
+//                             this.classList.add('liked');
+//                         }
+//                         console.error('Server error:', response.status);
+//                     }
+//                     return response.text();
+//                 })
+//                 .then(data => {
+//                     console.log('Response:', data);
+//                 })
+//                 .catch(error => {
+//                     // Revert visual state if fetch failed
+//                     if (!isLiked) {
+//                         heartIcon.classList.replace('fas', 'far');
+//                         this.classList.remove('liked');
+//                     } else {
+//                         heartIcon.classList.replace('far', 'fas');
+//                         this.classList.add('liked');
+//                     }
+//                     console.error('Fetch error:', error);
+//                 });
+//         });
+//     });
+//
+//
+//
+//
+//
+//     //registered ones
+//     // ===== KEEP THIS EXISTING ONE FOR UNREGISTERED USERS =====
+//     document.querySelectorAll('.heart-btn').forEach(button => {
+//         button.addEventListener('click', function(event) {
+//             // ... your existing unregistered code stays EXACTLY as is ...
+//         });
+//     });
+//
+//     // ===== ADD THIS NEW ONE FOR REGISTERED USERS =====
+//     document.querySelectorAll('.heart-btn').forEach(button => {
+//         button.addEventListener('click', function(event) {
+//             event.preventDefault();
+//             event.stopPropagation();
+//
+//             const parkId = this.getAttribute('data-park-id');
+//             const customerId = localStorage.getItem('currentCustomerId');
+//
+//             // If no customer ID, let the unregistered handler take over
+//             if (!customerId) {
+//                 return; // Unregistered handler will process this
+//             }
+//
+//             // === REGISTERED USER CODE CONTINUES HERE ===
+//             const heartIcon = this.querySelector('i');
+//             const isLiked = heartIcon.classList.contains('fas');
+//
+//             if (isLiked) {
+//                 heartIcon.classList.replace('fas', 'far');
+//                 this.classList.remove('liked');
+//             } else {
+//                 heartIcon.classList.replace('far', 'fas');
+//                 this.classList.add('liked');
+//             }
+//
+//             // Send to REGISTERED endpoint
+//             fetch('/reg/likes/park/' + parkId + '?customerId=' + customerId, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 }
+//             })
+//                 .then(response => {
+//                     if (!response.ok) {
+//                         // Revert if failed
+//                         if (!isLiked) {
+//                             heartIcon.classList.replace('fas', 'far');
+//                             this.classList.remove('liked');
+//                         } else {
+//                             heartIcon.classList.replace('far', 'fas');
+//                             this.classList.add('liked');
+//                         }
+//                     }
+//                 })
+//                 .catch(error => {
+//                     console.error('Error:', error);
+//                     // Revert visual state
+//                     if (!isLiked) {
+//                         heartIcon.classList.replace('fas', 'far');
+//                         this.classList.remove('liked');
+//                     } else {
+//                         heartIcon.classList.replace('far', 'fas');
+//                         this.classList.add('liked');
+//                     }
+//                 });
+//
+//             event.stopImmediatePropagation(); // Prevent unregistered handler
+//         });
+//     });
+
+
+
+
+
+//futa later
+    //new Delete if not effect
+    // All your park search code here...
+
+    // ===== SINGLE UNIFIED HANDLER FOR BOTH USER TYPES =====
+    document.querySelectorAll('.heart-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const parkId = this.getAttribute('data-park-id');
+            const heartIcon = this.querySelector('i');
+            const customerId = localStorage.getItem('currentCustomerId');
+
+            // Toggle visual state immediately
+            const isLiked = heartIcon.classList.contains('fas');
+            const newLikedState = !isLiked;
+
+            if (isLiked) {
+                // Currently liked - unlike it
+                heartIcon.classList.replace('fas', 'far');
+                this.classList.remove('liked');
+            } else {
+                // Currently not liked - like it
+                heartIcon.classList.replace('far', 'fas');
+                this.classList.add('liked');
+            }
+
+            // ✅ ADD THIS: Update text label
+            const likeStatus = this.parentElement.querySelector('.like-status');
+            if (likeStatus) {
+                likeStatus.textContent = newLikedState ? 'Liked' : 'Like';
+            }
+
+            // Determine which endpoint to use
+            const endpoint = customerId ?
+                `/reg/likes/park/${parkId}?customerId=${customerId}` :
+                `/likes/park/${parkId}`;
+
+            const requestBody = customerId ? null : JSON.stringify({ liked: newLikedState });
+
+            // Send the like/unlike to backend
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: requestBody
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        // Revert visual state if server request failed
+                        if (!isLiked) {
+                            heartIcon.classList.replace('fas', 'far');
+                            this.classList.remove('liked');
+                            // Also revert text
+                            if (likeStatus) likeStatus.textContent = 'Like';
+                        } else {
+                            heartIcon.classList.replace('far', 'fas');
+                            this.classList.add('liked');
+                            // Also revert text
+                            if (likeStatus) likeStatus.textContent = 'Liked';
+                        }
+                        console.error('Server error:', response.status);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Response:', data);
+                })
+                .catch(error => {
+                    // Revert visual state if fetch failed
+                    if (!isLiked) {
+                        heartIcon.classList.replace('fas', 'far');
+                        this.classList.remove('liked');
+                        if (likeStatus) likeStatus.textContent = 'Like';
+                    } else {
+                        heartIcon.classList.replace('far', 'fas');
+                        this.classList.add('liked');
+                        if (likeStatus) likeStatus.textContent = 'Liked';
+                    }
+                    console.error('Fetch error:', error);
+                });
+        });
+    });
+
+
 </script>
 </body>
 </html>
-
-
-
-
-
-<!--<!doctype html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="utf-8" />-->
-<!--    <meta name="viewport" content="width=device-width,initial-scale=1" />-->
-<!--    <title>Slider Demo (UI only)</title>-->
-<!--    <style>-->
-<!--        body { font-family: Arial; display:flex; align-items:center; justify-content:center; height:100vh; background:#f2f4f7; margin:0; }-->
-<!--        .card { background:#fff; padding:24px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.08); width:360px; }-->
-<!--        .label{ margin-bottom:12px; color:#333; font-weight:600; }-->
-<!--        .slider-track { height:48px; background:#eee; border-radius:8px; position:relative; overflow:hidden; }-->
-<!--        .slider-handle { position:absolute; left:0; top:0; bottom:0; width:64px; background:#1d72b8; color:#fff; display:flex; align-items:center; justify-content:center; cursor:grab; border-radius:8px; user-select:none; }-->
-<!--        .slider-text { position:absolute; left:0; right:0; top:0; bottom:0; display:flex; align-items:center; justify-content:center; color:#6b7280; pointer-events:none; font-weight:600; }-->
-<!--        .btn { margin-top:16px; display:block; width:100%; padding:12px 10px; border:none; border-radius:8px; background:#10b981; color:#fff; font-weight:700; cursor:pointer; }-->
-<!--        .btn:disabled { background:#94d3b6; cursor:not-allowed; }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="card">-->
-<!--    <div class="label">Slide to verify</div>-->
-<!--    <div id="track" class="slider-track">-->
-<!--        <div id="handle" class="slider-handle" role="slider" aria-valuemin="0" aria-valuemax="100">⇾</div>-->
-<!--        <div class="slider-text" id="sliderText">Drag the block to the right</div>-->
-<!--    </div>-->
-<!--    <button id="submitBtn" class="btn" disabled>Register</button>-->
-<!--</div>-->
-
-<!--<script>-->
-<!--    const handle = document.getElementById('handle');-->
-<!--    const track = document.getElementById('track');-->
-<!--    const submitBtn = document.getElementById('submitBtn');-->
-<!--    const sliderText = document.getElementById('sliderText');-->
-
-<!--    let dragging = false;-->
-<!--    let startX = 0;-->
-<!--    let handleLeft = 0;-->
-<!--    const trackRect = () => track.getBoundingClientRect();-->
-
-<!--    handle.addEventListener('pointerdown', (e) => {-->
-<!--        dragging = true;-->
-<!--        startX = e.clientX;-->
-<!--        handle.setPointerCapture(e.pointerId);-->
-<!--        handle.style.cursor = 'grabbing';-->
-<!--    });-->
-<!--    window.addEventListener('pointerup', (e) => {-->
-<!--        if (!dragging) return;-->
-<!--        dragging = false;-->
-<!--        handle.style.cursor = 'grab';-->
-<!--        // Check if reached end (tolerance)-->
-<!--        const rect = trackRect();-->
-<!--        const handleRect = handle.getBoundingClientRect();-->
-<!--        if (handleRect.right >= rect.right - 6) {-->
-<!--            // success-->
-<!--            handle.style.left = (rect.width - handle.offsetWidth) + 'px';-->
-<!--            sliderText.textContent = 'Verified ✓';-->
-<!--            submitBtn.disabled = false;-->
-<!--            // For production: you must call server to create a verification token here.-->
-<!--        } else {-->
-<!--            // animate back-->
-<!--            handle.style.transition = 'left 300ms ease';-->
-<!--            handle.style.left = '0px';-->
-<!--            setTimeout(()=> handle.style.transition = '', 300);-->
-<!--        }-->
-<!--    });-->
-<!--    window.addEventListener('pointermove', (e) => {-->
-<!--        if (!dragging) return;-->
-<!--        const rect = trackRect();-->
-<!--        const dx = e.clientX - startX;-->
-<!--        let newLeft = Math.max(0, Math.min(handleLeft + dx, rect.width - handle.offsetWidth));-->
-<!--        handle.style.left = newLeft + 'px';-->
-<!--    });-->
-<!--    handle.addEventListener('pointerdown', () => { handleLeft = parseInt(handle.style.left || 0); });-->
-
-<!--    // simple submit action-->
-<!--    submitBtn.addEventListener('click', () => {-->
-<!--        alert('Form submitted (UI demo). Implement server-side verification before accepting registration.');-->
-<!--    });-->
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->
