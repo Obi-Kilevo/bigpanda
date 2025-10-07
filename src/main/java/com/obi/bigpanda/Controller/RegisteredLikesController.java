@@ -59,41 +59,7 @@ public class RegisteredLikesController {
 
         return "success";
     }
-//
-//    // Statistics for registered customers only
-//    @GetMapping("/stats")
-//    public String showRegisteredStats(Model model) {
-//
-//        // Get total likes from registered customers only
-//        Long totalLikes = parkLikesRepository.countByCustomerIdNotNullAndLikedTrue();
-//        Long totalDislikes = parkLikesRepository.countByCustomerIdNotNullAndLikedFalse();
-//
-//        // Get likes per park for registered customers
-//        Map<Long, Long> parkLikeCounts = new HashMap<>();
-//        Map<Long, Long> parkDislikeCounts = new HashMap<>();
-//
-//        for (long i = 1; i <= 10; i++) {
-//            Long likes = parkLikesRepository.countByParkIdAndCustomerIdNotNullAndLikedTrue(i);
-//            Long dislikes = parkLikesRepository.countByParkIdAndCustomerIdNotNullAndLikedFalse(i);
-//            parkLikeCounts.put(i, likes != null ? likes : 0L);
-//            parkDislikeCounts.put(i, dislikes != null ? dislikes : 0L);
-//        }
-//
-//        // Calculate averages
-//        double averageLikes = totalLikes / 10.0;
-//        double averageDislikes = totalDislikes / 10.0;
-//
-//        // Add to model
-//        model.addAttribute("totalLikes", totalLikes);
-//        model.addAttribute("totalDislikes", totalDislikes);
-//        model.addAttribute("averageLikes", averageLikes);
-//        model.addAttribute("averageDislikes", averageDislikes);
-//        model.addAttribute("parkLikeCounts", parkLikeCounts);
-//        model.addAttribute("parkDislikeCounts", parkDislikeCounts);
-//
-//        return "customers/registered/stats"; // templates/registered/stats.html
-//    }
-//}
+
 
     // Statistics for registered customers only
     @GetMapping("/stats")
@@ -134,3 +100,40 @@ public class RegisteredLikesController {
         return "customers/registered/stats";
     }
 }
+
+
+//
+//    // Statistics for registered customers only
+//    @GetMapping("/stats")
+//    public String showRegisteredStats(Model model) {
+//
+//        // Get total likes from registered customers only
+//        Long totalLikes = parkLikesRepository.countByCustomerIdNotNullAndLikedTrue();
+//        Long totalDislikes = parkLikesRepository.countByCustomerIdNotNullAndLikedFalse();
+//
+//        // Get likes per park for registered customers
+//        Map<Long, Long> parkLikeCounts = new HashMap<>();
+//        Map<Long, Long> parkDislikeCounts = new HashMap<>();
+//
+//        for (long i = 1; i <= 10; i++) {
+//            Long likes = parkLikesRepository.countByParkIdAndCustomerIdNotNullAndLikedTrue(i);
+//            Long dislikes = parkLikesRepository.countByParkIdAndCustomerIdNotNullAndLikedFalse(i);
+//            parkLikeCounts.put(i, likes != null ? likes : 0L);
+//            parkDislikeCounts.put(i, dislikes != null ? dislikes : 0L);
+//        }
+//
+//        // Calculate averages
+//        double averageLikes = totalLikes / 10.0;
+//        double averageDislikes = totalDislikes / 10.0;
+//
+//        // Add to model
+//        model.addAttribute("totalLikes", totalLikes);
+//        model.addAttribute("totalDislikes", totalDislikes);
+//        model.addAttribute("averageLikes", averageLikes);
+//        model.addAttribute("averageDislikes", averageDislikes);
+//        model.addAttribute("parkLikeCounts", parkLikeCounts);
+//        model.addAttribute("parkDislikeCounts", parkDislikeCounts);
+//
+//        return "customers/registered/stats"; // templates/registered/stats.html
+//    }
+//}

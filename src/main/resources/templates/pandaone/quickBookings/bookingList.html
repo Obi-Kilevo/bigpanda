@@ -8,7 +8,6 @@
 <table border="1">
     <tr>
         <th>Name</th>
-        <th>Email</th>
         <th>Adults</th>
         <th>Children</th>
         <th>Tour Package</th>
@@ -19,7 +18,6 @@
     </tr>
     <tr th:each="b : ${bookings}">
         <td th:text="${b.userName}"></td>
-        <td th:text="${b.userEmail}"></td>
         <td th:text="${b.numberOfAdults}"></td>
         <td th:text="${b.numberOfChildren}"></td>
         <td th:text="${b.tourPackage}"></td>

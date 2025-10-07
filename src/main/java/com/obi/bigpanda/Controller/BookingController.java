@@ -1,55 +1,3 @@
-//package com.obi.bigpanda.Controller;
-//
-//import com.obi.bigpanda.Entity.AdminEntity;
-//import com.obi.bigpanda.Entity.BookingEntity;
-//import com.obi.bigpanda.Repository.AdminRepository;
-//import com.obi.bigpanda.Repository.BookingRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.Optional;
-//
-//@Controller
-//@RequestMapping("/bookings")
-//public class BookingController {
-//
-//    @Autowired
-//    private BookingRepository bookingRepository;
-//
-//    @Autowired
-//    private AdminRepository adminRepository;
-//
-//    // Show booking form for a specific park/tour
-//    @GetMapping("/new/{tourId}")
-//    public String showBookingForm(@PathVariable Long tourId, Model model) {
-//        Optional<AdminEntity> tour = adminRepository.findById(tourId);
-//        if (tour.isPresent()) {
-//            BookingEntity booking = new BookingEntity();
-//            booking.setTour(tour.get());
-//            model.addAttribute("tour", tour.get());
-//            model.addAttribute("booking", booking);
-//            return "pandaone/bookings/new-booking";
-//        }
-//        return "redirect:/admin/dashboard";
-//    }
-//
-//    // Handle form submission
-//    @PostMapping("/save")
-//    public String saveBooking(@ModelAttribute BookingEntity booking) {
-//        bookingRepository.save(booking);
-//        return "redirect:/bookings/list";
-//    }
-//
-//    // Show all bookings for admin
-//    @GetMapping("/list")
-//    public String listBookings(Model model) {
-//        model.addAttribute("bookings", bookingRepository.findAll());
-//        return "pandaone/bookings/list-bookings";
-//    }
-//}
-
 
 package com.obi.bigpanda.Controller;
 
@@ -58,6 +6,7 @@ import com.obi.bigpanda.Entity.AdminEntity;
 import com.obi.bigpanda.Entity.BookingEntity;
 import com.obi.bigpanda.Repository.AdminRepository;
 import com.obi.bigpanda.Repository.BookingRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -100,23 +49,21 @@ public class BookingController {
 
 
 
-    @GetMapping ("/me")
-    public String showMeForm(@RequestParam(required = false) Long tourId, Model model) {
+
+    @GetMapping("/me")
+    public String showMeForm(@RequestParam(required = false) Long tourId,
+                             @RequestParam(required = false) String tour,
+                             Model model) {
         BookingEntity booking = new BookingEntity();
+
         if (tourId != null) {
             booking.setTourId(tourId);
-
-            // Automatically get the tour name from the database
-            AdminEntity tour = adminRepository.findById(tourId).orElse(null);
-            if (tour != null) {
-                booking.setTourPackage(tour.getName()); // Set the tour name automatically
-            }
+            booking.setTourPackage(tour); // Set tour name directly from query param
         }
+
         model.addAttribute("booking", booking);
         return "pandaone/bookings/me";
     }
-
-
 
 
     @PostMapping("/submit")
@@ -145,5 +92,4 @@ public class BookingController {
         model.addAttribute("booking", booking);
         return "pandaone/bookings/booking-details";
     }
-
 }

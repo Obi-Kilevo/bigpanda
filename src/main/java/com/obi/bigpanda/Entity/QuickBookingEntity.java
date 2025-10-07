@@ -1,7 +1,53 @@
+//package com.obi.bigpanda.Entity;
+//
+//import jakarta.persistence.*;
+//
+//import java.time.LocalDateTime;
+//
+//@Entity
+//@Table(name = "bookings_copy")
+//public class QuickBookingEntity {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//
+//    @Column(nullable = false)
+//    private String userName;
+//
+//    @Column(nullable = false)
+//    private String userEmail;
+//
+//    @Column(nullable = false)
+//    private Integer numberOfAdults;
+//
+//    @Column(nullable = false)
+//    private Integer numberOfChildren;
+//
+//    @Column(nullable = false)
+//    private String tourPackage;
+//
+//    @Column(nullable = false)
+//    private Integer duration;
+//
+//    @Column(nullable = false)
+//    private String destination;
+//
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt;
+//
+//
+//    @Column(nullable = false)
+//    private String category;
+//
+//    public QuickBookingEntity() {
+//    }
+
+
+
 package com.obi.bigpanda.Entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,11 +58,11 @@ public class QuickBookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String userName;
-
-    @Column(nullable = false)
-    private String userEmail;
+//    @Column(nullable = true)
+//    private String userName;
+//
+//    @Column(nullable = true)
+//    private String userEmail;
 
     @Column(nullable = false)
     private Integer numberOfAdults;
@@ -36,9 +82,12 @@ public class QuickBookingEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private CustomersEntity customer;
 
     public QuickBookingEntity() {
     }
@@ -49,22 +98,6 @@ public class QuickBookingEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
     }
 
     public Integer getNumberOfAdults() {
@@ -123,12 +156,19 @@ public class QuickBookingEntity {
         this.category = category;
     }
 
+    public CustomersEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomersEntity customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "QuickBookingEntity{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
+
                 ", numberOfAdults=" + numberOfAdults +
                 ", numberOfChildren=" + numberOfChildren +
                 ", tourPackage='" + tourPackage + '\'' +
@@ -136,6 +176,10 @@ public class QuickBookingEntity {
                 ", destination='" + destination + '\'' +
                 ", createdAt=" + createdAt +
                 ", category='" + category + '\'' +
+                ", customer=" + customer +
                 '}';
     }
 }
+
+
+
