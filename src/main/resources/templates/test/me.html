@@ -245,26 +245,6 @@
             font-size: 1.1em;
         }
 
-
-
-
-
-
-
-        /*remove if no good effect*/
-
-        /*.like-status {*/
-        /*    position: absolute;*/
-        /*    top: 55px;*/
-        /*    right: 10px;*/
-        /*    background: rgba(255,255,255,0.9);*/
-        /*    padding: 2px 8px;*/
-        /*    border-radius: 10px;*/
-        /*    font-size: 0.8rem;*/
-        /*    font-weight: bold;*/
-        /*    color: #555;*/
-        /*    transition: all 0.3s ease;*/
-        /*}*/
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -431,14 +411,6 @@
 </div>
 
 <script>
-
-    // for like/dislike status
-    // // Update text label
-    // const likeStatus = this.parentElement.querySelector('.like-status');
-    // if (likeStatus) {
-    //     likeStatus.textContent = newLikedState ? 'Liked' : 'Like';
-    // }
-
 
     // Park data for searching
     // Park data for searching
@@ -613,155 +585,6 @@
     // Add this script to your me.html
 
 
-
-
-
-//
-// //hapa ni kwa ajili ya likes tu
-//     document.querySelectorAll('.heart-btn').forEach(button => {
-//         button.addEventListener('click', function(event) {
-//             event.preventDefault();
-//             event.stopPropagation(); // Prevent triggering the parent link
-//
-//             const parkId = this.getAttribute('data-park-id');
-//             const heartIcon = this.querySelector('i');
-//
-//             // Toggle visual state immediately for better user experience
-//             const isLiked = heartIcon.classList.contains('fas');
-//
-//             if (isLiked) {
-//                 // Currently liked - unlike it
-//                 heartIcon.classList.replace('fas', 'far');
-//                 this.classList.remove('liked');
-//             } else {
-//                 // Currently not liked - like it
-//                 heartIcon.classList.replace('far', 'fas');
-//                 this.classList.add('liked');
-//             }
-//
-//             // Send the like/unlike to your backend
-//             fetch('/likes/park/' + parkId, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify({
-//                     liked: !isLiked // Send the new state
-//                 })
-//             })
-//                 .then(response => {
-//                     if (!response.ok) {
-//                         // Revert visual state if server request failed
-//                         if (!isLiked) {
-//                             heartIcon.classList.replace('fas', 'far');
-//                             this.classList.remove('liked');
-//                         } else {
-//                             heartIcon.classList.replace('far', 'fas');
-//                             this.classList.add('liked');
-//                         }
-//                         console.error('Server error:', response.status);
-//                     }
-//                     return response.text();
-//                 })
-//                 .then(data => {
-//                     console.log('Response:', data);
-//                 })
-//                 .catch(error => {
-//                     // Revert visual state if fetch failed
-//                     if (!isLiked) {
-//                         heartIcon.classList.replace('fas', 'far');
-//                         this.classList.remove('liked');
-//                     } else {
-//                         heartIcon.classList.replace('far', 'fas');
-//                         this.classList.add('liked');
-//                     }
-//                     console.error('Fetch error:', error);
-//                 });
-//         });
-//     });
-//
-//
-//
-//
-//
-//     //registered ones
-//     // ===== KEEP THIS EXISTING ONE FOR UNREGISTERED USERS =====
-//     document.querySelectorAll('.heart-btn').forEach(button => {
-//         button.addEventListener('click', function(event) {
-//             // ... your existing unregistered code stays EXACTLY as is ...
-//         });
-//     });
-//
-//     // ===== ADD THIS NEW ONE FOR REGISTERED USERS =====
-//     document.querySelectorAll('.heart-btn').forEach(button => {
-//         button.addEventListener('click', function(event) {
-//             event.preventDefault();
-//             event.stopPropagation();
-//
-//             const parkId = this.getAttribute('data-park-id');
-//             const customerId = localStorage.getItem('currentCustomerId');
-//
-//             // If no customer ID, let the unregistered handler take over
-//             if (!customerId) {
-//                 return; // Unregistered handler will process this
-//             }
-//
-//             // === REGISTERED USER CODE CONTINUES HERE ===
-//             const heartIcon = this.querySelector('i');
-//             const isLiked = heartIcon.classList.contains('fas');
-//
-//             if (isLiked) {
-//                 heartIcon.classList.replace('fas', 'far');
-//                 this.classList.remove('liked');
-//             } else {
-//                 heartIcon.classList.replace('far', 'fas');
-//                 this.classList.add('liked');
-//             }
-//
-//             // Send to REGISTERED endpoint
-//             fetch('/reg/likes/park/' + parkId + '?customerId=' + customerId, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 }
-//             })
-//                 .then(response => {
-//                     if (!response.ok) {
-//                         // Revert if failed
-//                         if (!isLiked) {
-//                             heartIcon.classList.replace('fas', 'far');
-//                             this.classList.remove('liked');
-//                         } else {
-//                             heartIcon.classList.replace('far', 'fas');
-//                             this.classList.add('liked');
-//                         }
-//                     }
-//                 })
-//                 .catch(error => {
-//                     console.error('Error:', error);
-//                     // Revert visual state
-//                     if (!isLiked) {
-//                         heartIcon.classList.replace('fas', 'far');
-//                         this.classList.remove('liked');
-//                     } else {
-//                         heartIcon.classList.replace('far', 'fas');
-//                         this.classList.add('liked');
-//                     }
-//                 });
-//
-//             event.stopImmediatePropagation(); // Prevent unregistered handler
-//         });
-//     });
-
-
-
-
-
-//futa later
-    //new Delete if not effect
-    // All your park search code here...
-
-    // ===== SINGLE UNIFIED HANDLER FOR BOTH USER TYPES =====
     document.querySelectorAll('.heart-btn').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();

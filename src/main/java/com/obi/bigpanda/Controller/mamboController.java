@@ -1,9 +1,14 @@
 package com.obi.bigpanda.Controller;
 
 
+import com.obi.bigpanda.Entity.AdminEntity;
+import com.obi.bigpanda.Repository.AdminRepository;
+import com.obi.bigpanda.Repository.BookingRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -14,6 +19,15 @@ public class mamboController {
 //    public String showme() {
 //        return "test/me";
 //    }
+
+    private final BookingRepository bookingRepository;
+    private final AdminRepository adminRepository;
+
+    public mamboController(BookingRepository bookingRepository, AdminRepository adminRepository) {
+        this.bookingRepository = bookingRepository;
+        this.adminRepository = adminRepository;
+    }
+
 
     @GetMapping("/m")
     public String manu() {
@@ -73,4 +87,47 @@ public class mamboController {
     public String show4() {
         return "test/serengeti";
     }
+
+
+
+
+
+//    @GetMapping("/check")
+//    public String redirectBooking(HttpSession session, @RequestParam String tour) {
+//        Object loggedIn = session.getAttribute("loggedInCustomer");
+//        if (loggedIn != null) {
+//            return "redirect:/quick/form";
+//        } else {
+//            return "redirect:/bookings/me?tour=" + tour;
+//        }
+//    }
+
+
+
+    @GetMapping("/check")
+    public String redirectBooking(HttpSession session,
+                                  @RequestParam Long id,
+                                  @RequestParam String tour) {
+        Object loggedIn = session.getAttribute("loggedInCustomer");
+        if (loggedIn != null) {
+            return "redirect:/quick/form?id=" + id + "&tour=" + tour;
+        } else {
+            return "redirect:/bookings/me?tour=" + tour + "&tourId=" + id;
+        }
+    }
+
+
+//    @GetMapping("/check")
+//    public String redirectBooking(HttpSession session,
+//                                  @RequestParam Long id,
+//                                  @RequestParam String tour) {
+//        Object loggedIn = session.getAttribute("loggedInCustomer");
+//        if (loggedIn != null) {
+//            return "redirect:/quick/form?tourId=" + id + "&tour=" + tour;
+//        } else {
+//            return "redirect:/bookings/me?tourId=" + id + "&tour=" + tour;
+//        }
+//    }
+
+
 }

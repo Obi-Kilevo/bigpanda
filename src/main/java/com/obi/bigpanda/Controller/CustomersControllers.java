@@ -2,6 +2,7 @@ package com.obi.bigpanda.Controller;
 
 import com.obi.bigpanda.Entity.CustomersEntity;
 import com.obi.bigpanda.Repository.CustomersRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -24,13 +25,44 @@ public class CustomersControllers {
         return "customers/form"; // templates/customers/form.html
     }
 
-    @PostMapping("/submit")
-    public String submitForm(@ModelAttribute("customer") CustomersEntity customer, Model model) {
-        customer.setCreatedAt(java.time.LocalDateTime.now());
+//    @PostMapping("/submit")
+//    public String submitForm(@ModelAttribute("customer") CustomersEntity customer, Model model) {
+//        customer.setCreatedAt(java.time.LocalDateTime.now());
+//        customersRepository.save(customer);
+//        model.addAttribute("customer", customer);
+//        return "customers/success";
+@PostMapping("/submit")
+public String submitForm(@ModelAttribute("customer") CustomersEntity customer,
+                         HttpSession session, // Inject HttpSession
+                         Model model) {
+    customer.setCreatedAt(java.time.LocalDateTime.now());
+
+    try {
         customersRepository.save(customer);
+        // Store the entire customer object in session after successful registration
+        session.setAttribute("loggedInCustomer", customer);
+
         model.addAttribute("customer", customer);
         return "customers/success";
+
+    } catch (DataIntegrityViolationException e) {
+        // Handle case where nickname might already exist
+        model.addAttribute("errorMessage", "Nickname already exists. Please choose a different one.");
+        return "customers/form";
     }
+}
+
+//    @PostMapping("/submit")
+//    public String submitForm(@ModelAttribute("customer") CustomersEntity customer, Model model, HttpSession session) {
+//        customer.setCreatedAt(java.time.LocalDateTime.now());
+//        CustomersEntity savedCustomer = customersRepository.save(customer);
+//
+//        // Set the logged-in customer ID in the session
+//        session.setAttribute("loggedInCustomerId", savedCustomer.getId());
+//
+//        model.addAttribute("customer", savedCustomer);
+//        return "customers/success";
+//    }
 
 
 

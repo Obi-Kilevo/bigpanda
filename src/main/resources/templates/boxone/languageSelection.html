@@ -507,15 +507,10 @@
         }
 
     </style>
+
 </head>
 <body>
 <header>
-    <div class="container header-content">
-        <div class="logo">
-            <i class="fas fa-panda"></i>
-            <span>Big Panda Safaris</span>
-        </div>
-    </div>
 </header>
 
 <section class="hero">
@@ -556,12 +551,59 @@
         </div>
 
 
+
+        <div style="text-align: center; margin-top: 20px;" id="userStatusSection">
+            <!-- Show welcome message for logged in users -->
+            <div th:if="${loggedInCustomer != null}" style="color: var(--secondary);">
+                <i class="fas fa-check-circle"></i> Welcome, <span th:text="${loggedInCustomer.nickname}">User</span>!
+                <br><small>You're ready to book your adventure!</small>
+            </div>
+
+            <!-- Show registration link for guests -->
+            <div th:unless="${loggedInCustomer != null}">
+                <a href="#" onclick="showRegisterForm()" style="color: var(--secondary); text-decoration: none;">
+                    <i class="fas fa-user-plus"></i> Register for more benefits
+                </a>
+            </div>
+        </div>
+<!--        <div style="text-align: center; margin-top: 20px;">-->
+<!--            <a href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+<!--        </div>-->
+
         <div style="text-align: center; margin-top: 20px;">
-            <a href="#" onclick="showRegisterForm()" style="color: var(--secondary); text-decoration: none;">
-                <i class="fas fa-user-plus"></i> Register for more benefits
-            </a>
+            <!-- Show welcome message for registered users -->
+            <p th:if="${isRegistered}" style="color: var(--secondary);">
+                <i class="fas fa-check-circle"></i> Welcome, <span th:text="${nickname}">User</span>!
+            </p>
+
+            <!-- Show registration link for guests -->
+<!--            <a th:unless="${isRegistered}" href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
         </div>
 
+<!--        <div style="text-align: center; margin-top: 20px;" id="userStatusSection">-->
+<!--            &lt;!&ndash; This will be dynamically updated &ndash;&gt;-->
+<!--            <p id="welcomeMessage" style="color: var(&#45;&#45;secondary); display: none;">-->
+<!--                <i class="fas fa-check-circle"></i> Welcome, <span id="userNickname">User</span>!-->
+<!--            </p>-->
+
+<!--            <a id="registerLink" href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+<!--        </div>    <div style="text-align: center; margin-top: 20px;">-->
+<!--            &lt;!&ndash; Show welcome message for registered users &ndash;&gt;-->
+<!--            <p th:if="${isRegistered}" style="color: var(&#45;&#45;secondary);">-->
+<!--                <i class="fas fa-check-circle"></i> Welcome, <span th:text="${nickname}">User</span>!-->
+<!--            </p>-->
+
+<!--            &lt;!&ndash; Show registration link for guests &ndash;&gt;-->
+<!--            <a th:unless="${isRegistered}" href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+<!--        </div>-->
 
 
 
@@ -597,6 +639,9 @@
                     </div>
 
 
+
+
+
                     <script>
                         function togglePassword() {
                             const passwordInput = document.getElementById('passwordHash');
@@ -619,6 +664,7 @@
                     </button>
                 </form>
 
+
                 <div class="benefits-list">
                     <h4><i class="fas fa-star"></i> Registered Users Get:</h4>
                     <ul>
@@ -635,6 +681,11 @@
         <div class="overlay" onclick="hideRegisterForm()"></div>
     </div>
 </section>
+
+
+<!---->
+
+
 <script>
     function showRegisterForm() {
         document.getElementById('registerFormContainer').style.display = 'block';

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -8,55 +6,52 @@
 <body>
 <h2>Quick Booking Form</h2>
 
-<!-- Success message -->
+<!-- Personalized Greeting - Separate from form autocomplete settings -->
+<div th:if="${loggedInCustomer != null}">
+  <h3 style="color: blue;">Hello, <span th:text="${loggedInCustomer.nickname}"></span>! Welcome to the complete booking form.</h3>
+</div>
+
+<!-- Success Message -->
 <div th:if="${successMessage}" style="color: green; font-weight: bold;">
   <p th:text="${successMessage}"></p>
 </div>
 
-<form th:action="@{/quick/book}" th:object="${quickBooking}" method="post">
-  <label for="userName">Name:</label><br>
-  <input type="text" th:field="*{userName}" id="userName" required><br><br>
-
-  <label for="userEmail">Email:</label><br>
-  <input type="email" th:field="*{userEmail}" id="userEmail" required><br><br>
-
+<!-- Form with autocomplete disabled -->
+<form th:action="@{/quick/book}" th:object="${quickBooking}" method="post" autocomplete="off">
   <label for="numberOfAdults">Number of Adults:</label><br>
-  <input type="number" th:field="*{numberOfAdults}" id="numberOfAdults" min="0" required><br><br>
+  <input type="number" th:field="*{numberOfAdults}" id="numberOfAdults" min="0" required autocomplete="off"><br><br>
 
   <label for="numberOfChildren">Number of Children:</label><br>
-  <input type="number" th:field="*{numberOfChildren}" id="numberOfChildren" min="0" required><br><br>
+  <input type="number" th:field="*{numberOfChildren}" id="numberOfChildren" min="0" required autocomplete="off"><br><br>
 
   <label for="tourPackage">Tour Package:</label><br>
-  <select th:field="*{tourPackage}" id="tourPackage" required>
-    <option value=""> Select Package </option>
+  <select th:field="*{tourPackage}" id="tourPackage" required autocomplete="off">
+    <option value="">Select Package</option>
     <option value="Marriage">Marriage</option>
     <option value="Honeymoons">Honeymoons</option>
     <option value="Celebration">Celebration</option>
     <option value="Private Safari">Private Safari</option>
     <option value="Family Safari">Family Safari</option>
-  </select>
-  <br><br>
-
+  </select><br><br>
 
   <label for="duration">Duration (days):</label><br>
-  <input type="number" th:field="*{duration}" id="duration" min="1" required><br><br>
-
+  <input type="number" th:field="*{duration}" id="duration" min="1" required autocomplete="off"><br><br>
 
   <label>Destination:</label><br>
-  <select th:field="*{destination}" size="3" required>
+  <select th:field="*{destination}" size="3" required autocomplete="off">
+    <option value="">Select Destination</option>
     <option value="Serengeti National Park">Serengeti National Park</option>
     <option value="Arusha National Park">Arusha National Park</option>
     <option value="Mikumi National Park">Mikumi National Park</option>
     <option value="Tarangire National Park">Tarangire National Park</option>
     <option value="Manyara National Park">Manyara National Park</option>
-    <option value="Olduvai Gorge ">Olduvai Gorge</option>
+    <option value="Olduvai Gorge">Olduvai Gorge</option>
     <option value="Ngorongoro Crater">Ngorongoro National Park</option>
     <option value="Kikuletwa Hot Spring">Kikuletwa National Park</option>
     <option value="Mount Kilimanjaro">Mount Kilimanjaro</option>
     <option value="Ruaha National Park">Ruaha National Park</option>
     <option value="Mkomazi National Park">Mkomazi National Park</option>
-  </select>
-  <br><br>
+  </select><br><br>
 
   <button type="submit">Submit Booking</button>
 </form>

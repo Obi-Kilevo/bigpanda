@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
 
+//    AdminEntity findByName(String name);
 
     @Transactional
     @Modifying
