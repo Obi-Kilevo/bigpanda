@@ -1,52 +1,7 @@
-//package com.obi.bigpanda.Entity;
-//
-//import jakarta.persistence.*;
-//
-//import java.time.LocalDateTime;
-//
-//@Entity
-//@Table(name = "bookings_copy")
-//public class QuickBookingEntity {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//
-//    @Column(nullable = false)
-//    private String userName;
-//
-//    @Column(nullable = false)
-//    private String userEmail;
-//
-//    @Column(nullable = false)
-//    private Integer numberOfAdults;
-//
-//    @Column(nullable = false)
-//    private Integer numberOfChildren;
-//
-//    @Column(nullable = false)
-//    private String tourPackage;
-//
-//    @Column(nullable = false)
-//    private Integer duration;
-//
-//    @Column(nullable = false)
-//    private String destination;
-//
-//    @Column(nullable = false)
-//    private LocalDateTime createdAt;
-//
-//
-//    @Column(nullable = false)
-//    private String category;
-//
-//    public QuickBookingEntity() {
-//    }
-
 
 
 package com.obi.bigpanda.Entity;
-
+import java.time.format.DateTimeFormatter;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -58,11 +13,22 @@ public class QuickBookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
+    public String getFormattedCreatedAt() {
+        if (createdAt == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return createdAt.format(formatter);
+    }
+
+
 //    @Column(nullable = true)
 //    private String userName;
 //
 //    @Column(nullable = true)
 //    private String userEmail;
+
+
 
     @Column(nullable = false)
     private Integer numberOfAdults;
@@ -76,7 +42,7 @@ public class QuickBookingEntity {
     @Column(nullable = false)
     private Integer duration;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String destination;
 
     @Column(nullable = false)
@@ -85,7 +51,11 @@ public class QuickBookingEntity {
     @Column(nullable = true)
     private String category;
 
-    @ManyToOne
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id")
+//    private CustomersEntity customer;
+//
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private CustomersEntity customer;
 

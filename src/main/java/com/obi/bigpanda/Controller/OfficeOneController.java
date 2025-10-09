@@ -35,4 +35,9 @@ public class OfficeOneController {
     private String dividTwo() {
         return "office/divideTwo";
     }
+
+    @GetMapping("/divideThree")
+    private String divideThree() {
+        return "office/divideThree" ;
+    }
 }

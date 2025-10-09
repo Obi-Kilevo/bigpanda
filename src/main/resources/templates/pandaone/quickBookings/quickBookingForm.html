@@ -24,36 +24,55 @@
   <label for="numberOfChildren">Number of Children:</label><br>
   <input type="number" th:field="*{numberOfChildren}" id="numberOfChildren" min="0" required autocomplete="off"><br><br>
 
+<!--  <label for="tourPackage">Tour Package:</label><br>-->
+<!--  <select th:field="*{tourPackage}" id="tourPackage" required autocomplete="off">-->
+<!--    <option value="">Select Package</option>-->
+<!--    <option value="Marriage">Wild Beest Safari</option>-->
+<!--    <option value="Honeymoons">Honeymoons</option>-->
+<!--    <option value="Celebration">Family</option>-->
+<!--    <option value="Private Safari">Day Trip</option>-->
+<!--    <option value="Family Safari">Celebration Trips </option>-->
+<!--  </select><br><br>-->
+
+
   <label for="tourPackage">Tour Package:</label><br>
-  <select th:field="*{tourPackage}" id="tourPackage" required autocomplete="off">
+  <select th:field="*{tourPackage}" id="tourPackage" size="3" required autocomplete="off">
     <option value="">Select Package</option>
-    <option value="Marriage">Marriage</option>
+    <option value="Wild Beest Safari">Wild Beest Safari</option>
     <option value="Honeymoons">Honeymoons</option>
-    <option value="Celebration">Celebration</option>
-    <option value="Private Safari">Private Safari</option>
-    <option value="Family Safari">Family Safari</option>
+    <option value="Family">Family</option>
+    <option value="Day Trip">Day Trip</option>
+    <option value="Celebration Trips">Celebration Trips</option>
   </select><br><br>
+
+
 
   <label for="duration">Duration (days):</label><br>
   <input type="number" th:field="*{duration}" id="duration" min="1" required autocomplete="off"><br><br>
-
-  <label>Destination:</label><br>
-  <select th:field="*{destination}" size="3" required autocomplete="off">
-    <option value="">Select Destination</option>
-    <option value="Serengeti National Park">Serengeti National Park</option>
-    <option value="Arusha National Park">Arusha National Park</option>
-    <option value="Mikumi National Park">Mikumi National Park</option>
-    <option value="Tarangire National Park">Tarangire National Park</option>
-    <option value="Manyara National Park">Manyara National Park</option>
-    <option value="Olduvai Gorge">Olduvai Gorge</option>
-    <option value="Ngorongoro Crater">Ngorongoro National Park</option>
-    <option value="Kikuletwa Hot Spring">Kikuletwa National Park</option>
-    <option value="Mount Kilimanjaro">Mount Kilimanjaro</option>
-    <option value="Ruaha National Park">Ruaha National Park</option>
-    <option value="Mkomazi National Park">Mkomazi National Park</option>
-  </select><br><br>
-
   <button type="submit">Submit Booking</button>
 </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+<!--  <label>Destination:</label><br>-->
+<!--  <select th:field="*{destination}" size="3" required autocomplete="off">-->
+<!--    <option value="">Select Destination</option>-->
+<!--    <option value="Serengeti National Park">Serengeti National Park</option>-->
+<!--    <option value="Arusha National Park">Arusha National Park</option>-->
+<!--    <option value="Mikumi National Park">Mikumi National Park</option>-->
+<!--    <option value="Tarangire National Park">Tarangire National Park</option>-->
+<!--    <option value="Manyara National Park">Manyara National Park</option>-->
+<!--    <option value="Olduvai Gorge">Olduvai Gorge</option>-->
+<!--    <option value="Ngorongoro Crater">Ngorongoro National Park</option>-->
+<!--    <option value="Kikuletwa Hot Spring">Kikuletwa National Park</option>-->
+<!--    <option value="Mount Kilimanjaro">Mount Kilimanjaro</option>-->
+<!--    <option value="Ruaha National Park">Ruaha National Park</option>-->
+<!--    <option value="Mkomazi National Park">Mkomazi National Park</option>-->
+<!--  </select><br><br>-->
