@@ -11,6 +11,7 @@ import com.obi.bigpanda.Repository.QuickBookingRepository;
 import com.obi.bigpanda.Repository.CustomersRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -46,24 +47,104 @@ public class QuickBookingsController {
 
 
 
+//    @GetMapping("/list")
+//    public String listBookings(Model model) {
+//        List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
+//        System.out.println("Number of bookings found: " + allBookings.size()); // Check the console output
+//        model.addAttribute("bookings", allBookings);
+//        return "pandaone/quickBookings/bookingList";
+//    }
 
-    // Submit booking - system will link customer later
+
+
+//    @PostMapping("/book")
+//    public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, Model model) {
+//        quickBooking.setCreatedAt(LocalDateTime.now());
+//        quickBooking.setCategory("Quick");
+//
+//        // Customer will be set from session/auth later
+//        // quickBooking.setCustomer(loggedInCustomer);
+//
+//        quickBookingRepository.save(quickBooking);
+//        return "pandaone/quickBookings/quickBookingSuccess";
+//    }
+
     @PostMapping("/book")
-    public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, Model model) {
+    public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, HttpSession session) {
+        CustomersEntity loggedInCustomer = (CustomersEntity) session.getAttribute("loggedInCustomer");
+        if (loggedInCustomer != null) {
+            quickBooking.setCustomer(loggedInCustomer);
+        }
+
         quickBooking.setCreatedAt(LocalDateTime.now());
         quickBooking.setCategory("Quick");
-
-        // Customer will be set from session/auth later
-        // quickBooking.setCustomer(loggedInCustomer);
-
         quickBookingRepository.save(quickBooking);
         return "pandaone/quickBookings/quickBookingSuccess";
     }
 
-    // List bookings
-    @GetMapping("/list")
-    public String listBookings(Model model) {
-        model.addAttribute("bookings", quickBookingRepository.findAll());
-        return "pandaone/quickBookings/bookingList";
+
+//    @GetMapping("/list")
+//    public String listBookings(Model model) {
+//        List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
+//        // Add this log to see how many records are found
+//        System.out.println("Number of bookings found: " + allBookings.size());
+//        model.addAttribute("bookings", allBookings);
+//        return "pandaone/quickBookings/bookingList";
+//    }
+@GetMapping("/list")
+public String listBookings(Model model) {
+    List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
+
+    for (QuickBookingEntity b : allBookings) {
+        if (b.getCustomer() != null) {
+            System.out.println("Booking ID: " + b.getId() + ", Customer nickname: " + b.getCustomer().getNickname());
+        } else {
+            System.out.println("Booking ID: " + b.getId() + ", Customer: null (Guest)");
+        }
     }
+
+    model.addAttribute("bookings", allBookings);
+    return "pandaone/quickBookings/bookingList";
 }
+
+//    @GetMapping("/list")
+//    public String listBookings(Model model) {
+//        List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
+//        // Add this log to see how many records are found
+//        System.out.println("Number of bookings found: " + allBookings.size());
+//        model.addAttribute("bookings", allBookings);
+//        return "pandaone/quickBookings/bookingList";
+//    }
+    // List bookings
+//    @GetMapping("/list")
+//    public String listBookings(Model model) {
+//        model.addAttribute("bookings", quickBookingRepository.findAll());
+//        return "pandaone/quickBookings/bookingList";
+//    }
+
+
+
+
+//    @GetMapping("/list")
+//    public String listBookings(Model model) {
+//        model.addAttribute("bookings", quickBookingRepository.findAllWithCustomer());
+//        return "pandaone/quickBookings/bookingList";
+//    }
+}
+
+
+
+//    @PostMapping("/book")
+//    public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, HttpSession session) {
+//        CustomersEntity loggedInCustomer = (CustomersEntity) session.getAttribute("loggedInCustomer");
+//
+//        if (loggedInCustomer != null) {
+//            quickBooking.setCustomer(loggedInCustomer);
+//        }
+//
+//        quickBooking.setCreatedAt(LocalDateTime.now());
+//        quickBooking.setCategory("Quick");
+//
+//        quickBookingRepository.save(quickBooking);
+//        return "pandaone/quickBookings/quickBookingSuccess";
+//    }

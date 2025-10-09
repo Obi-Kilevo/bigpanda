@@ -21,6 +21,14 @@ public class CustomersEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+
+    @ManyToOne(fetch = FetchType.LAZY) // or EAGER if you want
+    @JoinColumn(name = "customer_id")
+    private CustomersEntity customer;
+
+
+
+
     public CustomersEntity() {
     }
 
@@ -56,6 +64,14 @@ public class CustomersEntity {
         this.createdAt = createdAt;
     }
 
+    public CustomersEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomersEntity customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "CustomersEntity{" +
@@ -63,6 +79,7 @@ public class CustomersEntity {
                 ", nickname='" + nickname + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", createdAt=" + createdAt +
+                ", customer=" + customer +
                 '}';
     }
 }

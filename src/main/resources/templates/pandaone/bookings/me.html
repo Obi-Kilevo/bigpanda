@@ -35,28 +35,46 @@
     <label>Number of Children:</label>
     <input type="number" th:field="*{numberOfChildren}" required min="0"><br><br>
 
+<!--    <div>-->
+<!--        <label>Tour Category:</label>-->
+<!--        <select th:field="*{category}" required>-->
+<!--            <option value="">Select Category</option>-->
+<!--            <option value="Family">Family</option>-->
+<!--            <option value="Marriage">Marriage</option>-->
+<!--            <option value="Divorce">Divorce</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <br>-->
+
     <div>
-        <label>Tour Category:</label>
-        <select th:field="*{category}" required>
-            <option value="">Select Category</option>
+        <label>Tour Category:</label><br>
+        <select th:field="*{category}" size="3" required autocomplete="off">
+<!--            <option value="">Select Category</option>-->
+<!--            <option value="Family">F</option>-->
+<!--            <option value="Marriage">Marriage</option>-->
+<!--            <option value="Divorce">Divorce</option>-->
+            <option value="">Select Package</option>
+            <option value="Wild Beest Safari">Wild Beest Safari</option>
+            <option value="Honeymoons">Honeymoons</option>
             <option value="Family">Family</option>
-            <option value="Marriage">Marriage</option>
-            <option value="Divorce">Divorce</option>
+            <option value="Day Trip">Day Trip</option>
+            <option value="Celebration Trips">Celebration Trips</option>
         </select>
     </div>
     <br>
+
 
     <label>Duration (days):</label>
     <input type="number" th:field="*{duration}" required min="1"><br><br>
 
 
-    <label>Destination:</label><br>
-    <select th:field="*{destination}" size="3" required>
-        <option value="Serengeti National Park">Serengeti National Park</option>
-        <option value="Arusha National Park">Arusha National Park</option>
-        <option value="Mikumi National Park">Mikumi National Park</option>
-    </select>
-    <br><br>
+<!--    <label>Destination:</label><br>-->
+<!--    <select th:field="*{destination}" size="3" required>-->
+<!--        <option value="Serengeti National Park">Serengeti National Park</option>-->
+<!--        <option value="Arusha National Park">Arusha National Park</option>-->
+<!--        <option value="Mikumi National Park">Mikumi National Park</option>-->
+<!--    </select>-->
+<!--    <br><br>-->
 
 
     <button type="submit">Complete Booking</button>

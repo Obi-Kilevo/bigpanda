@@ -198,7 +198,7 @@ public class BookingEntity {
 //    @Column(name = "total_budget", nullable = false, precision = 10, scale = 2)
 //    private BigDecimal totalBudget;
 
-    @Column(name = "destination", nullable = false, length = 255)
+    @Column(name = "destination", nullable = true, length = 255)
     private String destination;
 
     @Column(name = "created_at", nullable = false)
