@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Available Tours</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #ffffff; /* changed to white */
+      color: #333; /* dark text for readability */
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Beautiful Back Button */
+    .back-button {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      box-shadow: 0 6px 20px rgba(37, 117, 252, 0.4);
+      color: white;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(37, 117, 252, 0.5);
+    }
+
+    .back-button:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .back-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .back-button:hover::before {
+      opacity: 1;
+    }
+
+    .back-button i {
+      font-size: 28px;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .back-button:hover i {
+      transform: translateX(-3px);
+    }
+
+    /* Pulse animation effect */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 117, 252, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(37, 117, 252, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 117, 252, 0);
+      }
+    }
+
+    .back-button.pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .back-button {
+        width: 50px;
+        height: 50px;
+        top: 20px;
+        left: 20px;
+      }
+
+      .back-button i {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .back-button {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        left: 15px;
+      }
+
+      .back-button i {
+        font-size: 20px;
+      }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .tours-container {
+      position: relative;
+      overflow: hidden;
+      margin-top: 30px;
+      border-radius: 15px;
+      background: #f5f5f5;
+      padding: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .tour-box {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .tour-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .tour-content {
+      padding: 20px;
+    }
+
+    .tour-name {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .tour-price {
+      color: #e74c3c;
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+
+    .tour-description {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .book-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .auto-refresh-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .refresh-progress {
+      width: 100px;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.1);
+      margin-left: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .refresh-progress-bar {
+      height: 100%;
+      background: #555;
+      width: 100%;
+      animation: progressBar 3s linear;
+    }
+
+    @keyframes progressBar {
+      0% { width: 100%; }
+      100% { width: 0%; }
+    }
+
+    @media (max-width: 768px) {
+      .tours-container {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<!-- Beautiful Back Button-->
+<!--<a href="javascript:history.back()" class="back-button pulse">-->
+
+
+<!--<a href="/btwo" class="back-button pulse">Back</a>-->
+<a href="javascript:history.back()" class="back-button pulse">Back</a>
+
+
+
+<!--  <i class="fas fa-arrow-left"></i>-->
+<!--</a>-->
+
+<div class="container">
+  <header>
+    <h2>Available Tours</h2>
+    <p class="subtitle">Discover amazing experiences waiting for you</p>
+  </header>
+
+  <div class="tours-container">
+    <div th:each="tour : ${tours}" class="tour-box">
+      <div class="tour-content">
+
+        <img th:src="@{'/pandaoneimages/' + ${tour.imageUrl}}"
+             alt="Tour Image"
+             style="max-width:100%; height:auto; border-radius:8px; margin-bottom:10px;">
+
+        <div class="tour-name" th:text="${tour.name}"></div>
+<!--        <div class="tour-price" th:text="'Price: $' + ${tour.price}"></div>-->
+
+        <!-- Replace the simple price display with coupon-aware display -->
+        <div class="tour-price">
+          <div th:if="${tour.hasActiveCoupon}">
+        <span style="text-decoration: line-through; color: #999; font-size: 1.1em;"
+              th:text="'$' + ${tour.price}"></span>
+
+
+
+
+            <br>
+            <span style="color: #e74c3c; font-weight: bold; font-size: 1.3em;"
+                  th:text="'$' + ${#numbers.formatDecimal(tour.finalPrice, 1, 2)}"></span>
+            <span style="background: #4CAF50; color: white; padding: 2px 8px; border-radius: 12px;
+              font-size: 0.9em; margin-left: 8px;"
+                  th:text="'Save ' + ${tour.discountPercent} + '%'"></span>
+          </div>
+          <div th:unless="${tour.hasActiveCoupon}">
+            <span th:text="'$' + ${tour.price}"></span>
+          </div>
+        </div>
+
+
+        <!-- Add coupon status display -->
+        <div th:if="${tour.hasActiveCoupon}" style="margin: 8px 0;">
+    <span style="background: #ff9800; color: white; padding: 4px 12px;
+          border-radius: 15px; font-size: 0.85em; font-weight: bold;"
+          th:text="${tour.activeCoupon.daysUntilExpiry}">
+        Coupon Status
+    </span>
+        </div>
+
+
+
+
+
+        <div class="tour-description" th:text="${tour.description}"></div>
+<!--        <a th:href="@{/bookings/me(tourId=${tour.id})}" class="book-btn">Book This Tour</a>-->
+
+        <a th:href="@{/hi/check(id=${tour.id}, tour=${tour.name})}" class="book-btn">Book This Tour</a>
+
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-note">If your desired tour isn't listed, it doesn't exist in the system</p>
+
+  <div class="auto-refresh-indicator">
+    <span>Auto-refreshing in </span>
+    <div class="refresh-progress">
+      <div class="refresh-progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Auto-refresh the page after 3 seconds
+  setTimeout(function() {
+    window.location.reload();
+  }, 3000);
+
+  // Add interactive effects to the back button
+  document.addEventListener('DOMContentLoaded', function() {
+    const backButton = document.querySelector('.back-button');
+
+    // Remove pulse animation after first interaction
+    const removePulse = function() {
+      backButton.classList.remove('pulse');
+      backButton.removeEventListener('click', removePulse);
+      backButton.removeEventListener('touchstart', removePulse);
+    };
+
+    backButton.addEventListener('click', removePulse);
+    backButton.addEventListener('touchstart', removePulse);
+  });
+</script>
+</body>
+</html>

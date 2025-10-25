@@ -1,0 +1,1372 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="utf-8" />-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+<!--  <title>BigPanda — About Us</title>-->
+<!--  <meta name="description" content="Learn about BigPanda: our mission, team, values, and story." />-->
+<!--  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">-->
+<!--  <style>-->
+<!--    :root{-->
+<!--      &#45;&#45;bg:#0b1020; &#45;&#45;card:#111733; &#45;&#45;muted:#94a3b8; &#45;&#45;text:#e6eaf3; &#45;&#45;brand:#6ee7b7; &#45;&#45;brand-2:#60a5fa; &#45;&#45;ring:#93c5fd;-->
+<!--      &#45;&#45;shadow:0 10px 30px rgba(0,0,0,.25);-->
+<!--      &#45;&#45;rad:20px;-->
+<!--    }-->
+<!--    :root.light{-->
+<!--      &#45;&#45;bg:#f7fafc; &#45;&#45;card:#ffffff; &#45;&#45;muted:#475569; &#45;&#45;text:#0f172a; &#45;&#45;brand:#0ea5e9; &#45;&#45;brand-2:#22c55e; &#45;&#45;ring:#0ea5e9;-->
+<!--      &#45;&#45;shadow:0 8px 24px rgba(2,6,23,.08);-->
+<!--    }-->
+<!--    * { box-sizing:border-box }-->
+<!--    html,body{height:100%}-->
+<!--    body{-->
+<!--      margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;-->
+<!--      background: radial-gradient(1200px 600px at 80% -10%, rgba(96,165,250,.15), transparent 60%),-->
+<!--      radial-gradient(800px 500px at -10% 20%, rgba(110,231,183,.12), transparent 60%), var(&#45;&#45;bg);-->
+<!--      color:var(&#45;&#45;text);-->
+<!--      line-height:1.6;-->
+<!--    }-->
+<!--    a{ color:var(&#45;&#45;brand); text-decoration:none }-->
+<!--    .container{ width:min(1100px,92%); margin:0 auto; }-->
+
+<!--    /* Topbar */-->
+<!--    .topbar{-->
+<!--      position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);-->
+<!--      background:linear-gradient(180deg, rgba(17,23,51,.8), rgba(17,23,51,.5));-->
+<!--      border-bottom:1px solid rgba(255,255,255,.06);-->
+<!--    }-->
+<!--    :root.light .topbar{ background:rgba(255,255,255,.7); border-bottom:1px solid #eef2f7 }-->
+<!--    .nav{-->
+<!--      display:flex; align-items:center; justify-content:space-between; padding:14px 0;-->
+<!--    }-->
+<!--    .brand{-->
+<!--      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; font-size:20px;-->
+<!--    }-->
+<!--    .panda{-->
+<!--      width:34px; height:34px; display:grid; place-items:center; border-radius:50%;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); color:#0b1020; font-weight:900; box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .nav-actions{ display:flex; align-items:center; gap:10px }-->
+<!--    .btn{-->
+<!--      padding:10px 14px; border-radius:14px; background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2));-->
+<!--      color:#0b1020; font-weight:700; border:none; cursor:pointer; box-shadow:var(&#45;&#45;shadow); transition:transform .15s ease;-->
+<!--    }-->
+<!--    .btn:hover{ transform:translateY(-1px) }-->
+<!--    .ghost{-->
+<!--      background:transparent; color:var(&#45;&#45;text); border:1px solid rgba(255,255,255,.15);-->
+<!--    }-->
+<!--    :root.light .ghost{ border-color:#e5e7eb; color:#0f172a }-->
+
+<!--    /* Hero */-->
+<!--    .hero{-->
+<!--      padding:72px 0 36px;-->
+<!--      display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center;-->
+<!--    }-->
+<!--    @media (max-width:900px){ .hero{ grid-template-columns:1fr; padding:48px 0 20px } }-->
+<!--    .badge{-->
+<!--      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;-->
+<!--      background:rgba(96,165,250,.12); color:#cfe4ff; font-weight:600; border:1px solid rgba(96,165,250,.25);-->
+<!--    }-->
+<!--    :root.light .badge{ background:#e6f3ff; color:#0f172a; border-color:#bfdbfe }-->
+<!--    .title{ font-size:clamp(34px,4.4vw,56px); line-height:1.1; margin:14px 0 10px; font-weight:900 }-->
+<!--    .subtitle{ color:var(&#45;&#45;muted); font-size:18px; max-width:56ch }-->
+<!--    .hero-card{-->
+<!--      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), var(&#45;&#45;card);-->
+<!--      border:1px solid rgba(255,255,255,.07); border-radius:var(&#45;&#45;rad); padding:22px; box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .checks{ display:grid; gap:10px; margin:14px 0 0 }-->
+<!--    .check{ display:flex; gap:10px; align-items:flex-start }-->
+<!--    .check i{-->
+<!--      width:26px; height:26px; border-radius:50%; display:grid; place-items:center;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); color:#0b1020; font-weight:900;-->
+<!--      box-shadow:0 6px 16px rgba(96,165,250,.25);-->
+<!--    }-->
+
+<!--    /* Stats strip */-->
+<!--    .stats{-->
+<!--      display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:34px 0 10px;-->
+<!--    }-->
+<!--    @media (max-width:800px){ .stats{ grid-template-columns:repeat(2,1fr) } }-->
+<!--    .stat{-->
+<!--      padding:18px; border-radius:16px; background:var(&#45;&#45;card); border:1px solid rgba(255,255,255,.07); text-align:center;-->
+<!--      box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .stat .num{ font-size:28px; font-weight:800 }-->
+<!--    .stat .caption{ color:var(&#45;&#45;muted); font-size:13px }-->
+
+<!--    /* Content grid */-->
+<!--    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:28px 0 }-->
+<!--    @media (max-width:900px){ .grid{ grid-template-columns:1fr } }-->
+<!--    .card{-->
+<!--      background:var(&#45;&#45;card); border:1px solid rgba(255,255,255,.06); border-radius:var(&#45;&#45;rad);-->
+<!--      padding:22px; box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    h2{ margin:0 0 12px; font-size:26px }-->
+<!--    .muted{ color:var(&#45;&#45;muted) }-->
+
+<!--    /* Timeline */-->
+<!--    .timeline{ position:relative; padding-left:22px; }-->
+<!--    .timeline:before{-->
+<!--      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(&#45;&#45;brand),transparent);-->
+<!--    }-->
+<!--    .tl-item{ position:relative; margin:16px 0; }-->
+<!--    .tl-item:before{-->
+<!--      content:""; position:absolute; left:-2px; top:4px; width:12px; height:12px; border-radius:50%;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); box-shadow:0 0 0 4px rgba(96,165,250,.15);-->
+<!--    }-->
+
+<!--    /* Team */-->
+<!--    .team{-->
+<!--      display:grid; grid-template-columns:repeat(3,1fr); gap:16px;-->
+<!--    }-->
+<!--    @media (max-width:900px){ .team{ grid-template-columns:1fr 1fr } }-->
+<!--    @media (max-width:600px){ .team{ grid-template-columns:1fr } }-->
+<!--    .member{-->
+<!--      display:flex; gap:14px; align-items:center;-->
+<!--      padding:14px; border-radius:16px; background:var(&#45;&#45;card); border:1px solid rgba(255,255,255,.06); box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .avatar{-->
+<!--      width:58px; height:58px; border-radius:50%;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2));-->
+<!--      display:grid; place-items:center; font-weight:900; color:#0b1020;-->
+<!--    }-->
+<!--    .role{ color:var(&#45;&#45;muted); font-size:13px }-->
+
+<!--    /* Values */-->
+<!--    .values{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }-->
+<!--    @media (max-width:900px){ .values{ grid-template-columns:1fr } }-->
+<!--    .value i{-->
+<!--      width:34px; height:34px; border-radius:12px; display:grid; place-items:center; font-weight:900;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); color:#0b1020; margin-bottom:8px;-->
+<!--    }-->
+
+<!--    /* CTA + Contact */-->
+<!--    .cta{-->
+<!--      margin:34px 0 18px; padding:22px; border-radius:var(&#45;&#45;rad);-->
+<!--      background:linear-gradient(135deg, rgba(96,165,250,.18), rgba(110,231,183,.18));-->
+<!--      border:1px solid rgba(255,255,255,.14); box-shadow:var(&#45;&#45;shadow);-->
+<!--      display:flex; flex-wrap:wrap; align-items:center; gap:12px; justify-content:space-between;-->
+<!--    }-->
+<!--    .form{-->
+<!--      display:grid; gap:12px; margin-top:10px;-->
+<!--    }-->
+<!--    .row{ display:grid; gap:12px; grid-template-columns:1fr 1fr }-->
+<!--    @media (max-width:700px){ .row{ grid-template-columns:1fr } }-->
+<!--    .input, textarea{-->
+<!--      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.15);-->
+<!--      background:rgba(255,255,255,.04); color:var(&#45;&#45;text); outline:none;-->
+<!--    }-->
+<!--    :root.light .input, :root.light textarea{-->
+<!--      background:#fff; border-color:#e5e7eb; color:#0f172a;-->
+<!--    }-->
+<!--    .input:focus, textarea:focus{ box-shadow:0 0 0 3px var(&#45;&#45;ring); border-color:transparent }-->
+<!--    textarea{ min-height:120px; resize:vertical }-->
+<!--    .small{ font-size:12px; color:var(&#45;&#45;muted) }-->
+
+<!--    /* Footer */-->
+<!--    footer{ margin:40px 0 50px; color:var(&#45;&#45;muted); font-size:14px; text-align:center }-->
+
+<!--    /* Subtle motion */-->
+<!--    .fade-up{ opacity:0; transform:translateY(10px); animation:fadeUp .6s ease forwards; }-->
+<!--    .delay-1{ animation-delay:.08s } .delay-2{ animation-delay:.16s } .delay-3{ animation-delay:.24s }-->
+<!--    @keyframes fadeUp{ to{ opacity:1; transform:translateY(0) } }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="topbar">-->
+<!--  <div class="container nav">-->
+<!--    <div class="brand">-->
+<!--      <span class="panda">🐼</span> BigPanda-->
+<!--    </div>-->
+<!--    <div class="nav-actions">-->
+<!--      <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">Toggle Theme</button>-->
+<!--      <a class="btn" href="/contact">Get in Touch</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--<main class="container">-->
+<!--  <section class="hero">-->
+<!--    <div class="fade-up">-->
+<!--      <span class="badge">Trusted by explorers & businesses</span>-->
+<!--      <h1 class="title">We turn bold ideas into delightful realities.</h1>-->
+<!--      <p class="subtitle">-->
+<!--        At <strong>BigPanda</strong>, we blend strategy, design, and engineering to build products-->
+<!--        that customers love. Human-centered, data-informed, quality-obsessed.-->
+<!--      </p>-->
+<!--      <div style="display:flex; gap:10px; margin-top:16px">-->
+<!--        <a class="btn" href="/projects">See Our Work</a>-->
+<!--        <a class="btn ghost" href="/boxing/day">About BigPanda Day</a>-->
+<!--      </div>-->
+<!--      <div class="stats">-->
+<!--        <div class="stat"><div class="num">150+</div><div class="caption">Projects delivered</div></div>-->
+<!--        <div class="stat"><div class="num">98%</div><div class="caption">Client satisfaction</div></div>-->
+<!--        <div class="stat"><div class="num">12</div><div class="caption">Countries served</div></div>-->
+<!--        <div class="stat"><div class="num">24/7</div><div class="caption">Support coverage</div></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="hero-card fade-up delay-2">-->
+<!--      <h3 style="margin:0 0 8px">Our Mission</h3>-->
+<!--      <p class="muted" style="margin:0 0 8px">-->
+<!--        Empower teams to build resilient experiences that scale — while staying friendly, fast, and fun.-->
+<!--      </p>-->
+<!--      <div class="checks">-->
+<!--        <div class="check"><i>✓</i><div><strong>Customer-first</strong><br><span class="muted">We listen deeply and ship what matters.</span></div></div>-->
+<!--        <div class="check"><i>✓</i><div><strong>Quality built-in</strong><br><span class="muted">Performance, accessibility, and reliability by default.</span></div></div>-->
+<!--        <div class="check"><i>✓</i><div><strong>Long-term partners</strong><br><span class="muted">We succeed when you succeed — today and years ahead.</span></div></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+
+<!--  <section class="grid">-->
+<!--    <article class="card fade-up">-->
+<!--      <h2>Our Story</h2>-->
+<!--      <p class="muted">-->
+<!--        BigPanda started as a tiny studio with a huge goal: craft software that feels like magic.-->
+<!--        From our first prototype to global rollouts, we’ve stayed curious, humble, and relentlessly-->
+<!--        focused on outcomes.-->
+<!--      </p>-->
+<!--      <div class="timeline" aria-label="Company timeline">-->
+<!--        <div class="tl-item">-->
+<!--          <strong>2019 — Founded</strong>-->
+<!--          <div class="muted">We launched with a 3-person team and a whiteboard full of dreams.</div>-->
+<!--        </div>-->
+<!--        <div class="tl-item">-->
+<!--          <strong>2021 — First 1M users</strong>-->
+<!--          <div class="muted">A flagship product crossed one million users with industry-leading uptime.</div>-->
+<!--        </div>-->
+<!--        <div class="tl-item">-->
+<!--          <strong>2024 — Global expansion</strong>-->
+<!--          <div class="muted">New hubs opened to support clients across APAC, EMEA, and the Americas.</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </article>-->
+
+<!--    <aside class="card fade-up delay-1">-->
+<!--      <h2>Our Values</h2>-->
+<!--      <div class="values">-->
+<!--        <div>-->
+<!--          <i>★</i>-->
+<!--          <h3 style="margin:6px 0 4px">Craft with care</h3>-->
+<!--          <p class="muted">Details matter. We sweat them so your users don’t have to.</p>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <i>⚡</i>-->
+<!--          <h3 style="margin:6px 0 4px">Move with purpose</h3>-->
+<!--          <p class="muted">Velocity plus clarity — a combo that compounds.</p>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <i>🤝</i>-->
+<!--          <h3 style="margin:6px 0 4px">Win together</h3>-->
+<!--          <p class="muted">Radical candor, high trust, zero ego.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </aside>-->
+<!--  </section>-->
+
+
+
+
+
+
+
+<!--  <section class="card fade-up">-->
+<!--    <h2>Contact BigPanda</h2>-->
+<!--    <form class="form" action="/api/contact" method="post">-->
+<!--      <div class="row">-->
+<!--        <div>-->
+<!--          <label for="name">Your Name</label>-->
+<!--          <input class="input" id="name" name="name" type="text" placeholder="Jane Doe" required />-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="email">Email</label>-->
+<!--          <input class="input" id="email" name="email" type="email" placeholder="jane@company.com" required />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div>-->
+<!--          <label for="company">Company</label>-->
+<!--          <input class="input" id="company" name="company" type="text" placeholder="Acme Inc." />-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="budget">Estimated Budget</label>-->
+<!--          <select class="input" id="budget" name="budget">-->
+<!--            <option value="">Select…</option>-->
+<!--            <option>Under $5,000</option>-->
+<!--            <option>$5,000 – $20,000</option>-->
+<!--            <option>$20,000 – $100,000</option>-->
+<!--            <option>$100,000+</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="message">Project Details</label>-->
+<!--        <textarea id="message" name="message" placeholder="What are you hoping to build?" required></textarea>-->
+<!--      </div>-->
+<!--      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">-->
+<!--        <label style="display:flex; gap:8px; align-items:center">-->
+<!--          <input type="checkbox" required /> <span class="small">I agree to the <a href="/terms">terms</a> & <a href="/privacy">privacy</a>.</span>-->
+<!--        </label>-->
+<!--        <button class="btn" type="submit">Send Message</button>-->
+<!--      </div>-->
+<!--      <p class="small">Prefer chat? Reach us on <a href="https://wa.me/">WhatsApp</a>, <a href="#">WeChat</a>, or <a href="mailto:hello@bigpanda.co">hello@bigpanda.co</a>.</p>-->
+<!--    </form>-->
+<!--  </section>-->
+<!--</main>-->
+
+<!--<footer>-->
+<!--  © <span id="year"></span> BigPanda — Crafted with 🐼 care. <br/>-->
+<!--  <span class="small">Built for performance, accessibility, and joy.</span>-->
+<!--</footer>-->
+
+<!--<script>-->
+<!--  // Theme toggle (remembers preference)-->
+<!--  const root = document.documentElement;-->
+<!--  const themeToggle = document.getElementById('themeToggle');-->
+<!--  const saved = localStorage.getItem('bp-theme');-->
+<!--  if(saved){ root.classList.toggle('light', saved === 'light'); }-->
+<!--  themeToggle.addEventListener('click',()=>{-->
+<!--    const isLight = root.classList.toggle('light');-->
+<!--    localStorage.setItem('bp-theme', isLight ? 'light' : 'dark');-->
+<!--  });-->
+
+<!--  // Current year-->
+<!--  document.getElementById('year').textContent = new Date().getFullYear();-->
+
+<!--  // Subtle entrance animations-->
+<!--  const observer = new IntersectionObserver((entries)=>{-->
+<!--    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('animate-in'); }});-->
+<!--  },{ threshold:.15 });-->
+<!--  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="utf-8" />-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+<!--  <title>BigPanda — About Us</title>-->
+<!--  <meta name="description" content="Learn about BigPanda: our mission, team, values, and story." />-->
+<!--  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">-->
+<!--  <style>-->
+<!--    :root{-->
+<!--      &#45;&#45;bg:#0b1020; &#45;&#45;card:#111733; &#45;&#45;muted:#94a3b8; &#45;&#45;text:#e6eaf3; &#45;&#45;brand:#6ee7b7; &#45;&#45;brand-2:#60a5fa; &#45;&#45;ring:#93c5fd;-->
+<!--      &#45;&#45;shadow:0 10px 30px rgba(0,0,0,.25);-->
+<!--      &#45;&#45;rad:20px;-->
+<!--    }-->
+<!--    :root.light{-->
+<!--      &#45;&#45;bg:#f7fafc; &#45;&#45;card:#ffffff; &#45;&#45;muted:#475569; &#45;&#45;text:#0f172a; &#45;&#45;brand:#0ea5e9; &#45;&#45;brand-2:#22c55e; &#45;&#45;ring:#0ea5e9;-->
+<!--      &#45;&#45;shadow:0 8px 24px rgba(2,6,23,.08);-->
+<!--    }-->
+<!--    * { box-sizing:border-box }-->
+<!--    html,body{height:100%}-->
+<!--    body{-->
+<!--      margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;-->
+<!--      background: radial-gradient(1200px 600px at 80% -10%, rgba(96,165,250,.15), transparent 60%),-->
+<!--      radial-gradient(800px 500px at -10% 20%, rgba(110,231,183,.12), transparent 60%), var(&#45;&#45;bg);-->
+<!--      color:var(&#45;&#45;text);-->
+<!--      line-height:1.6;-->
+<!--    }-->
+<!--    a{ color:var(&#45;&#45;brand); text-decoration:none }-->
+<!--    .container{ width:min(1100px,92%); margin:0 auto; }-->
+
+<!--    /* Topbar */-->
+<!--    .topbar{-->
+<!--      position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);-->
+<!--      background:linear-gradient(180deg, rgba(17,23,51,.8), rgba(17,23,51,.5));-->
+<!--      border-bottom:1px solid rgba(255,255,255,.06);-->
+<!--    }-->
+<!--    :root.light .topbar{ background:rgba(255,255,255,.7); border-bottom:1px solid #eef2f7 }-->
+<!--    .nav{-->
+<!--      display:flex; align-items:center; justify-content:space-between; padding:14px 0;-->
+<!--    }-->
+<!--    .brand{-->
+<!--      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; font-size:20px;-->
+<!--    }-->
+<!--    .panda{-->
+<!--      width:34px; height:34px; display:grid; place-items:center; border-radius:50%;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); color:#0b1020; font-weight:900; box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .nav-actions{ display:flex; align-items:center; gap:10px }-->
+<!--    .btn{-->
+<!--      padding:10px 14px; border-radius:14px; background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2));-->
+<!--      color:#0b1020; font-weight:700; border:none; cursor:pointer; box-shadow:var(&#45;&#45;shadow); transition:transform .15s ease;-->
+<!--    }-->
+<!--    .btn:hover{ transform:translateY(-1px) }-->
+<!--    .ghost{-->
+<!--      background:transparent; color:var(&#45;&#45;text); border:1px solid rgba(255,255,255,.15);-->
+<!--    }-->
+<!--    :root.light .ghost{ border-color:#e5e7eb; color:#0f172a }-->
+
+<!--    /* Hero */-->
+<!--    .hero{-->
+<!--      padding:72px 0 36px;-->
+<!--      display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center;-->
+<!--    }-->
+<!--    @media (max-width:900px){ .hero{ grid-template-columns:1fr; padding:48px 0 20px } }-->
+<!--    .badge{-->
+<!--      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;-->
+<!--      background:rgba(96,165,250,.12); color:#cfe4ff; font-weight:600; border:1px solid rgba(96,165,250,.25);-->
+<!--    }-->
+<!--    :root.light .badge{ background:#e6f3ff; color:#0f172a; border-color:#bfdbfe }-->
+<!--    .title{ font-size:clamp(34px,4.4vw,56px); line-height:1.1; margin:14px 0 10px; font-weight:900 }-->
+<!--    .subtitle{ color:var(&#45;&#45;muted); font-size:18px; max-width:56ch }-->
+<!--    .hero-card{-->
+<!--      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), var(&#45;&#45;card);-->
+<!--      border:1px solid rgba(255,255,255,.07); border-radius:var(&#45;&#45;rad); padding:22px; box-shadow:var(&#45;&#45;shadow);-->
+<!--      position: relative;-->
+<!--    }-->
+<!--    .checks{ display:grid; gap:10px; margin:14px 0 0 }-->
+<!--    .check{ display:flex; gap:10px; align-items:flex-start }-->
+<!--    .check i{-->
+<!--      width:26px; height:26px; border-radius:50%; display:grid; place-items:center;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); color:#0b1020; font-weight:900;-->
+<!--      box-shadow:0 6px 16px rgba(96,165,250,.25);-->
+<!--    }-->
+
+<!--    /* Image Gallery */-->
+<!--    .image-gallery {-->
+<!--      margin: 20px 0;-->
+<!--      position: relative;-->
+<!--      height: 220px;-->
+<!--      overflow: hidden;-->
+<!--      border-radius: 12px;-->
+<!--    }-->
+<!--    .gallery-slide {-->
+<!--      position: absolute;-->
+<!--      top: 0;-->
+<!--      left: 0;-->
+<!--      width: 100%;-->
+<!--      height: 100%;-->
+<!--      opacity: 0;-->
+<!--      transition: opacity 0.8s ease;-->
+<!--      background-size: cover;-->
+<!--      background-position: center;-->
+<!--      border-radius: 12px;-->
+<!--    }-->
+<!--    .gallery-slide.active {-->
+<!--      opacity: 1;-->
+<!--    }-->
+<!--    .gallery-controls {-->
+<!--      position: absolute;-->
+<!--      bottom: 15px;-->
+<!--      left: 0;-->
+<!--      right: 0;-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      gap: 8px;-->
+<!--      z-index: 10;-->
+<!--    }-->
+<!--    .gallery-dot {-->
+<!--      width: 10px;-->
+<!--      height: 10px;-->
+<!--      border-radius: 50%;-->
+<!--      background: rgba(255, 255, 255, 0.5);-->
+<!--      cursor: pointer;-->
+<!--      transition: background 0.3s ease;-->
+<!--    }-->
+<!--    .gallery-dot.active {-->
+<!--      background: var(&#45;&#45;brand);-->
+<!--    }-->
+<!--    .gallery-nav {-->
+<!--      position: absolute;-->
+<!--      top: 50%;-->
+<!--      transform: translateY(-50%);-->
+<!--      background: rgba(0, 0, 0, 0.4);-->
+<!--      color: white;-->
+<!--      border: none;-->
+<!--      width: 36px;-->
+<!--      height: 36px;-->
+<!--      border-radius: 50%;-->
+<!--      display: grid;-->
+<!--      place-items: center;-->
+<!--      cursor: pointer;-->
+<!--      z-index: 10;-->
+<!--      transition: background 0.3s ease;-->
+<!--    }-->
+<!--    .gallery-nav:hover {-->
+<!--      background: rgba(0, 0, 0, 0.7);-->
+<!--    }-->
+<!--    .gallery-prev {-->
+<!--      left: 10px;-->
+<!--    }-->
+<!--    .gallery-next {-->
+<!--      right: 10px;-->
+<!--    }-->
+
+<!--    /* Stats strip */-->
+<!--    .stats{-->
+<!--      display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:34px 0 10px;-->
+<!--    }-->
+<!--    @media (max-width:800px){ .stats{ grid-template-columns:repeat(2,1fr) } }-->
+<!--    .stat{-->
+<!--      padding:18px; border-radius:16px; background:var(&#45;&#45;card); border:1px solid rgba(255,255,255,.07); text-align:center;-->
+<!--      box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .stat .num{ font-size:28px; font-weight:800 }-->
+<!--    .stat .caption{ color:var(&#45;&#45;muted); font-size:13px }-->
+
+<!--    /* Content grid */-->
+<!--    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:28px 0 }-->
+<!--    @media (max-width:900px){ .grid{ grid-template-columns:1fr } }-->
+<!--    .card{-->
+<!--      background:var(&#45;&#45;card); border:1px solid rgba(255,255,255,.06); border-radius:var(&#45;&#45;rad);-->
+<!--      padding:22px; box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    h2{ margin:0 0 12px; font-size:26px }-->
+<!--    .muted{ color:var(&#45;&#45;muted) }-->
+
+<!--    /* Timeline */-->
+<!--    .timeline{ position:relative; padding-left:22px; }-->
+<!--    .timeline:before{-->
+<!--      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(&#45;&#45;brand),transparent);-->
+<!--    }-->
+<!--    .tl-item{ position:relative; margin:16px 0; }-->
+<!--    .tl-item:before{-->
+<!--      content:""; position:absolute; left:-2px; top:4px; width:12px; height:12px; border-radius:50%;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); box-shadow:0 0 0 4px rgba(96,165,250,.15);-->
+<!--    }-->
+
+<!--    /* Team */-->
+<!--    .team{-->
+<!--      display:grid; grid-template-columns:repeat(3,1fr); gap:16px;-->
+<!--    }-->
+<!--    @media (max-width:900px){ .team{ grid-template-columns:1fr 1fr } }-->
+<!--    @media (max-width:600px){ .team{ grid-template-columns:1fr } }-->
+<!--    .member{-->
+<!--      display:flex; gap:14px; align-items:center;-->
+<!--      padding:14px; border-radius:16px; background:var(&#45;&#45;card); border:1px solid rgba(255,255,255,.06); box-shadow:var(&#45;&#45;shadow);-->
+<!--    }-->
+<!--    .avatar{-->
+<!--      width:58px; height:58px; border-radius:50%;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2));-->
+<!--      display:grid; place-items:center; font-weight:900; color:#0b1020;-->
+<!--    }-->
+<!--    .role{ color:var(&#45;&#45;muted); font-size:13px }-->
+
+<!--    /* Values */-->
+<!--    .values{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }-->
+<!--    @media (max-width:900px){ .values{ grid-template-columns:1fr } }-->
+<!--    .value i{-->
+<!--      width:34px; height:34px; border-radius:12px; display:grid; place-items:center; font-weight:900;-->
+<!--      background:linear-gradient(135deg,var(&#45;&#45;brand),var(&#45;&#45;brand-2)); color:#0b1020; margin-bottom:8px;-->
+<!--    }-->
+
+<!--    /* CTA + Contact */-->
+<!--    .cta{-->
+<!--      margin:34px 0 18px; padding:22px; border-radius:var(&#45;&#45;rad);-->
+<!--      background:linear-gradient(135deg, rgba(96,165,250,.18), rgba(110,231,183,.18));-->
+<!--      border:1px solid rgba(255,255,255,.14); box-shadow:var(&#45;&#45;shadow);-->
+<!--      display:flex; flex-wrap:wrap; align-items:center; gap:12px; justify-content:space-between;-->
+<!--    }-->
+<!--    .form{-->
+<!--      display:grid; gap:12px; margin-top:10px;-->
+<!--    }-->
+<!--    .row{ display:grid; gap:12px; grid-template-columns:1fr 1fr }-->
+<!--    @media (max-width:700px){ .row{ grid-template-columns:1fr } }-->
+<!--    .input, textarea{-->
+<!--      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.15);-->
+<!--      background:rgba(255,255,255,.04); color:var(&#45;&#45;text); outline:none;-->
+<!--    }-->
+<!--    :root.light .input, :root.light textarea{-->
+<!--      background:#fff; border-color:#e5e7eb; color:#0f172a;-->
+<!--    }-->
+<!--    .input:focus, textarea:focus{ box-shadow:0 0 0 3px var(&#45;&#45;ring); border-color:transparent }-->
+<!--    textarea{ min-height:120px; resize:vertical }-->
+<!--    .small{ font-size:12px; color:var(&#45;&#45;muted) }-->
+
+<!--    /* Footer */-->
+<!--    footer{ margin:40px 0 50px; color:var(&#45;&#45;muted); font-size:14px; text-align:center }-->
+
+<!--    /* Subtle motion */-->
+<!--    .fade-up{ opacity:0; transform:translateY(10px); animation:fadeUp .6s ease forwards; }-->
+<!--    .delay-1{ animation-delay:.08s } .delay-2{ animation-delay:.16s } .delay-3{ animation-delay:.24s }-->
+<!--    @keyframes fadeUp{ to{ opacity:1; transform:translateY(0) } }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header class="topbar">-->
+<!--  <div class="container nav">-->
+<!--    <div class="brand">-->
+<!--      <span class="panda">🐼</span> BigPanda-->
+<!--    </div>-->
+<!--    <div class="nav-actions">-->
+<!--      <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">Toggle Theme</button>-->
+<!--      <a class="btn" href="/contact">Get in Touch</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</header>-->
+
+<!--<main class="container">-->
+<!--  <section class="hero">-->
+<!--    <div class="fade-up">-->
+<!--      <span class="badge">Trusted by explorers & businesses</span>-->
+<!--      <h1 class="title">We turn bold ideas into delightful realities.</h1>-->
+<!--      <p class="subtitle">-->
+<!--        At <strong>BigPanda</strong>, we blend strategy, design, and engineering to build products-->
+<!--        that customers love. Human-centered, data-informed, quality-obsessed.-->
+<!--      </p>-->
+<!--      <div style="display:flex; gap:10px; margin-top:16px">-->
+<!--        <a class="btn" href="/projects">See Our Work</a>-->
+<!--        <a class="btn ghost" href="/boxing/day">About BigPanda Day</a>-->
+<!--      </div>-->
+<!--      <div class="stats">-->
+<!--        <div class="stat"><div class="num">150+</div><div class="caption">Projects delivered</div></div>-->
+<!--        <div class="stat"><div class="num">98%</div><div class="caption">Client satisfaction</div></div>-->
+<!--        <div class="stat"><div class="num">12</div><div class="caption">Countries served</div></div>-->
+<!--        <div class="stat"><div class="num">24/7</div><div class="caption">Support coverage</div></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="hero-card fade-up delay-2">-->
+<!--      <h3 style="margin:0 0 8px">Our Mission</h3>-->
+<!--      <p class="muted" style="margin:0 0 8px">-->
+<!--        Empower teams to build resilient experiences that scale — while staying friendly, fast, and fun.-->
+<!--      </p>-->
+
+<!--      &lt;!&ndash; Image Gallery &ndash;&gt;-->
+<!--      <div class="image-gallery">-->
+<!--        <div class="gallery-slide active" style="background-image: url('https://placehold.co/600x400/6ee7b7/111733?text=Team+Collaboration')"></div>-->
+<!--        <div class="gallery-slide" style="background-image: url('https://placehold.co/600x400/60a5fa/111733?text=Project+Delivery')"></div>-->
+<!--        <div class="gallery-slide" style="background-image: url('https://placehold.co/600x400/0ea5e9/111733?text=Client+Success')"></div>-->
+<!--        <div class="gallery-slide" style="background-image: url('https://placehold.co/600x400/22c55e/111733?text=Innovation')"></div>-->
+<!--        <div class="gallery-slide" style="background-image: url('https://placehold.co/600x400/6ee7b7/111733?text=Quality+Work')"></div>-->
+
+<!--       -->
+
+<!--        <button class="gallery-nav gallery-prev">❮</button>-->
+<!--        <button class="gallery-nav gallery-next">❯</button>-->
+
+<!--        <div class="gallery-controls">-->
+<!--          <div class="gallery-dot active" data-index="0"></div>-->
+<!--          <div class="gallery-dot" data-index="1"></div>-->
+<!--          <div class="gallery-dot" data-index="2"></div>-->
+<!--          <div class="gallery-dot" data-index="3"></div>-->
+<!--          <div class="gallery-dot" data-index="4"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="checks">-->
+<!--        <div class="check"><i>✓</i><div><strong>Customer-first</strong><br><span class="muted">We listen deeply and ship what matters.</span></div></div>-->
+<!--        <div class="check"><i>✓</i><div><strong>Quality built-in</strong><br><span class="muted">Performance, accessibility, and reliability by default.</span></div></div>-->
+<!--        <div class="check"><i>✓</i><div><strong>Long-term partners</strong><br><span class="muted">We succeed when you succeed — today and years ahead.</span></div></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+
+<!--  <section class="grid">-->
+<!--    <article class="card fade-up">-->
+<!--      <h2>Our Story</h2>-->
+<!--      <p class="muted">-->
+<!--        BigPanda started as a tiny studio with a huge goal: craft software that feels like magic.-->
+<!--        From our first prototype to global rollouts, we've stayed curious, humble, and relentlessly-->
+<!--        focused on outcomes.-->
+<!--      </p>-->
+<!--      <div class="timeline" aria-label="Company timeline">-->
+<!--        <div class="tl-item">-->
+<!--          <strong>2019 — Founded</strong>-->
+<!--          <div class="muted">We launched with a 3-person team and a whiteboard full of dreams.</div>-->
+<!--        </div>-->
+<!--        <div class="tl-item">-->
+<!--          <strong>2021 — First 1M users</strong>-->
+<!--          <div class="muted">A flagship product crossed one million users with industry-leading uptime.</div>-->
+<!--        </div>-->
+<!--        <div class="tl-item">-->
+<!--          <strong>2024 — Global expansion</strong>-->
+<!--          <div class="muted">New hubs opened to support clients across APAC, EMEA, and the Americas.</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </article>-->
+
+<!--    <aside class="card fade-up delay-1">-->
+<!--      <h2>Our Values</h2>-->
+<!--      <div class="values">-->
+<!--        <div>-->
+<!--          <i>★</i>-->
+<!--          <h3 style="margin:6px 0 4px">Craft with care</h3>-->
+<!--          <p class="muted">Details matter. We sweat them so your users don't have to.</p>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <i>⚡</i>-->
+<!--          <h3 style="margin:6px 0 4px">Move with purpose</h3>-->
+<!--          <p class="muted">Velocity plus clarity — a combo that compounds.</p>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <i>🤝</i>-->
+<!--          <h3 style="margin:6px 0 4px">Win together</h3>-->
+<!--          <p class="muted">Radical candor, high trust, zero ego.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </aside>-->
+<!--  </section>-->
+
+<!--  <section class="card fade-up">-->
+<!--    <h2>Contact BigPanda</h2>-->
+<!--    <form class="form" action="/api/contact" method="post">-->
+<!--      <div class="row">-->
+<!--        <div>-->
+<!--          <label for="name">Your Name</label>-->
+<!--          <input class="input" id="name" name="name" type="text" placeholder="Jane Doe" required />-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="email">Email</label>-->
+<!--          <input class="input" id="email" name="email" type="email" placeholder="jane@company.com" required />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div>-->
+<!--          <label for="company">Company</label>-->
+<!--          <input class="input" id="company" name="company" type="text" placeholder="Acme Inc." />-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="budget">Estimated Budget</label>-->
+<!--          <select class="input" id="budget" name="budget">-->
+<!--            <option value="">Select…</option>-->
+<!--            <option>Under $5,000</option>-->
+<!--            <option>$5,000 – $20,000</option>-->
+<!--            <option>$20,000 – $100,000</option>-->
+<!--            <option>$100,000+</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="message">Project Details</label>-->
+<!--        <textarea id="message" name="message" placeholder="What are you hoping to build?" required></textarea>-->
+<!--      </div>-->
+<!--      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">-->
+<!--        <label style="display:flex; gap:8px; align-items:center">-->
+<!--          <input type="checkbox" required /> <span class="small">I agree to the <a href="/terms">terms</a> & <a href="/privacy">privacy</a>.</span>-->
+<!--        </label>-->
+<!--        <button class="btn" type="submit">Send Message</button>-->
+<!--      </div>-->
+<!--      <p class="small">Prefer chat? Reach us on <a href="https://wa.me/">WhatsApp</a>, <a href="#">WeChat</a>, or <a href="mailto:hello@bigpanda.co">hello@bigpanda.co</a>.</p>-->
+<!--    </form>-->
+<!--  </section>-->
+<!--</main>-->
+
+<!--<footer>-->
+<!--  © <span id="year"></span> BigPanda — Crafted with 🐼 care. <br/>-->
+<!--  <span class="small">Built for performance, accessibility, and joy.</span>-->
+<!--</footer>-->
+
+<!--<script>-->
+<!--  // Theme toggle (remembers preference)-->
+<!--  const root = document.documentElement;-->
+<!--  const themeToggle = document.getElementById('themeToggle');-->
+<!--  const saved = localStorage.getItem('bp-theme');-->
+<!--  if(saved){ root.classList.toggle('light', saved === 'light'); }-->
+<!--  themeToggle.addEventListener('click',()=>{-->
+<!--    const isLight = root.classList.toggle('light');-->
+<!--    localStorage.setItem('bp-theme', isLight ? 'light' : 'dark');-->
+<!--  });-->
+
+<!--  // Current year-->
+<!--  document.getElementById('year').textContent = new Date().getFullYear();-->
+
+<!--  // Subtle entrance animations-->
+<!--  const observer = new IntersectionObserver((entries)=>{-->
+<!--    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('animate-in'); }});-->
+<!--  },{ threshold:.15 });-->
+<!--  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));-->
+
+<!--  // Image Gallery Functionality-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    const slides = document.querySelectorAll('.gallery-slide');-->
+<!--    const dots = document.querySelectorAll('.gallery-dot');-->
+<!--    const prevBtn = document.querySelector('.gallery-prev');-->
+<!--    const nextBtn = document.querySelector('.gallery-next');-->
+<!--    let currentSlide = 0;-->
+<!--    let slideInterval;-->
+
+<!--    // Function to show a specific slide-->
+<!--    function showSlide(index) {-->
+<!--      // Remove active class from all slides and dots-->
+<!--      slides.forEach(slide => slide.classList.remove('active'));-->
+<!--      dots.forEach(dot => dot.classList.remove('active'));-->
+
+<!--      // Add active class to current slide and dot-->
+<!--      slides[index].classList.add('active');-->
+<!--      dots[index].classList.add('active');-->
+
+<!--      currentSlide = index;-->
+<!--    }-->
+
+<!--    // Function to show next slide-->
+<!--    function nextSlide() {-->
+<!--      let nextIndex = (currentSlide + 1) % slides.length;-->
+<!--      showSlide(nextIndex);-->
+<!--    }-->
+
+<!--    // Function to show previous slide-->
+<!--    function prevSlide() {-->
+<!--      let prevIndex = (currentSlide - 1 + slides.length) % slides.length;-->
+<!--      showSlide(prevIndex);-->
+<!--    }-->
+
+<!--    // Start automatic slideshow-->
+<!--    function startSlideshow() {-->
+<!--      slideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds-->
+<!--    }-->
+
+<!--    // Stop automatic slideshow-->
+<!--    function stopSlideshow() {-->
+<!--      clearInterval(slideInterval);-->
+<!--    }-->
+
+<!--    // Event listeners for navigation buttons-->
+<!--    nextBtn.addEventListener('click', () => {-->
+<!--      stopSlideshow();-->
+<!--      nextSlide();-->
+<!--      startSlideshow();-->
+<!--    });-->
+
+<!--    prevBtn.addEventListener('click', () => {-->
+<!--      stopSlideshow();-->
+<!--      prevSlide();-->
+<!--      startSlideshow();-->
+<!--    });-->
+
+<!--    // Event listeners for dots-->
+<!--    dots.forEach(dot => {-->
+<!--      dot.addEventListener('click', function() {-->
+<!--        stopSlideshow();-->
+<!--        let slideIndex = parseInt(this.getAttribute('data-index'));-->
+<!--        showSlide(slideIndex);-->
+<!--        startSlideshow();-->
+<!--      });-->
+<!--    });-->
+
+<!--    // Pause slideshow when hovering over gallery-->
+<!--    const gallery = document.querySelector('.image-gallery');-->
+<!--    gallery.addEventListener('mouseenter', stopSlideshow);-->
+<!--    gallery.addEventListener('mouseleave', startSlideshow);-->
+
+<!--    // Initialize slideshow-->
+<!--    startSlideshow();-->
+<!--  });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BigPanda — About Us</title>
+  <meta name="description" content="Learn about BigPanda: our mission, team, values, and story." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020; --card:#111733; --muted:#94a3b8; --text:#e6eaf3; --brand:#6ee7b7; --brand-2:#60a5fa; --ring:#93c5fd;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --rad:20px;
+    }
+    :root.light{
+      --bg:#f7fafc; --card:#ffffff; --muted:#475569; --text:#0f172a; --brand:#0ea5e9; --brand-2:#22c55e; --ring:#0ea5e9;
+      --shadow:0 8px 24px rgba(2,6,23,.08);
+    }
+    * { box-sizing:border-box }
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(96,165,250,.15), transparent 60%),
+      radial-gradient(800px 500px at -10% 20%, rgba(110,231,183,.12), transparent 60%), var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{ color:var(--brand); text-decoration:none }
+    .container{ width:min(1100px,92%); margin:0 auto; }
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);
+      background:linear-gradient(180deg, rgba(17,23,51,.8), rgba(17,23,51,.5));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    :root.light .topbar{ background:rgba(255,255,255,.7); border-bottom:1px solid #eef2f7 }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; font-size:20px;
+    }
+    .panda{
+      width:34px; height:34px; display:grid; place-items:center; border-radius:50%;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#0b1020; font-weight:900; box-shadow:var(--shadow);
+    }
+    .nav-actions{ display:flex; align-items:center; gap:10px }
+    .btn{
+      padding:10px 14px; border-radius:14px; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#0b1020; font-weight:700; border:none; cursor:pointer; box-shadow:var(--shadow); transition:transform .15s ease;
+    }
+    .btn:hover{ transform:translateY(-1px) }
+    .ghost{
+      background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.15);
+    }
+    :root.light .ghost{ border-color:#e5e7eb; color:#0f172a }
+
+    /* Hero */
+    .hero{
+      padding:72px 0 36px;
+      display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center;
+    }
+    @media (max-width:900px){ .hero{ grid-template-columns:1fr; padding:48px 0 20px } }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      background:rgba(96,165,250,.12); color:#cfe4ff; font-weight:600; border:1px solid rgba(96,165,250,.25);
+    }
+    :root.light .badge{ background:#e6f3ff; color:#0f172a; border-color:#bfdbfe }
+    .title{ font-size:clamp(34px,4.4vw,56px); line-height:1.1; margin:14px 0 10px; font-weight:900 }
+    .subtitle{ color:var(--muted); font-size:18px; max-width:56ch }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), var(--card);
+      border:1px solid rgba(255,255,255,.07); border-radius:var(--rad); padding:22px; box-shadow:var(--shadow);
+    }
+    .checks{ display:grid; gap:10px; margin:14px 0 0 }
+    .check{ display:flex; gap:10px; align-items:flex-start }
+    .check i{
+      width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#0b1020; font-weight:900;
+      box-shadow:0 6px 16px rgba(96,165,250,.25);
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+      margin: 20px 0;
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .gallery-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+    }
+    .gallery-slide.active {
+      opacity: 1;
+    }
+    .gallery-controls {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      z-index: 10;
+    }
+    .gallery-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .gallery-dot.active {
+      background: var(--brand);
+    }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.3s ease;
+    }
+    .gallery-nav:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .gallery-prev {
+      left: 10px;
+    }
+    .gallery-next {
+      right: 10px;
+    }
+
+    /* Stats strip */
+    .stats{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:34px 0 10px;
+    }
+    @media (max-width:800px){ .stats{ grid-template-columns:repeat(2,1fr) } }
+    .stat{
+      padding:18px; border-radius:16px; background:var(--card); border:1px solid rgba(255,255,255,.07); text-align:center;
+      box-shadow:var(--shadow);
+    }
+    .stat .num{ font-size:28px; font-weight:800 }
+    .stat .caption{ color:var(--muted); font-size:13px }
+
+    /* Content grid */
+    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:28px 0 }
+    @media (max-width:900px){ .grid{ grid-template-columns:1fr } }
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--rad);
+      padding:22px; box-shadow:var(--shadow);
+    }
+    h2{ margin:0 0 12px; font-size:26px }
+    .muted{ color:var(--muted) }
+
+    /* Timeline */
+    .timeline{ position:relative; padding-left:22px; }
+    .timeline:before{
+      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand),transparent);
+    }
+    .tl-item{ position:relative; margin:16px 0; }
+    .tl-item:before{
+      content:""; position:absolute; left:-2px; top:4px; width:12px; height:12px; border-radius:50%;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 0 0 4px rgba(96,165,250,.15);
+    }
+
+    /* Team */
+    .team{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+    }
+    @media (max-width:900px){ .team{ grid-template-columns:1fr 1fr } }
+    @media (max-width:600px){ .team{ grid-template-columns:1fr } }
+    .member{
+      display:flex; gap:14px; align-items:center;
+      padding:14px; border-radius:16px; background:var(--card); border:1px solid rgba(255,255,255,.06); box-shadow:var(--shadow);
+    }
+    .avatar{
+      width:58px; height:58px; border-radius:50%;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      display:grid; place-items:center; font-weight:900; color:#0b1020;
+    }
+    .role{ color:var(--muted); font-size:13px }
+
+    /* Values */
+    .values{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }
+    @media (max-width:900px){ .values{ grid-template-columns:1fr } }
+    .value i{
+      width:34px; height:34px; border-radius:12px; display:grid; place-items:center; font-weight:900;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#0b1020; margin-bottom:8px;
+    }
+
+    /* CTA + Contact */
+    .cta{
+      margin:34px 0 18px; padding:22px; border-radius:var(--rad);
+      background:linear-gradient(135deg, rgba(96,165,250,.18), rgba(110,231,183,.18));
+      border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow);
+      display:flex; flex-wrap:wrap; align-items:center; gap:12px; justify-content:space-between;
+    }
+    .form{
+      display:grid; gap:12px; margin-top:10px;
+    }
+    .row{ display:grid; gap:12px; grid-template-columns:1fr 1fr }
+    @media (max-width:700px){ .row{ grid-template-columns:1fr } }
+    .input, textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.04); color:var(--text); outline:none;
+    }
+    :root.light .input, :root.light textarea{
+      background:#fff; border-color:#e5e7eb; color:#0f172a;
+    }
+    .input:focus, textarea:focus{ box-shadow:0 0 0 3px var(--ring); border-color:transparent }
+    textarea{ min-height:120px; resize:vertical }
+    .small{ font-size:12px; color:var(--muted) }
+
+    /* Footer */
+    footer{ margin:40px 0 50px; color:var(--muted); font-size:14px; text-align:center }
+
+    /* Subtle motion */
+    .fade-up{ opacity:0; transform:translateY(10px); animation:fadeUp .6s ease forwards; }
+    .delay-1{ animation-delay:.08s } .delay-2{ animation-delay:.16s } .delay-3{ animation-delay:.24s }
+    @keyframes fadeUp{ to{ opacity:1; transform:translateY(0) } }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <div class="brand">
+      <span class="panda">🐼</span> BigPanda
+    </div>
+    <div class="nav-actions">
+      <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">Toggle Theme</button>
+      <a class="btn" href="/contact">Get in Touch</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="fade-up">
+      <span class="badge">Trusted by explorers & businesses</span>
+      <h1 class="title">We turn bold ideas into delightful realities.</h1>
+      <p class="subtitle">
+        At <strong>BigPanda</strong>, we blend strategy, design, and engineering to build products
+        that customers love. Human-centered, data-informed, quality-obsessed.
+      </p>
+      <div style="display:flex; gap:10px; margin-top:16px">
+        <a class="btn" href="/projects">See Our Work</a>
+        <a class="btn ghost" href="/boxing/day">About BigPanda Day</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num">150+</div><div class="caption">Projects delivered</div></div>
+        <div class="stat"><div class="num">98%</div><div class="caption">Client satisfaction</div></div>
+        <div class="stat"><div class="num">12</div><div class="caption">Countries served</div></div>
+        <div class="stat"><div class="num">24/7</div><div class="caption">Support coverage</div></div>
+      </div>
+    </div>
+
+    <div class="hero-card fade-up delay-2">
+      <h3 style="margin:0 0 8px">Our Mission</h3>
+      <p class="muted" style="margin:0 0 8px">
+        Empower teams to build resilient experiences that scale — while staying friendly, fast, and fun.
+      </p>
+
+      <!-- Image Gallery -->
+      <div class="image-gallery">
+        <div class="gallery-slide active" style="background-image: url('src/static/wema/image1.jpg')"></div>
+        <div class="gallery-slide" style="background-image: url('src/static/wema/image2.jpg')"></div>
+        <div class="gallery-slide" style="background-image: url('src/static/wema/image3.jpg')"></div>
+        <div class="gallery-slide" style="background-image: url('src/static/wema/image4.jpg')"></div>
+        <div class="gallery-slide" style="background-image: url('src/main/resources/static/wema/image1.jpg)"></div>
+
+        <button class="gallery-nav gallery-prev">❮</button>
+        <button class="gallery-nav gallery-next">❯</button>
+
+        <div class="gallery-controls">
+          <div class="gallery-dot active" data-index="0"></div>
+          <div class="gallery-dot" data-index="1"></div>
+          <div class="gallery-dot" data-index="2"></div>
+          <div class="gallery-dot" data-index="3"></div>
+          <div class="gallery-dot" data-index="4"></div>
+        </div>
+      </div>
+
+      <div class="checks">
+        <div class="check"><i>✓</i><div><strong>Customer-first</strong><br><span class="muted">We listen deeply and ship what matters.</span></div></div>
+        <div class="check"><i>✓</i><div><strong>Quality built-in</strong><br><span class="muted">Performance, accessibility, and reliability by default.</span></div></div>
+        <div class="check"><i>✓</i><div><strong>Long-term partners</strong><br><span class="muted">We succeed when you succeed — today and years ahead.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card fade-up">
+      <h2>Our Story</h2>
+      <p class="muted">
+        BigPanda started as a tiny studio with a huge goal: craft software that feels like magic.
+        From our first prototype to global rollouts, we've stayed curious, humble, and relentlessly
+        focused on outcomes.
+      </p>
+      <div class="timeline" aria-label="Company timeline">
+        <div class="tl-item">
+          <strong>2019 — Founded</strong>
+          <div class="muted">We launched with a 3-person team and a whiteboard full of dreams.</div>
+        </div>
+        <div class="tl-item">
+          <strong>2021 — First 1M users</strong>
+          <div class="muted">A flagship product crossed one million users with industry-leading uptime.</div>
+        </div>
+        <div class="tl-item">
+          <strong>2024 — Global expansion</strong>
+          <div class="muted">New hubs opened to support clients across APAC, EMEA, and the Americas.</div>
+        </div>
+      </div>
+    </article>
+
+    <aside class="card fade-up delay-1">
+      <h2>Our Values</h2>
+      <div class="values">
+        <div>
+          <i>★</i>
+          <h3 style="margin:6px 0 4px">Craft with care</h3>
+          <p class="muted">Details matter. We sweat them so your users don't have to.</p>
+        </div>
+        <div>
+          <i>⚡</i>
+          <h3 style="margin:6px 0 4px">Move with purpose</h3>
+          <p class="muted">Velocity plus clarity — a combo that compounds.</p>
+        </div>
+        <div>
+          <i>🤝</i>
+          <h3 style="margin:6px 0 4px">Win together</h3>
+          <p class="muted">Radical candor, high trust, zero ego.</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="card fade-up">
+    <h2>Contact BigPanda</h2>
+    <form class="form" action="/api/contact" method="post">
+      <div class="row">
+        <div>
+          <label for="name">Your Name</label>
+          <input class="input" id="name" name="name" type="text" placeholder="Jane Doe" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" placeholder="jane@company.com" required />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="company">Company</label>
+          <input class="input" id="company" name="company" type="text" placeholder="Acme Inc." />
+        </div>
+        <div>
+          <label for="budget">Estimated Budget</label>
+          <select class="input" id="budget" name="budget">
+            <option value="">Select…</option>
+            <option>Under $5,000</option>
+            <option>$5,000 – $20,000</option>
+            <option>$20,000 – $100,000</option>
+            <option>$100,000+</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="message">Project Details</label>
+        <textarea id="message" name="message" placeholder="What are you hoping to build?" required></textarea>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+        <label style="display:flex; gap:8px; align-items:center">
+          <input type="checkbox" required /> <span class="small">I agree to the <a href="/terms">terms</a> & <a href="/privacy">privacy</a>.</span>
+        </label>
+        <button class="btn" type="submit">Send Message</button>
+      </div>
+      <p class="small">Prefer chat? Reach us on <a href="https://wa.me/">WhatsApp</a>, <a href="#">WeChat</a>, or <a href="mailto:hello@bigpanda.co">hello@bigpanda.co</a>.</p>
+    </form>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> BigPanda — Crafted with 🐼 care. <br/>
+  <span class="small">Built for performance, accessibility, and joy.</span>
+</footer>
+
+<script>
+  // Theme toggle (remembers preference)
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('bp-theme');
+  if(saved){ root.classList.toggle('light', saved === 'light'); }
+  themeToggle.addEventListener('click',()=>{
+    const isLight = root.classList.toggle('light');
+    localStorage.setItem('bp-theme', isLight ? 'light' : 'dark');
+  });
+
+  // Current year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Subtle entrance animations
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('animate-in'); }});
+  },{ threshold:.15 });
+  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+  // Image Gallery Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    const dots = document.querySelectorAll('.gallery-dot');
+    const prevBtn = document.querySelector('.gallery-prev');
+    const nextBtn = document.querySelector('.gallery-next');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Function to show a specific slide
+    function showSlide(index) {
+      // Remove active class from all slides and dots
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      // Add active class to current slide and dot
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+
+      currentSlide = index;
+    }
+
+    // Function to show next slide
+    function nextSlide() {
+      let nextIndex = (currentSlide + 1) % slides.length;
+      showSlide(nextIndex);
+    }
+
+    // Function to show previous slide
+    function prevSlide() {
+      let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(prevIndex);
+    }
+
+    // Start automatic slideshow
+    function startSlideshow() {
+      slideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
+    }
+
+    // Stop automatic slideshow
+    function stopSlideshow() {
+      clearInterval(slideInterval);
+    }
+
+    // Event listeners for navigation buttons
+    nextBtn.addEventListener('click', () => {
+      stopSlideshow();
+      nextSlide();
+      startSlideshow();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      stopSlideshow();
+      prevSlide();
+      startSlideshow();
+    });
+
+    // Event listeners for dots
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        stopSlideshow();
+        let slideIndex = parseInt(this.getAttribute('data-index'));
+        showSlide(slideIndex);
+        startSlideshow();
+      });
+    });
+
+    // Pause slideshow when hovering over gallery
+    const gallery = document.querySelector('.image-gallery');
+    gallery.addEventListener('mouseenter', stopSlideshow);
+    gallery.addEventListener('mouseleave', startSlideshow);
+
+    // Initialize slideshow
+    startSlideshow();
+  });
+</script>
+</body>
+</html>

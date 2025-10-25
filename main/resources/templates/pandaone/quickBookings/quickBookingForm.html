@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Quick Booking</title>
+</head>
+<body>
+<h2>Quick Booking Form</h2>
+
+<!-- Personalized Greeting - Separate from form autocomplete settings -->
+<div th:if="${loggedInCustomer != null}">
+  <h3 style="color: blue;">Hello, <span th:text="${loggedInCustomer.nickname}"></span>! Welcome to the complete booking form.</h3>
+</div>
+
+<!-- Success Message -->
+<div th:if="${successMessage}" style="color: green; font-weight: bold;">
+  <p th:text="${successMessage}"></p>
+</div>
+
+<!-- Form with autocomplete disabled -->
+<form th:action="@{/quick/book}" th:object="${quickBooking}" method="post" autocomplete="off">
+  <label for="numberOfAdults">Number of Adults:</label><br>
+  <input type="number" th:field="*{numberOfAdults}" id="numberOfAdults" min="0" required autocomplete="off"><br><br>
+
+  <label for="numberOfChildren">Number of Children:</label><br>
+  <input type="number" th:field="*{numberOfChildren}" id="numberOfChildren" min="0" required autocomplete="off"><br><br>
+
+
+
+  <label for="tourPackage">Tour Package:</label><br>
+  <select th:field="*{tourPackage}" id="tourPackage" size="3" required autocomplete="off">
+    <option value="">Select Package</option>
+    <option value="Wild Beest Safari">Wild Beest Safari</option>
+    <option value="Honeymoons">Honeymoons</option>
+    <option value="Family">Family</option>
+    <option value="Day Trip">Day Trip</option>
+    <option value="Celebration Trips">Celebration Trips</option>
+  </select><br><br>
+
+
+
+  <label for="duration">Duration (days):</label><br>
+  <input type="number" th:field="*{duration}" id="duration" min="1" required autocomplete="off"><br><br>
+  <button type="submit">Submit Booking</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!--&lt;!&ndash; registration-cta.html &ndash;&gt;-->
+<!--<div class="registration-cta">-->
+<!--    <div class="benefits-list">-->
+<!--        <h4><i class="fas fa-star"></i> Why Register?</h4>-->
+<!--        <ul>-->
+<!--            <li><i class="fas fa-check"></i> Access exclusive features</li>-->
+<!--            <li><i class="fas fa-check"></i> Secure account management</li>-->
+<!--            <li><i class="fas fa-check"></i> Personalized experience</li>-->
+<!--            <li><i class="fas fa-check"></i> Faster future interactions</li>-->
+<!--        </ul>-->
+<!--        <button id="showRegForm" class="quick-register-btn">-->
+<!--            <i class="fas fa-user-plus"></i> Click for Quick Registration-->
+<!--        </button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; This empty div will hold the registration form &ndash;&gt;-->
+<!--    <div id="registrationFormContainer"></div>-->
+
+<!--    <style>-->
+<!--        .registration-cta {-->
+<!--            max-width: 500px;-->
+<!--            margin: 2rem auto;-->
+<!--        }-->
+
+<!--        .quick-register-btn {-->
+<!--            width: 100%;-->
+<!--            margin-top: 1rem;-->
+<!--            padding: 10px;-->
+<!--            background: linear-gradient(135deg, #2a9d8f, #23857a);-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 8px;-->
+<!--            font-size: 0.95rem;-->
+<!--            font-weight: 600;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--            font-family: 'Poppins', sans-serif;-->
+<!--        }-->
+
+<!--        .quick-register-btn:hover {-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 5px 15px rgba(42, 157, 143, 0.3);-->
+<!--        }-->
+
+<!--        /* Hide form container initially */-->
+<!--        #registrationFormContainer {-->
+<!--            display: none;-->
+<!--            margin-top: 1.5rem;-->
+<!--        }-->
+
+<!--        /* Reuse your existing benefits styles or adjust as needed */-->
+<!--        .benefits-list {-->
+<!--            background: rgba(233, 196, 106, 0.1);-->
+<!--            padding: 15px;-->
+<!--            border-radius: 8px;-->
+<!--            border-left: 4px solid #e9c46a;-->
+<!--        }-->
+
+<!--        .benefits-list h4 {-->
+<!--            color: #264653;-->
+<!--            margin-bottom: 10px;-->
+<!--            font-size: 0.95rem;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .benefits-list h4 i {-->
+<!--            color: #e9c46a;-->
+<!--            margin-right: 8px;-->
+<!--        }-->
+
+<!--        .benefits-list ul {-->
+<!--            list-style: none;-->
+<!--            padding: 0;-->
+<!--        }-->
+
+<!--        .benefits-list li {-->
+<!--            padding: 4px 0;-->
+<!--            color: #264653;-->
+<!--            font-size: 0.85rem;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        .benefits-list li i {-->
+<!--            color: #2a9d8f;-->
+<!--            margin-right: 8px;-->
+<!--            font-size: 0.75rem;-->
+<!--        }-->
+<!--    </style>-->
+
+<!--    <script>-->
+<!--        // When the "Quick Registration" button is clicked-->
+<!--        document.getElementById('showRegForm').addEventListener('click', function() {-->
+<!--            const container = document.getElementById('registrationFormContainer');-->
+<!--            const button = this;-->
+
+<!--            // Show loading state-->
+<!--            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Form...';-->
+<!--            button.disabled = true;-->
+
+<!--            // Load the registration form into the container-->
+<!--            fetch('registration-form.html') // Path to your original form HTML-->
+<!--                .then(response => {-->
+<!--                    if (!response.ok) throw new Error('Failed to load form');-->
+<!--                    return response.text();-->
+<!--                })-->
+<!--                .then(html => {-->
+<!--                    // Show the form container and insert the form-->
+<!--                    container.style.display = 'block';-->
+<!--                    container.innerHTML = html;-->
+
+<!--                    // Hide the CTA button after form loads-->
+<!--                    button.style.display = 'none';-->
+
+<!--                    // Execute any form scripts (since we're loading HTML dynamically)-->
+<!--                    const scripts = container.querySelectorAll('script');-->
+<!--                    scripts.forEach(script => {-->
+<!--                        const newScript = document.createElement('script');-->
+<!--                        Array.from(script.attributes).forEach(attr => {-->
+<!--                            newScript.setAttribute(attr.name, attr.value);-->
+<!--                        });-->
+<!--                        newScript.textContent = script.textContent;-->
+<!--                        script.parentNode.replaceChild(newScript, script);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => {-->
+<!--                    container.innerHTML = `<div class="form-feedback error">Error loading form: ${error.message}</div>`;-->
+<!--                    container.style.display = 'block';-->
+<!--                    button.innerHTML = '<i class="fas fa-user-plus"></i> Try Again';-->
+<!--                    button.disabled = false;-->
+<!--                });-->
+<!--        });-->
+<!--    </script>-->
+<!--</div>-->

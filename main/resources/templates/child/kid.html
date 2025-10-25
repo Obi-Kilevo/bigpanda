@@ -1,0 +1,2697 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Tanzania National Parks Experience</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--    <style>-->
+<!--        /* Combined CSS from both documents */-->
+<!--        /* Hide vertical scrollbar for body */-->
+<!--        body {-->
+<!--            overflow-y: hidden;-->
+<!--        }-->
+
+<!--        /* Hide scrollbar for gallery container */-->
+<!--        .gallery-main-container {-->
+<!--            overflow-y: hidden;-->
+<!--        }-->
+
+<!--        /* Optional: hide scrollbar but still allow scrolling */-->
+<!--        body::-webkit-scrollbar,-->
+<!--        .gallery-main-container::-webkit-scrollbar {-->
+<!--            display: none;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            scrollbar-width: none;-->
+<!--        }-->
+
+<!--        .gallery-main-container {-->
+<!--            scrollbar-width: none;-->
+<!--        }-->
+
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--        }-->
+
+<!--        :root {-->
+<!--            &#45;&#45;primary-color: #0f2f3b;-->
+<!--            &#45;&#45;secondary-color: #1a4b5f;-->
+<!--            &#45;&#45;accent-color: #ff7e5f;-->
+<!--            &#45;&#45;text-color: #fff;-->
+<!--            &#45;&#45;text-secondary: #e0f0ff;-->
+<!--            &#45;&#45;card-bg: rgba(0, 0, 0, 0.5);-->
+<!--            &#45;&#45;transition-timing: cubic-bezier(0.65, 0, 0.35, 1);-->
+<!--            &#45;&#45;slide-duration: 0.8s;-->
+<!--            &#45;&#45;gallery-transition-duration: 0.6s;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            background-color: white;-->
+<!--            color: var(&#45;&#45;text-color);-->
+<!--            min-height: 100vh;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            padding: 20px;-->
+<!--            overflow-x: hidden;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1400px;-->
+<!--            width: 100%;-->
+<!--            margin: 40px auto 0 auto;-->
+<!--            background: linear-gradient(135deg, var(&#45;&#45;primary-color) 0%, var(&#45;&#45;secondary-color) 100%);-->
+<!--            border-radius: 20px;-->
+<!--            padding: 20px;-->
+<!--            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        /* Enhanced Carousel Styles */-->
+<!--        .carousel-container {-->
+<!--            position: relative;-->
+<!--            width: 100%;-->
+<!--            max-width: 1300px;-->
+<!--            height: 650px;-->
+<!--            margin: 0 auto;-->
+<!--            overflow: hidden;-->
+<!--            border-radius: 20px;-->
+<!--            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);-->
+<!--            transform: translateZ(0);-->
+<!--        }-->
+
+<!--        .carousel-slide {-->
+<!--            position: absolute;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            opacity: 0;-->
+<!--            transition: all var(&#45;&#45;slide-duration) var(&#45;&#45;transition-timing);-->
+<!--            background-position: center;-->
+<!--            background-size: cover;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            justify-content: flex-end;-->
+<!--            padding: 40px;-->
+<!--            transform-origin: center;-->
+<!--        }-->
+
+<!--        .slide-1 {-->
+<!--            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)),-->
+<!--            url('/arusha/flamingo.png') center/cover;-->
+<!--        }-->
+
+<!--        .slide-2 {-->
+<!--            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/arusha/kobe.png') center/cover;-->
+<!--        }-->
+
+<!--        .slide-3 {-->
+<!--            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/arusha/twin.png') center/cover;-->
+<!--        }-->
+
+<!--        .slide-content {-->
+<!--            background: rgba(0, 0, 0, 0.7);-->
+<!--            padding: 25px;-->
+<!--            border-radius: 15px;-->
+<!--            max-width: 500px;-->
+<!--            backdrop-filter: blur(10px);-->
+<!--            transform: translateY(50px);-->
+<!--            opacity: 0;-->
+<!--            transition: all 0.8s ease-in-out 0.5s;-->
+<!--        }-->
+
+<!--        .slide-title {-->
+<!--            font-size: 2.2rem;-->
+<!--            margin-bottom: 15px;-->
+<!--            color: var(&#45;&#45;accent-color);-->
+<!--        }-->
+
+<!--        .slide-description {-->
+<!--            font-size: 1.1rem;-->
+<!--            line-height: 1.6;-->
+<!--            color: var(&#45;&#45;text-secondary);-->
+<!--        }-->
+
+<!--        /* Unique transition styles for each slide */-->
+<!--        .slide-1.active {-->
+<!--            opacity: 1;-->
+<!--            animation: zoomIn var(&#45;&#45;slide-duration) forwards;-->
+<!--        }-->
+
+<!--        .slide-1.active .slide-content {-->
+<!--            transform: translateY(0);-->
+<!--            opacity: 1;-->
+<!--            animation: textSlideIn 0.8s forwards;-->
+<!--        }-->
+
+<!--        .slide-1.exit {-->
+<!--            animation: particleExplode 1s forwards;-->
+<!--        }-->
+
+<!--        .slide-1.exit .slide-content {-->
+<!--            animation: textFadeOutUp 0.8s forwards;-->
+<!--        }-->
+
+<!--        .slide-2.active {-->
+<!--            opacity: 1;-->
+<!--            animation: glassShatter 1.2s forwards;-->
+<!--        }-->
+
+<!--        .slide-2.active .slide-content {-->
+<!--            transform: translateY(0);-->
+<!--            opacity: 1;-->
+<!--            animation: textScaleIn 0.8s forwards;-->
+<!--        }-->
+
+<!--        .slide-2.exit {-->
+<!--            animation: slideToRight 1s forwards;-->
+<!--        }-->
+
+<!--        .slide-2.exit .slide-content {-->
+<!--            animation: textFadeOutRight 0.8s forwards;-->
+<!--        }-->
+
+<!--        .slide-3.active {-->
+<!--            opacity: 1;-->
+<!--            animation: waveIn 1s forwards;-->
+<!--        }-->
+
+<!--        .slide-3.active .slide-content {-->
+<!--            transform: translateY(0);-->
+<!--            opacity: 1;-->
+<!--            animation: textFadeIn 0.8s forwards;-->
+<!--        }-->
+
+<!--        .slide-3.exit {-->
+<!--            animation: foldUp 1s forwards;-->
+<!--        }-->
+
+<!--        .slide-3.exit .slide-content {-->
+<!--            animation: textFadeOut 0.8s forwards;-->
+<!--        }-->
+
+<!--        /* Gallery Container Styles - Keep styles but won't be used */-->
+<!--        .gallery-main-container {-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            display: none;-->
+<!--            padding: 30px;-->
+<!--            background: rgba(10, 31, 18, 0.95);-->
+<!--            border-radius: 20px;-->
+<!--            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);-->
+<!--            opacity: 0;-->
+<!--            transition: all var(&#45;&#45;gallery-transition-duration) ease-in-out;-->
+<!--            overflow-y: auto;-->
+<!--            z-index: 20;-->
+<!--        }-->
+
+<!--        .gallery-main-container.visible {-->
+<!--            display: block;-->
+<!--            animation: galleryFadeIn var(&#45;&#45;gallery-transition-duration) forwards;-->
+<!--        }-->
+
+<!--        .gallery-main-container.exiting {-->
+<!--            animation: galleryExit var(&#45;&#45;gallery-transition-duration) forwards;-->
+<!--        }-->
+
+<!--        .gallery-header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        .gallery-title {-->
+<!--            font-size: 2.5rem;-->
+<!--            margin-bottom: 10px;-->
+<!--            color: #fff;-->
+<!--            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);-->
+<!--        }-->
+
+<!--        .gallery-subtitle {-->
+<!--            font-size: 1.2rem;-->
+<!--            color: #a3d5a5;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .gallery-content {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));-->
+<!--            gap: 20px;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .image-card {-->
+<!--            background: var(&#45;&#45;card-bg);-->
+<!--            border-radius: 10px;-->
+<!--            overflow: hidden;-->
+<!--            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);-->
+<!--            transition: all 0.4s ease;-->
+<!--            transform-style: preserve-3d;-->
+<!--        }-->
+
+<!--        .image-card:hover {-->
+<!--            transform: translateY(-5px) rotateY(3deg);-->
+<!--            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);-->
+<!--            background: rgba(0, 0, 0, 0.6);-->
+<!--        }-->
+
+<!--        .image-card.switching {-->
+<!--            animation: cardSwitch 1.2s forwards;-->
+<!--        }-->
+
+<!--        .image-wrapper {-->
+<!--            position: relative;-->
+<!--            width: 100%;-->
+<!--            height: 220px;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .image-wrapper img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            transition: transform 0.7s ease;-->
+<!--        }-->
+
+<!--        .image-card:hover .image-wrapper img {-->
+<!--            transform: scale(1.08);-->
+<!--        }-->
+
+<!--        .overlay {-->
+<!--            position: absolute;-->
+<!--            bottom: 0;-->
+<!--            left: 0;-->
+<!--            right: 0;-->
+<!--            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);-->
+<!--            padding: 15px;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        .overlay h3 {-->
+<!--            font-size: 1.4rem;-->
+<!--            margin-bottom: 5px;-->
+<!--            color: #a3d5a5;-->
+<!--        }-->
+
+<!--        .overlay p {-->
+<!--            font-size: 0.9rem;-->
+<!--            opacity: 0.9;-->
+<!--        }-->
+
+<!--        .image-link {-->
+<!--            display: block;-->
+<!--            text-decoration: none;-->
+<!--            color: inherit;-->
+<!--        }-->
+
+<!--        footer {-->
+<!--            text-align: center;-->
+<!--            margin-top: 30px;-->
+<!--            color: #a3d5a5;-->
+<!--            font-size: 1rem;-->
+<!--        }-->
+
+<!--        /* Animation Keyframes */-->
+<!--        @keyframes zoomIn {-->
+<!--            0% {-->
+<!--                transform: scale(1.2);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: scale(1);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes particleExplode {-->
+<!--            0% {-->
+<!--                clip-path: circle(100% at 50% 50%);-->
+<!--                filter: blur(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            50% {-->
+<!--                filter: blur(2px);-->
+<!--                opacity: 0.7;-->
+<!--            }-->
+<!--            100% {-->
+<!--                clip-path: circle(0% at 50% 50%);-->
+<!--                filter: blur(10px);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes glassShatter {-->
+<!--            0% {-->
+<!--                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--            10% {-->
+<!--                clip-path: polygon(0 0, 95% 5%, 95% 95%, 5% 100%);-->
+<!--                opacity: 0.3;-->
+<!--            }-->
+<!--            30% {-->
+<!--                clip-path: polygon(0 0, 90% 10%, 90% 90%, 10% 100%);-->
+<!--                opacity: 0.6;-->
+<!--            }-->
+<!--            50% {-->
+<!--                clip-path: polygon(0 0, 80% 20%, 80% 80%, 20% 100%);-->
+<!--                opacity: 0.8;-->
+<!--            }-->
+<!--            100% {-->
+<!--                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes slideToRight {-->
+<!--            0% {-->
+<!--                transform: translateX(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: translateX(100%);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes waveIn {-->
+<!--            0% {-->
+<!--                clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--            100% {-->
+<!--                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes foldUp {-->
+<!--            0% {-->
+<!--                transform: perspective(1000px) rotateX(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: perspective(1000px) rotateX(90deg);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Text Animation Keyframes */-->
+<!--        @keyframes textSlideIn {-->
+<!--            0% {-->
+<!--                transform: translateY(50px);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: translateY(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes textScaleIn {-->
+<!--            0% {-->
+<!--                transform: scale(0.8) translateY(50px);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: scale(1) translateY(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes textFadeIn {-->
+<!--            0% {-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--            100% {-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes textFadeOutUp {-->
+<!--            0% {-->
+<!--                transform: translateY(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: translateY(-50px);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes textFadeOutRight {-->
+<!--            0% {-->
+<!--                transform: translateX(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: translateX(100px);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes textFadeOut {-->
+<!--            0% {-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes galleryFadeIn {-->
+<!--            0% {-->
+<!--                opacity: 0;-->
+<!--                transform: scale(0.95);-->
+<!--            }-->
+<!--            100% {-->
+<!--                opacity: 1;-->
+<!--                transform: scale(1);-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes galleryExit {-->
+<!--            0% {-->
+<!--                opacity: 1;-->
+<!--                transform: scale(1) translateY(0);-->
+<!--            }-->
+<!--            50% {-->
+<!--                opacity: 0.5;-->
+<!--                transform: scale(0.95) translateY(20px);-->
+<!--            }-->
+<!--            100% {-->
+<!--                opacity: 0;-->
+<!--                transform: scale(0.9) translateY(100px);-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes cardSwitch {-->
+<!--            0% {-->
+<!--                transform: rotateY(0) scale(1);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            50% {-->
+<!--                transform: rotateY(90deg) scale(0.9);-->
+<!--                opacity: 0.5;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: rotateY(0) scale(1);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* New faster exit animations */-->
+<!--        @keyframes fadeZoomOut {-->
+<!--            0% {-->
+<!--                opacity: 1;-->
+<!--                transform: scale(1);-->
+<!--            }-->
+<!--            100% {-->
+<!--                opacity: 0;-->
+<!--                transform: scale(0.8);-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes slideOutUp {-->
+<!--            0% {-->
+<!--                transform: translateY(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: translateY(-100%);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes slideOutDown {-->
+<!--            0% {-->
+<!--                transform: translateY(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: translateY(100%);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes rotateOut {-->
+<!--            0% {-->
+<!--                transform: rotate(0) scale(1);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: rotate(90deg) scale(0.5);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @keyframes flipOut {-->
+<!--            0% {-->
+<!--                transform: perspective(1000px) rotateY(0);-->
+<!--                opacity: 1;-->
+<!--            }-->
+<!--            100% {-->
+<!--                transform: perspective(1000px) rotateY(90deg);-->
+<!--                opacity: 0;-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Reusable exit animation classes */-->
+<!--        .slide-exit-fast {-->
+<!--            animation: fadeZoomOut 0.7s forwards !important;-->
+<!--        }-->
+
+<!--        .slide-exit-slide-up {-->
+<!--            animation: slideOutUp 0.7s forwards !important;-->
+<!--        }-->
+
+<!--        .slide-exit-slide-down {-->
+<!--            animation: slideOutDown 0.7s forwards !important;-->
+<!--        }-->
+
+<!--        .slide-exit-rotate {-->
+<!--            animation: rotateOut 0.7s forwards !important;-->
+<!--        }-->
+
+<!--        .slide-exit-flip {-->
+<!--            animation: flipOut 0.7s forwards !important;-->
+<!--        }-->
+
+<!--        /* Carousel Controls */-->
+<!--        .carousel-controls {-->
+<!--            position: absolute;-->
+<!--            bottom: 20px;-->
+<!--            left: 50%;-->
+<!--            transform: translateX(-50%);-->
+<!--            display: flex;-->
+<!--            gap: 15px;-->
+<!--            z-index: 10;-->
+<!--        }-->
+
+<!--        .control-dot {-->
+<!--            width: 14px;-->
+<!--            height: 14px;-->
+<!--            border-radius: 50%;-->
+<!--            background: rgba(255, 255, 255, 0.5);-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .control-dot.active {-->
+<!--            background: var(&#45;&#45;accent-color);-->
+<!--            transform: scale(1.3);-->
+<!--        }-->
+
+<!--        /* Carousel Progress Bar */-->
+<!--        .carousel-progress-bar {-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            height: 5px;-->
+<!--            background: linear-gradient(to right, var(&#45;&#45;accent-color), #feb47b);-->
+<!--            width: 0%;-->
+<!--            z-index: 10;-->
+<!--            transition: width 0.1s linear;-->
+<!--        }-->
+
+<!--        /* Panda World Header Styles */-->
+<!--        .header {-->
+<!--            background-color: white;-->
+<!--            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);-->
+<!--            padding: 20px 90px;-->
+<!--            border-radius: 20px;-->
+<!--            max-width: 1220px;-->
+<!--            width: 100%;-->
+<!--            margin: 0 auto;-->
+<!--            position: sticky;-->
+<!--            top: 20px;-->
+<!--            z-index: 100;-->
+<!--            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--            border: 1px solid rgba(76, 175, 80, 0.1);-->
+<!--        }-->
+
+<!--        .header:hover {-->
+<!--            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);-->
+<!--            transform: translateY(-2px);-->
+<!--        }-->
+
+<!--        .header-container {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
+
+<!--        .logo-section {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 15px;-->
+<!--            transition: transform 0.3s ease;-->
+<!--        }-->
+
+<!--        .logo-section:hover {-->
+<!--            transform: scale(1.02);-->
+<!--        }-->
+
+<!--        .logo-img {-->
+<!--            width: 60px;-->
+<!--            height: 60px;-->
+<!--            border-radius: 15px;-->
+<!--            object-fit: cover;-->
+<!--            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);-->
+<!--            transition: all 0.3s ease;-->
+<!--            border: 2px solid white;-->
+<!--        }-->
+
+<!--        .logo-img:hover {-->
+<!--            transform: rotate(5deg) scale(1.1);-->
+<!--            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);-->
+<!--        }-->
+
+<!--        .logo-text {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        .app-name {-->
+<!--            font-size: 28px;-->
+<!--            font-weight: 800;-->
+<!--            color: #2c3e50;-->
+<!--            letter-spacing: 0.5px;-->
+<!--            line-height: 1.1;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .app-name:hover {-->
+<!--            color: #4CAF50;-->
+<!--            transform: translateX(5px);-->
+<!--        }-->
+
+<!--        .app-name span {-->
+<!--            color: #4CAF50;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .app-name:hover span {-->
+<!--            text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);-->
+<!--        }-->
+
+<!--        .app-email {-->
+<!--            font-size: 14px;-->
+<!--            color: #7f8c8d;-->
+<!--            margin-top: 4px;-->
+<!--            font-weight: 500;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .app-email:hover {-->
+<!--            color: #4CAF50;-->
+<!--            transform: translateX(3px);-->
+<!--        }-->
+
+<!--        .nav-menu {-->
+<!--            display: flex;-->
+<!--            list-style: none;-->
+<!--            gap: 35px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .nav-item {-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        .nav-link {-->
+<!--            text-decoration: none;-->
+<!--            color: #34495e;-->
+<!--            font-weight: 500;-->
+<!--            font-size: 17px;-->
+<!--            transition: all 0.3s ease;-->
+<!--            position: relative;-->
+<!--            padding: 8px 0;-->
+<!--            display: block;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        .nav-link:hover {-->
+<!--            color: #4CAF50;-->
+<!--            transform: translateY(-2px);-->
+<!--        }-->
+
+<!--        .nav-link::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 0;-->
+<!--            height: 2px;-->
+<!--            bottom: 0;-->
+<!--            left: 0;-->
+<!--            background-color: #4CAF50;-->
+<!--            transition: width 0.3s ease;-->
+<!--        }-->
+
+<!--        .nav-link:hover::before {-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        .nav-link::after {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 8px;-->
+<!--            height: 8px;-->
+<!--            border-radius: 50%;-->
+<!--            background-color: #4CAF50;-->
+<!--            top: 50%;-->
+<!--            left: -15px;-->
+<!--            transform: translateY(-50%) scale(0);-->
+<!--            transition: transform 0.3s ease;-->
+<!--        }-->
+
+<!--        .nav-link:hover::after {-->
+<!--            transform: translateY(-50%) scale(1);-->
+<!--        }-->
+
+<!--        /* Enhanced Dropdown Styles with Dynamic Background */-->
+<!--        .dropdown {-->
+<!--            position: absolute;-->
+<!--            top: 100%;-->
+<!--            left: 0;-->
+<!--            width: 240px;-->
+<!--            border-radius: 16px;-->
+<!--            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);-->
+<!--            opacity: 0;-->
+<!--            visibility: hidden;-->
+<!--            transform: translateY(15px) scale(0.95);-->
+<!--            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);-->
+<!--            z-index: 1000;-->
+<!--            padding: 15px 0;-->
+<!--            overflow: hidden;-->
+<!--            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);-->
+<!--        }-->
+
+<!--        .dropdown::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            right: 0;-->
+<!--            height: 4px;-->
+<!--            background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39, #FFC107, #FF9800, #FF5722);-->
+<!--            background-size: 600% 100%;-->
+<!--            animation: gradientFlow 8s ease infinite;-->
+<!--            z-index: 2;-->
+<!--        }-->
+
+<!--        .nav-item:hover .dropdown {-->
+<!--            opacity: 1;-->
+<!--            visibility: visible;-->
+<!--            transform: translateY(10px) scale(1);-->
+<!--        }-->
+
+<!--        .dropdown a {-->
+<!--            display: block;-->
+<!--            padding: 14px 25px;-->
+<!--            text-decoration: none;-->
+<!--            color: #34495e;-->
+<!--            font-size: 15px;-->
+<!--            transition: all 0.3s ease;-->
+<!--            position: relative;-->
+<!--            opacity: 0;-->
+<!--            transform: translateX(-10px);-->
+<!--            z-index: 1;-->
+<!--            border-left: 3px solid transparent;-->
+<!--        }-->
+
+<!--        .nav-item:hover .dropdown a {-->
+<!--            opacity: 1;-->
+<!--            transform: translateX(0);-->
+<!--        }-->
+
+<!--        .dropdown a::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 6px;-->
+<!--            height: 6px;-->
+<!--            border-radius: 50%;-->
+<!--            background: #4CAF50;-->
+<!--            left: 12px;-->
+<!--            top: 50%;-->
+<!--            transform: translateY(-50%) scale(0);-->
+<!--            transition: transform 0.3s ease;-->
+<!--        }-->
+
+<!--        .dropdown a:hover::before {-->
+<!--            transform: translateY(-50%) scale(1);-->
+<!--        }-->
+
+<!--        .dropdown a:hover {-->
+<!--            color: #4CAF50;-->
+<!--            background: rgba(76, 175, 80, 0.08);-->
+<!--            padding-left: 32px;-->
+<!--            border-left-color: #4CAF50;-->
+<!--        }-->
+
+<!--        /* Sequential animations for dropdown items */-->
+<!--        .dropdown a:nth-child(1) {-->
+<!--            transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;-->
+<!--        }-->
+<!--        .dropdown a:nth-child(2) {-->
+<!--            transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;-->
+<!--        }-->
+<!--        .dropdown a:nth-child(3) {-->
+<!--            transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;-->
+<!--        }-->
+<!--        .dropdown a:nth-child(4) {-->
+<!--            transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;-->
+<!--        }-->
+<!--        .dropdown a:nth-child(5) {-->
+<!--            transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;-->
+<!--        }-->
+
+<!--        /* Gradient animation for dropdown top border */-->
+<!--        @keyframes gradientFlow {-->
+<!--            0% { background-position: 0% 50%; }-->
+<!--            50% { background-position: 100% 50%; }-->
+<!--            100% { background-position: 0% 50%; }-->
+<!--        }-->
+
+<!--        .mobile-toggle {-->
+<!--            display: none;-->
+<!--            font-size: 24px;-->
+<!--            background: none;-->
+<!--            border: none;-->
+<!--            color: #2c3e50;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--            padding: 8px;-->
+<!--            border-radius: 8px;-->
+<!--        }-->
+
+<!--        .mobile-toggle:hover {-->
+<!--            background-color: rgba(76, 175, 80, 0.1);-->
+<!--            color: #4CAF50;-->
+<!--            transform: rotate(90deg);-->
+<!--        }-->
+
+<!--        /* Responsive Design */-->
+<!--        @media (max-width: 1200px) {-->
+<!--            .gallery-content {-->
+<!--                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 992px) {-->
+<!--            .carousel-container {-->
+<!--                height: 550px;-->
+<!--            }-->
+
+<!--            .gallery-content {-->
+<!--                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 768px) {-->
+<!--            .carousel-container {-->
+<!--                height: 450px;-->
+<!--            }-->
+
+<!--            .slide-title {-->
+<!--                font-size: 1.8rem;-->
+<!--            }-->
+
+<!--            .slide-content {-->
+<!--                padding: 20px;-->
+<!--            }-->
+
+<!--            .gallery-title {-->
+<!--                font-size: 2rem;-->
+<!--            }-->
+
+<!--            .gallery-subtitle {-->
+<!--                font-size: 1.1rem;-->
+<!--            }-->
+
+<!--            .gallery-content {-->
+<!--                grid-template-columns: 1fr;-->
+<!--            }-->
+
+<!--            .nav-menu {-->
+<!--                display: none;-->
+<!--            }-->
+
+<!--            .mobile-toggle {-->
+<!--                display: block;-->
+<!--            }-->
+
+<!--            .app-name {-->
+<!--                font-size: 22px;-->
+<!--            }-->
+
+<!--            .logo-img {-->
+<!--                width: 50px;-->
+<!--                height: 50px;-->
+<!--            }-->
+
+<!--            .header {-->
+<!--                padding: 15px 50px;-->
+<!--                margin: 15px auto;-->
+<!--                top: 15px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .carousel-container {-->
+<!--                height: 400px;-->
+<!--            }-->
+
+<!--            .slide-content {-->
+<!--                padding: 15px;-->
+<!--            }-->
+
+<!--            .slide-title {-->
+<!--                font-size: 1.6rem;-->
+<!--            }-->
+
+<!--            .gallery-main-container {-->
+<!--                padding: 15px;-->
+<!--            }-->
+
+<!--            .header {-->
+<!--                padding: 15px 40px;-->
+<!--            }-->
+
+<!--            .logo-text {-->
+<!--                max-width: 120px;-->
+<!--            }-->
+
+<!--            .app-name {-->
+<!--                font-size: 20px;-->
+<!--            }-->
+
+<!--            .app-email {-->
+<!--                font-size: 12px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 1000px) {-->
+<!--            .nav-menu {-->
+<!--                gap: 20px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 850px) {-->
+<!--            .header {-->
+<!--                padding: 20px 60px;-->
+<!--            }-->
+
+<!--            .nav-menu {-->
+<!--                gap: 15px;-->
+<!--            }-->
+
+<!--            .nav-link {-->
+<!--                font-size: 16px;-->
+<!--            }-->
+
+<!--            .app-name {-->
+<!--                font-size: 24px;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Panda World Header &ndash;&gt;-->
+<!--<header class="header">-->
+<!--    <div class="header-container">-->
+<!--        <div class="logo-section">-->
+<!--            <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">-->
+<!--            <div class="logo-text">-->
+<!--                <div class="app-name">PANDA <span>WORLD</span></div>-->
+<!--                <div class="app-email">bigpandasafaris@gmail.com</div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <ul class="nav-menu">-->
+<!--            <li class="nav-item">-->
+<!--                <a href="#" class="nav-link">Adventure</a>-->
+<!--                <div class="dropdown">-->
+<!--                    <a href="/parkspanda/one" target="_top">Wild Beest Safari</a>-->
+<!--                    <a href="/parkspanda/two" target="_top">Honeymoons</a>-->
+<!--                    <a href="/parkspanda/three" target="_top">Family</a>-->
+<!--                    <a href="/parkspanda/four" target="_top">Day trip</a>-->
+<!--                    <a href="/parkspanda/five" target="_top">Celebration trips</a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item">-->
+<!--                <a href="#" class="nav-link">Travel Insights</a>-->
+<!--                <div class="dropdown">-->
+<!--                    <a href="/dest/ngorongoro" target="_top">Destinations</a>-->
+<!--                    <a href="/un/work" target="_top">Wildlife Guides</a>-->
+<!--                    <a href="/un/work" target="_top">Travel Tips</a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item">-->
+<!--                <a href="#" class="nav-link">Plan My Safari</a>-->
+<!--                <div class="dropdown">-->
+<!--                    <a href="/boxthree" target="_top">Plan my Big Safari</a>-->
+<!--                    <a href="/un/work" target="_top">Sample Itineraries</a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item">-->
+<!--                <a href="#" class="nav-link">Blog</a>-->
+<!--                <div class="dropdown">-->
+<!--                    <a href="/un/work" target="_top">Travel Tips</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+<!--        <ul>-->
+<!--            <li class="nav-item">-->
+<!--                <a href="#" class="nav-link">HOME &#9662;</a>-->
+<!--                <ul class="dropdown">-->
+<!--                    <li><a href="/bone" target="_top">Go back to homepage</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+<!--        <button class="mobile-toggle">-->
+<!--            <i class="fas fa-bars"></i>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; Carousel Container &ndash;&gt;-->
+<!--<div class="container">-->
+<!--    <div class="carousel-container" id="carousel">-->
+<!--        <div class="carousel-progress-bar" id="progressBar"></div>-->
+
+<!--        <div class="carousel-slide slide-1 active">-->
+<!--            <div class="slide-content">-->
+<!--                <h2 class="slide-title">Oldonyo Lengai</h2>-->
+<!--                <p class="slide-description">The majestic Mountain of God, standing tall in Northern Tanzania.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="carousel-slide slide-2">-->
+<!--            <div class="slide-content">-->
+<!--                <h2 class="slide-title">Graceful Tortoise</h2>-->
+<!--                <p class="slide-description">Admire the beauty and wisdom of one of nature’s oldest creatures.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="carousel-slide slide-3">-->
+<!--            <div class="slide-content">-->
+<!--                <h2 class="slide-title">Nature’s Majesty</h2>-->
+<!--                <p class="slide-description">Experience the awe-inspiring landscapes where earth and sky meet in perfect harmony.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="carousel-controls">-->
+<!--            <div class="control-dot active" data-index="0"></div>-->
+<!--            <div class="control-dot" data-index="1"></div>-->
+<!--            <div class="control-dot" data-index="2"></div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Gallery Container - Keep DOM structure but won't be activated &ndash;&gt;-->
+<!--        <div class="gallery-main-container" id="galleryContainer" style="display: none !important;">-->
+<!--            <div class="gallery-header">-->
+<!--                <h1 class="gallery-title">Tanzania's National Parks</h1>-->
+<!--                <p class="gallery-subtitle">Discover the natural wonders of Tanzania</p>-->
+<!--            </div>-->
+
+<!--            <div class="gallery-content" id="galleryContent">-->
+
+<!--&lt;!&ndash;                nilitoa hapa xi&ndash;&gt;-->
+<!--            </div>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <footer>-->
+<!--        <p>Obi Panda</p>-->
+<!--    </footer>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // Enhanced JavaScript for Panda World interactive effects-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        const header = document.querySelector('.header');-->
+<!--        const navLinks = document.querySelectorAll('.nav-link');-->
+<!--        const mobileToggle = document.querySelector('.mobile-toggle');-->
+<!--        const dropdowns = document.querySelectorAll('.dropdown');-->
+
+<!--        // Add subtle pulse animation to header-->
+<!--        setInterval(() => {-->
+<!--            header.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.1)';-->
+<!--            setTimeout(() => {-->
+<!--                header.style.boxShadow = '0 5px 28px rgba(76, 175, 80, 0.15)';-->
+<!--            }, 1000);-->
+<!--        }, 2000);-->
+
+<!--        // Enhanced hover effect for navigation links-->
+<!--        navLinks.forEach(link => {-->
+<!--            link.addEventListener('mouseenter', () => {-->
+<!--                link.style.transform = 'translateY(-3px)';-->
+<!--                link.style.color = '#4CAF50';-->
+<!--            });-->
+
+<!--            link.addEventListener('mouseleave', () => {-->
+<!--                link.style.transform = 'translateY(0)';-->
+<!--                link.style.color = '#34495e';-->
+<!--            });-->
+<!--        });-->
+
+<!--        // Mobile menu toggle with animation-->
+<!--        mobileToggle.addEventListener('click', function() {-->
+<!--            this.style.transform = 'rotate(180deg)';-->
+<!--            alert('Mobile menu would open here. This will be implemented in your Spring Boot application.');-->
+<!--            setTimeout(() => {-->
+<!--                this.style.transform = 'rotate(0)';-->
+<!--            }, 300);-->
+<!--        });-->
+
+<!--        // Add subtle animation to logo on page load-->
+<!--        const logoImg = document.querySelector('.logo-img');-->
+<!--        setTimeout(() => {-->
+<!--            logoImg.style.transform = 'scale(1.1)';-->
+<!--            setTimeout(() => {-->
+<!--                logoImg.style.transform = 'scale(1)';-->
+<!--            }, 300);-->
+<!--        }, 500);-->
+
+<!--        // Add proximity detection for dropdowns-->
+<!--        document.addEventListener('mousemove', (e) => {-->
+<!--            const mouseY = e.clientY;-->
+<!--            dropdowns.forEach(dropdown => {-->
+<!--                const rect = dropdown.getBoundingClientRect();-->
+<!--                const distance = Math.abs(mouseY - rect.top);-->
+
+<!--                if (distance < 100) {-->
+<!--                    dropdown.parentElement.classList.add('hover-effect');-->
+<!--                } else {-->
+<!--                    dropdown.parentElement.classList.remove('hover-effect');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+
+<!--        // Dynamic dropdown background colors-->
+<!--        const colors = [-->
+<!--            'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',-->
+<!--            'linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%)',-->
+<!--            'linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%)',-->
+<!--            'linear-gradient(135deg, #ffffff 0%, #e0f2f1 100%)'-->
+<!--        ];-->
+
+<!--        let colorIndex = 0;-->
+
+<!--        setInterval(() => {-->
+<!--            dropdowns.forEach(dropdown => {-->
+<!--                if (dropdown.parentElement.classList.contains('hover-effect')) {-->
+<!--                    dropdown.style.background = colors[colorIndex];-->
+<!--                }-->
+<!--            });-->
+<!--            colorIndex = (colorIndex + 1) % colors.length;-->
+<!--        }, 4000);-->
+<!--    });-->
+
+<!--    // Carousel module - Modified to loop 3 slides only (no gallery)-->
+<!--    const Carousel = (() => {-->
+<!--        // Elements-->
+<!--        const slides = document.querySelectorAll('.carousel-slide');-->
+<!--        const dots = document.querySelectorAll('.control-dot');-->
+<!--        const progressBar = document.getElementById('progressBar');-->
+<!--        const carousel = document.getElementById('carousel');-->
+
+<!--        // State-->
+<!--        let currentSlide = 0;-->
+<!--        let carouselInterval;-->
+<!--        let progressInterval;-->
+
+<!--        // Configuration-->
+<!--        const config = {-->
+<!--            slideDuration: 4000, // Slide display time (4 seconds)-->
+<!--            progressUpdateInterval: 20,-->
+<!--            progressIncrement: 0.6-->
+<!--        };-->
+
+<!--        // Function to update progress bar-->
+<!--        function updateProgressBar() {-->
+<!--            let width = 0;-->
+<!--            clearInterval(progressInterval);-->
+
+<!--            progressInterval = setInterval(() => {-->
+<!--                if (width >= 100) {-->
+<!--                    clearInterval(progressInterval);-->
+<!--                } else {-->
+<!--                    width += config.progressIncrement;-->
+<!--                    progressBar.style.width = width + '%';-->
+<!--                }-->
+<!--            }, config.progressUpdateInterval);-->
+<!--        }-->
+
+<!--        // Function to change slides - Modified to loop 3 slides continuously-->
+<!--        function changeSlide() {-->
+<!--            // Remove active class from current slide and add exit animation-->
+<!--            slides[currentSlide].classList.remove('active');-->
+
+<!--            // Apply random exit animation-->
+<!--            const exitAnimations = ['slide-exit-fast', 'slide-exit-slide-up',-->
+<!--                'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip'];-->
+<!--            const randomExit = exitAnimations[Math.floor(Math.random() * exitAnimations.length)];-->
+<!--            slides[currentSlide].classList.add(randomExit);-->
+
+<!--            dots[currentSlide].classList.remove('active');-->
+
+<!--            // Move to next slide (loop back to 0 after slide 2)-->
+<!--            currentSlide = (currentSlide + 1) % slides.length;-->
+
+<!--            // Reset progress bar-->
+<!--            progressBar.style.width = '0%';-->
+
+<!--            // After exit animation, activate next slide-->
+<!--            setTimeout(() => {-->
+<!--                // Remove all exit animations-->
+<!--                slides.forEach(slide => {-->
+<!--                    slide.classList.remove('slide-exit-fast', 'slide-exit-slide-up',-->
+<!--                        'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip');-->
+<!--                });-->
+
+<!--                // Activate next slide-->
+<!--                slides[currentSlide].classList.add('active');-->
+<!--                dots[currentSlide].classList.add('active');-->
+
+<!--                // Start progress bar-->
+<!--                updateProgressBar();-->
+<!--            }, 800);-->
+<!--        }-->
+
+<!--        // Start the carousel loop-->
+<!--        function startCarousel() {-->
+<!--            carouselInterval = setInterval(changeSlide, config.slideDuration);-->
+<!--            updateProgressBar();-->
+<!--        }-->
+
+<!--        // Initialize carousel-->
+<!--        function init() {-->
+<!--            startCarousel();-->
+
+<!--            // Add click events to control dots-->
+<!--            dots.forEach(dot => {-->
+<!--                dot.addEventListener('click', function() {-->
+<!--                    const slideIndex = parseInt(this.getAttribute('data-index'));-->
+
+<!--                    if (slideIndex !== currentSlide) {-->
+<!--                        clearInterval(carouselInterval);-->
+<!--                        clearInterval(progressInterval);-->
+
+<!--                        // Remove active class from current slide-->
+<!--                        slides[currentSlide].classList.remove('active');-->
+<!--                        dots[currentSlide].classList.remove('active');-->
+
+<!--                        // Add exit animation-->
+<!--                        const exitAnimations = ['slide-exit-fast', 'slide-exit-slide-up',-->
+<!--                            'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip'];-->
+<!--                        const randomExit = exitAnimations[Math.floor(Math.random() * exitAnimations.length)];-->
+<!--                        slides[currentSlide].classList.add(randomExit);-->
+
+<!--                        // Update current slide-->
+<!--                        currentSlide = slideIndex;-->
+
+<!--                        // Activate target slide after exit animation-->
+<!--                        setTimeout(() => {-->
+<!--                            slides.forEach(slide => {-->
+<!--                                slide.classList.remove('slide-exit-fast', 'slide-exit-slide-up',-->
+<!--                                    'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip');-->
+<!--                            });-->
+
+<!--                            slides[currentSlide].classList.add('active');-->
+<!--                            dots[currentSlide].classList.add('active');-->
+
+<!--                            // Restart carousel loop-->
+<!--                            startCarousel();-->
+<!--                        }, 800);-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+
+<!--        // Public methods-->
+<!--        return {-->
+<!--            init: init-->
+<!--        };-->
+<!--    })();-->
+
+<!--    // Initialize the carousel (loop 3 slides only)-->
+<!--    document.addEventListener('DOMContentLoaded', Carousel.init);-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanzania National Parks Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Combined CSS from both documents - 移除所有边框/框架相关样式 */
+        /* Hide vertical scrollbar for body */
+        body {
+            overflow-y: hidden;
+        }
+
+        /* Hide scrollbar for gallery container */
+        .gallery-main-container {
+            overflow-y: hidden;
+        }
+
+        /* Optional: hide scrollbar but still allow scrolling */
+        body::-webkit-scrollbar,
+        .gallery-main-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            scrollbar-width: none;
+        }
+
+        .gallery-main-container {
+            scrollbar-width: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0f2f3b;
+            --secondary-color: #1a4b5f;
+            --accent-color: #ff7e5f;
+            --text-color: #fff;
+            --text-secondary: #e0f0ff;
+            --card-bg: rgba(0, 0, 0, 0.5);
+            --transition-timing: cubic-bezier(0.65, 0, 0.35, 1);
+            --slide-duration: 0.8s;
+            --gallery-transition-duration: 0.6s;
+        }
+
+        body {
+            background-color: white;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 40px auto 0 auto;
+            /* 已移除深绿色渐变背景 */
+            padding: 20px;
+        }
+
+        /* Enhanced Carousel Styles - 移除轮播外部框架 */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1300px;
+            height: 650px;
+            margin: 0 auto;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: all var(--slide-duration) var(--transition-timing);
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            transform-origin: center;
+        }
+
+        .slide-1 {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)),
+            url('/arusha/flamingo.png') center/cover;
+        }
+
+        .slide-2 {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/arusha/kobe.png') center/cover;
+        }
+
+        .slide-3 {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('/arusha/twin.png') center/cover;
+        }
+
+        .slide-content {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease-in-out 0.5s;
+        }
+
+        .slide-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .slide-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Unique transition styles for each slide */
+        .slide-1.active {
+            opacity: 1;
+            animation: zoomIn var(--slide-duration) forwards;
+        }
+
+        .slide-1.active .slide-content {
+            transform: translateY(0);
+            opacity: 1;
+            animation: textSlideIn 0.8s forwards;
+        }
+
+        .slide-1.exit {
+            animation: particleExplode 1s forwards;
+        }
+
+        .slide-1.exit .slide-content {
+            animation: textFadeOutUp 0.8s forwards;
+        }
+
+        .slide-2.active {
+            opacity: 1;
+            animation: glassShatter 1.2s forwards;
+        }
+
+        .slide-2.active .slide-content {
+            transform: translateY(0);
+            opacity: 1;
+            animation: textScaleIn 0.8s forwards;
+        }
+
+        .slide-2.exit {
+            animation: slideToRight 1s forwards;
+        }
+
+        .slide-2.exit .slide-content {
+            animation: textFadeOutRight 0.8s forwards;
+        }
+
+        .slide-3.active {
+            opacity: 1;
+            animation: waveIn 1s forwards;
+        }
+
+        .slide-3.active .slide-content {
+            transform: translateY(0);
+            opacity: 1;
+            animation: textFadeIn 0.8s forwards;
+        }
+
+        .slide-3.exit {
+            animation: foldUp 1s forwards;
+        }
+
+        .slide-3.exit .slide-content {
+            animation: textFadeOut 0.8s forwards;
+        }
+
+        /* Gallery Container Styles - Keep styles but won't be used */
+        .gallery-main-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 30px;
+            background: rgba(10, 31, 18, 0.95);
+            opacity: 0;
+            transition: all var(--gallery-transition-duration) ease-in-out;
+            overflow-y: auto;
+            z-index: 20;
+        }
+
+        .gallery-main-container.visible {
+            display: block;
+            animation: galleryFadeIn var(--gallery-transition-duration) forwards;
+        }
+
+        .gallery-main-container.exiting {
+            animation: galleryExit var(--gallery-transition-duration) forwards;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .gallery-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-subtitle {
+            font-size: 1.2rem;
+            color: #a3d5a5;
+            margin-bottom: 20px;
+        }
+
+        .gallery-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .image-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px) rotateY(3deg);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .image-card.switching {
+            animation: cardSwitch 1.2s forwards;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .image-card:hover .image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 15px;
+            color: white;
+        }
+
+        .overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: #a3d5a5;
+        }
+
+        .overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #a3d5a5;
+            font-size: 1rem;
+        }
+
+        /* Animation Keyframes */
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes particleExplode {
+            0% {
+                clip-path: circle(100% at 50% 50%);
+                filter: blur(0);
+                opacity: 1;
+            }
+            50% {
+                filter: blur(2px);
+                opacity: 0.7;
+            }
+            100% {
+                clip-path: circle(0% at 50% 50%);
+                filter: blur(10px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes glassShatter {
+            0% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                opacity: 0;
+            }
+            10% {
+                clip-path: polygon(0 0, 95% 5%, 95% 95%, 5% 100%);
+                opacity: 0.3;
+            }
+            30% {
+                clip-path: polygon(0 0, 90% 10%, 90% 90%, 10% 100%);
+                opacity: 0.6;
+            }
+            50% {
+                clip-path: polygon(0 0, 80% 20%, 80% 80%, 20% 100%);
+                opacity: 0.8;
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideToRight {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes waveIn {
+            0% {
+                clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+                opacity: 0;
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes foldUp {
+            0% {
+                transform: perspective(1000px) rotateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: perspective(1000px) rotateX(90deg);
+                opacity: 0;
+            }
+        }
+
+        /* Text Animation Keyframes */
+        @keyframes textSlideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes textScaleIn {
+            0% {
+                transform: scale(0.8) translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes textFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes textFadeOutUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textFadeOutRight {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textFadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes galleryFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes galleryExit {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.95) translateY(20px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.9) translateY(100px);
+            }
+        }
+
+        @keyframes cardSwitch {
+            0% {
+                transform: rotateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: rotateY(90deg) scale(0.9);
+                opacity: 0.5;
+            }
+            100% {
+                transform: rotateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* New faster exit animations */
+        @keyframes fadeZoomOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes slideOutUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideOutDown {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rotateOut {
+            0% {
+                transform: rotate(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(90deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flipOut {
+            0% {
+                transform: perspective(1000px) rotateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: perspective(1000px) rotateY(90deg);
+                opacity: 0;
+            }
+        }
+
+        /* Reusable exit animation classes */
+        .slide-exit-fast {
+            animation: fadeZoomOut 0.7s forwards !important;
+        }
+
+        .slide-exit-slide-up {
+            animation: slideOutUp 0.7s forwards !important;
+        }
+
+        .slide-exit-slide-down {
+            animation: slideOutDown 0.7s forwards !important;
+        }
+
+        .slide-exit-rotate {
+            animation: rotateOut 0.7s forwards !important;
+        }
+
+        .slide-exit-flip {
+            animation: flipOut 0.7s forwards !important;
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .control-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-dot.active {
+            background: var(--accent-color);
+            transform: scale(1.3);
+        }
+
+        /* Carousel Progress Bar */
+        .carousel-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-color), #feb47b);
+            width: 0%;
+            z-index: 10;
+            transition: width 0.1s linear;
+        }
+
+        /* Panda World Header Styles - 移除头部边框/框架 */
+        .header {
+            background-color: white;
+            padding: 20px 90px;
+            max-width: 1220px;
+            width: 100%;
+            margin: 0 auto;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .header:hover {
+            transform: translateY(-2px);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-section:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2c3e50;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+            transition: all 0.3s ease;
+        }
+
+        .app-name:hover {
+            color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .app-name span {
+            color: #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        .app-name:hover span {
+            text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+
+        .app-email {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .app-email:hover {
+            color: #4CAF50;
+            transform: translateX(3px);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            position: relative;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #34495e;
+            font-weight: 500;
+            font-size: 17px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+            display: block;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #4CAF50;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            top: 50%;
+            left: -15px;
+            transform: translateY(-50%) scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* Enhanced Dropdown Styles with Dynamic Background */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 240px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            padding: 15px 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39, #FFC107, #FF9800, #FF5722);
+            background-size: 600% 100%;
+            animation: gradientFlow 8s ease infinite;
+            z-index: 2;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px) scale(1);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 14px 25px;
+            text-decoration: none;
+            color: #34495e;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-10px);
+            z-index: 1;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover .dropdown a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .dropdown a::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4CAF50;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown a:hover::before {
+            transform: translateY(-50%) scale(1);
+        }
+
+        .dropdown a:hover {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.08);
+            padding-left: 32px;
+            border-left-color: #4CAF50;
+        }
+
+        /* Sequential animations for dropdown items */
+        .dropdown a:nth-child(1) {
+            transition: opacity 0.3s ease 0.1s, transform 0.4s ease 0.1s, padding 0.3s ease, background 0.3s ease;
+        }
+        .dropdown a:nth-child(2) {
+            transition: opacity 0.3s ease 0.15s, transform 0.4s ease 0.15s, padding 0.3s ease, background 0.3s ease;
+        }
+        .dropdown a:nth-child(3) {
+            transition: opacity 0.3s ease 0.2s, transform 0.4s ease 0.2s, padding 0.3s ease, background 0.3s ease;
+        }
+        .dropdown a:nth-child(4) {
+            transition: opacity 0.3s ease 0.25s, transform 0.4s ease 0.25s, padding 0.3s ease, background 0.3s ease;
+        }
+        .dropdown a:nth-child(5) {
+            transition: opacity 0.3s ease 0.3s, transform 0.4s ease 0.3s, padding 0.3s ease, background 0.3s ease;
+        }
+
+        /* Gradient animation for dropdown top border */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .mobile-toggle:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            transform: rotate(90deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .gallery-content {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .carousel-container {
+                height: 550px;
+            }
+
+            .gallery-content {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 450px;
+            }
+
+            .slide-title {
+                font-size: 1.8rem;
+            }
+
+            .slide-content {
+                padding: 20px;
+            }
+
+            .gallery-title {
+                font-size: 2rem;
+            }
+
+            .gallery-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .gallery-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .app-name {
+                font-size: 22px;
+            }
+
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .header {
+                padding: 15px 50px;
+                margin: 15px auto;
+                top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-container {
+                height: 400px;
+            }
+
+            .slide-content {
+                padding: 15px;
+            }
+
+            .slide-title {
+                font-size: 1.6rem;
+            }
+
+            .gallery-main-container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 15px 40px;
+            }
+
+            .logo-text {
+                max-width: 120px;
+            }
+
+            .app-name {
+                font-size: 20px;
+            }
+
+            .app-email {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .nav-menu {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .header {
+                padding: 20px 60px;
+            }
+
+            .nav-menu {
+                gap: 15px;
+            }
+
+            .nav-link {
+                font-size: 16px;
+            }
+
+            .app-name {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Panda World Header -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo-section">
+            <img src="/uploads/panda.jpg/" alt="Panda World Logo" class="logo-img">
+            <div class="logo-text">
+                <div class="app-name">PANDA <span>WORLD</span></div>
+                <div class="app-email">bigpandasafaris@gmail.com</div>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link">Adventure</a>
+                <div class="dropdown">
+                    <a href="/parkspanda/one" target="_top">Wild Beest Safari</a>
+                    <a href="/parkspanda/two" target="_top">Honeymoons</a>
+                    <a href="/parkspanda/three" target="_top">Family</a>
+                    <a href="/parkspanda/four" target="_top">Day trip</a>
+                    <a href="/parkspanda/five" target="_top">Celebration trips</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">Travel Insights</a>
+                <div class="dropdown">
+                    <a href="/dest/ngorongoro" target="_top">Destinations</a>
+                    <a href="/un/work" target="_top">Wildlife Guides</a>
+                    <a href="/un/work" target="_top">Travel Tips</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">Plan My Safari</a>
+                <div class="dropdown">
+                    <a href="/boxthree" target="_top">Plan my Big Safari</a>
+                    <a href="/un/work" target="_top">Sample Itineraries</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">Blog</a>
+                <div class="dropdown">
+                    <a href="/un/work" target="_top">Travel Tips</a>
+                </div>
+            </li>
+        </ul>
+
+        <ul>
+            <li class="nav-item">
+                <a href="#" class="nav-link">HOME &#9662;</a>
+                <ul class="dropdown">
+                    <li><a href="/bone" target="_top">Go back to homepage</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <button class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Carousel Container -->
+<div class="container">
+    <div class="carousel-container" id="carousel">
+        <div class="carousel-progress-bar" id="progressBar"></div>
+
+        <div class="carousel-slide slide-1 active">
+            <div class="slide-content">
+                <h2 class="slide-title">Oldonyo Lengai</h2>
+                <p class="slide-description">The majestic Mountain of God, standing tall in Northern Tanzania.</p>
+            </div>
+        </div>
+
+        <div class="carousel-slide slide-2">
+            <div class="slide-content">
+                <h2 class="slide-title">Graceful Tortoise</h2>
+                <p class="slide-description">Admire the beauty and wisdom of one of nature’s oldest creatures.</p>
+            </div>
+        </div>
+
+        <div class="carousel-slide slide-3">
+            <div class="slide-content">
+                <h2 class="slide-title">Nature’s Majesty</h2>
+                <p class="slide-description">Experience the awe-inspiring landscapes where earth and sky meet in perfect harmony.</p>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <div class="control-dot active" data-index="0"></div>
+            <div class="control-dot" data-index="1"></div>
+            <div class="control-dot" data-index="2"></div>
+        </div>
+
+        <!-- Gallery Container - Keep DOM structure but won't be activated -->
+        <div class="gallery-main-container" id="galleryContainer" style="display: none !important;">
+            <div class="gallery-header">
+                <h1 class="gallery-title">Tanzania's National Parks</h1>
+                <p class="gallery-subtitle">Discover the natural wonders of Tanzania</p>
+            </div>
+
+            <div class="gallery-content" id="galleryContent">
+
+                <!--                nilitoa hapa xi-->
+            </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Obi Panda</p>
+    </footer>
+</div>
+</div>
+</div>
+
+<script>
+    // Enhanced JavaScript for Panda World interactive effects - 完全保留原功能
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('.header');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        // Add subtle pulse animation to header
+        setInterval(() => {
+            header.style.boxShadow = '0 5px 25px rgba(0, 0, 0, 0.1)';
+            setTimeout(() => {
+                header.style.boxShadow = '0 5px 28px rgba(76, 175, 80, 0.15)';
+            }, 1000);
+        }, 2000);
+
+        // Enhanced hover effect for navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'translateY(-3px)';
+                link.style.color = '#4CAF50';
+            });
+
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translateY(0)';
+                link.style.color = '#34495e';
+            });
+        });
+
+        // Mobile menu toggle with animation
+        mobileToggle.addEventListener('click', function() {
+            this.style.transform = 'rotate(180deg)';
+            alert('Mobile menu would open here. This will be implemented in your Spring Boot application.');
+            setTimeout(() => {
+                this.style.transform = 'rotate(0)';
+            }, 300);
+        });
+
+        // Add subtle animation to logo on page load
+        const logoImg = document.querySelector('.logo-img');
+        setTimeout(() => {
+            logoImg.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                logoImg.style.transform = 'scale(1)';
+            }, 300);
+        }, 500);
+
+        // Add proximity detection for dropdowns
+        document.addEventListener('mousemove', (e) => {
+            const mouseY = e.clientY;
+            dropdowns.forEach(dropdown => {
+                const rect = dropdown.getBoundingClientRect();
+                const distance = Math.abs(mouseY - rect.top);
+
+                if (distance < 100) {
+                    dropdown.parentElement.classList.add('hover-effect');
+                } else {
+                    dropdown.parentElement.classList.remove('hover-effect');
+                }
+            });
+        });
+
+        // Dynamic dropdown background colors
+        const colors = [
+            'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+            'linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%)',
+            'linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%)',
+            'linear-gradient(135deg, #ffffff 0%, #e0f2f1 100%)'
+        ];
+
+        let colorIndex = 0;
+
+        setInterval(() => {
+            dropdowns.forEach(dropdown => {
+                if (dropdown.parentElement.classList.contains('hover-effect')) {
+                    dropdown.style.background = colors[colorIndex];
+                }
+            });
+            colorIndex = (colorIndex + 1) % colors.length;
+        }, 4000);
+    });
+
+    // Carousel module - Modified to loop 3 slides only (no gallery) - 完全保留原功能
+    const Carousel = (() => {
+        // Elements
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.control-dot');
+        const progressBar = document.getElementById('progressBar');
+        const carousel = document.getElementById('carousel');
+
+        // State
+        let currentSlide = 0;
+        let carouselInterval;
+        let progressInterval;
+
+        // Configuration
+        const config = {
+            slideDuration: 4000, // Slide display time (4 seconds)
+            progressUpdateInterval: 20,
+            progressIncrement: 0.6
+        };
+
+        // Function to update progress bar
+        function updateProgressBar() {
+            let width = 0;
+            clearInterval(progressInterval);
+
+            progressInterval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(progressInterval);
+                } else {
+                    width += config.progressIncrement;
+                    progressBar.style.width = width + '%';
+                }
+            }, config.progressUpdateInterval);
+        }
+
+        // Function to change slides - Modified to loop 3 slides continuously
+        function changeSlide() {
+            // Remove active class from current slide and add exit animation
+            slides[currentSlide].classList.remove('active');
+
+            // Apply random exit animation
+            const exitAnimations = ['slide-exit-fast', 'slide-exit-slide-up',
+                'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip'];
+            const randomExit = exitAnimations[Math.floor(Math.random() * exitAnimations.length)];
+            slides[currentSlide].classList.add(randomExit);
+
+            dots[currentSlide].classList.remove('active');
+
+            // Move to next slide (loop back to 0 after slide 2)
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            // Reset progress bar
+            progressBar.style.width = '0%';
+
+            // After exit animation, activate next slide
+            setTimeout(() => {
+                // Remove all exit animations
+                slides.forEach(slide => {
+                    slide.classList.remove('slide-exit-fast', 'slide-exit-slide-up',
+                        'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip');
+                });
+
+                // Activate next slide
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+
+                // Start progress bar
+                updateProgressBar();
+            }, 800);
+        }
+
+        // Start the carousel loop
+        function startCarousel() {
+            carouselInterval = setInterval(changeSlide, config.slideDuration);
+            updateProgressBar();
+        }
+
+        // Initialize carousel
+        function init() {
+            startCarousel();
+
+            // Add click events to control dots
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-index'));
+
+                    if (slideIndex !== currentSlide) {
+                        clearInterval(carouselInterval);
+                        clearInterval(progressInterval);
+
+                        // Remove active class from current slide
+                        slides[currentSlide].classList.remove('active');
+                        dots[currentSlide].classList.remove('active');
+
+                        // Add exit animation
+                        const exitAnimations = ['slide-exit-fast', 'slide-exit-slide-up',
+                            'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip'];
+                        const randomExit = exitAnimations[Math.floor(Math.random() * exitAnimations.length)];
+                        slides[currentSlide].classList.add(randomExit);
+
+                        // Update current slide
+                        currentSlide = slideIndex;
+
+                        // Activate target slide after exit animation
+                        setTimeout(() => {
+                            slides.forEach(slide => {
+                                slide.classList.remove('slide-exit-fast', 'slide-exit-slide-up',
+                                    'slide-exit-slide-down', 'slide-exit-rotate', 'slide-exit-flip');
+                            });
+
+                            slides[currentSlide].classList.add('active');
+                            dots[currentSlide].classList.add('active');
+
+                            // Restart carousel loop
+                            startCarousel();
+                        }, 800);
+                    }
+                });
+            });
+        }
+
+        // Public methods
+        return {
+            init: init
+        };
+    })();
+
+    // Initialize the carousel (loop 3 slides only)
+    document.addEventListener('DOMContentLoaded', Carousel.init);
+</script>
+</body>
+</html>

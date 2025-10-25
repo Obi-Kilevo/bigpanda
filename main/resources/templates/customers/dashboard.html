@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Your Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f8f9fa;
+            color: #264653;
+        }
+        .dashboard-container {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            font-size: 3rem;
+            color: #2a9d8f;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+
+
+
+    <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <h1>Welcome, <span th:text="${nickname}">User</span>!</h1>
+    <p>Your registration was successful.</p>
+    <p>This is your dashboard.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a9d8f;
+            --secondary: #e9c46a;
+            --dark: #264653;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: transparent;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: rgba(231, 111, 81, 0.8);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            position: relative;
+        }
+
+        .container h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 10px auto 0;
+            border-radius: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: white;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Input Styles */
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.2);
+        }
+
+        /* Error & Success Messages */
+        .error-message {
+            background: rgba(231, 111, 81, 0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-top: 6px;
+            border-left: 3px solid var(--accent);
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(42, 157, 143, 0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-top: 6px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .success-message i {
+            color: var(--secondary);
+            margin-right: 5px;
+        }
+
+        /* Password Toggle & Strength */
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: white;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            opacity: 1;
+        }
+
+        .password-strength-meter {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin: 8px 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            background: #e74c3c;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .password-requirements {
+            background: rgba(233, 196, 106, 0.2);
+            padding: 10px 12px;
+            border-radius: 5px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .password-requirements small {
+            color: white;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+        }
+
+        .password-requirements li {
+            font-size: 0.78rem;
+            padding: 3px 0;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .password-requirements li.met {
+            color: var(--secondary);
+            opacity: 1;
+        }
+
+        .password-requirements li.met::before {
+            content: '✓ ';
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .password-requirements li.unmet::before {
+            content: '✗ ';
+            color: var(--accent);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), #23857a);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(42, 157, 143, 0.4);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submit-btn:disabled {
+            background: rgba(108, 117, 125, 0.7);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.5);
+        }
+
+        /* Form Feedback (Success/Error) */
+        .form-feedback {
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .form-feedback.success {
+            background: rgba(42, 157, 143, 0.2);
+            color: white;
+            display: block;
+        }
+
+        .form-feedback.error {
+            background: rgba(231, 111, 81, 0.2);
+            color: white;
+            display: block;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .register-link p {
+            color: white;
+        }
+
+        .register-link a {
+            color: var(--secondary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .register-link a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Close Button -->
+    <button class="close-btn" onclick="closeRegistrationForm()">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <h2>Customer Registration</h2>
+
+    <!-- Server-side Error Message -->
+    <div th:if="${errorMessage}" class="form-feedback error" th:text="${errorMessage}"></div>
+
+    <!-- Registration Form -->
+    <form id="registrationForm" th:object="${customer}" method="post" th:action="@{/reg/submit}">
+        <!-- Nickname Field -->
+        <div class="form-group">
+            <input type="text" id="nickname" th:field="*{nickname}" class="form-control"
+                   required placeholder="Enter a unique nickname (2+ characters)">
+            <div class="error-message" id="nicknameError"></div>
+            <div class="success-message" id="nicknameSuccess">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="passwordHash">Create Password *</label>
+            <div class="password-container">
+                <input type="password" id="passwordHash" th:field="*{passwordHash}" class="form-control"
+                       required placeholder="Use uppercase, lowercase, number & special character"
+                       autocomplete="new-password">
+                <span class="password-toggle">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+
+            <!-- Password Strength Meter -->
+            <div class="password-strength-meter">
+                <div class="strength-bar" id="strengthBar"></div>
+            </div>
+
+            <!-- Password Requirements -->
+            <div class="password-requirements">
+                <small>Password Requirements:</small>
+                <ul>
+                    <li id="req-length" class="unmet">At least 6 characters</li>
+                    <li id="req-upper" class="unmet">1 uppercase letter (A-Z)</li>
+                    <li id="req-lower" class="unmet">1 lowercase letter (a-z)</li>
+                    <li id="req-number" class="unmet">1 number (0-9)</li>
+                    <li id="req-special" class="unmet">1 special character (!@#$%^&*)</li>
+                </ul>
+            </div>
+
+            <div class="error-message" id="passwordError"></div>
+        </div>
+
+        <!-- Form Feedback (Client-side) -->
+        <div class="form-feedback" id="formFeedback"></div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="submit-btn">
+            <i class="fas fa-user-plus"></i> Register Now
+        </button>
+    </form>
+
+    <div class="register-link">
+        <p>Already have an account? <a href="#" onclick="loadLoginForm()">Login here</a></p>
+    </div>
+</div>
+
+<script>
+    // Close registration form
+    function closeRegistrationForm() {
+        const formContainer = document.getElementById('registrationFormContainer');
+        if (formContainer) {
+            formContainer.style.display = 'none';
+            formContainer.innerHTML = '';
+        }
+
+        // Reset the Quick Registration button
+        const showRegFormBtn = document.getElementById('showRegForm');
+        if (showRegFormBtn) {
+            showRegFormBtn.innerHTML = '<i class="fas fa-user-plus"></i> Quick Registration';
+            showRegFormBtn.disabled = false;
+        }
+    }
+
+    // Initialize registration form functionality
+    function initRegistrationForm() {
+        let isNicknameAvailable = false;
+
+        // DOM Elements
+        const nicknameInput = document.getElementById('nickname');
+        const passwordInput = document.getElementById('passwordHash');
+        const submitBtn = document.getElementById('submitBtn');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthMeter = document.querySelector('.password-strength-meter');
+        const passwordRequirements = document.querySelector('.password-requirements');
+
+        // Only initialize if elements exist (for registration form)
+        if (!nicknameInput || !passwordInput) return;
+
+        // Toggle Password Visibility
+        function togglePassword() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            const icon = document.querySelector('.password-toggle i');
+            icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        }
+
+        // Re-attach toggle event
+        const toggleBtn = document.querySelector('.password-toggle');
+        if (toggleBtn) {
+            toggleBtn.onclick = togglePassword;
+        }
+
+        // Real-time Nickname Validation
+        function checkNickname() {
+            const nickname = nicknameInput.value.trim();
+            const errorEl = document.getElementById('nicknameError');
+            const successEl = document.getElementById('nicknameSuccess');
+
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+            isNicknameAvailable = false;
+
+            if (nickname.length < 2) {
+                if (nickname) {
+                    errorEl.textContent = 'Nickname must be at least 2 characters';
+                    errorEl.style.display = 'block';
+                }
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9_]+$/.test(nickname)) {
+                errorEl.textContent = 'Only letters, numbers, and underscores allowed';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            fetch(`/reg/check-nickname?nickname=${encodeURIComponent(nickname)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.exists) {
+                        errorEl.textContent = 'This nickname is already taken - choose another';
+                        errorEl.style.display = 'block';
+                    } else {
+                        successEl.style.display = 'block';
+                        isNicknameAvailable = true;
+                    }
+                })
+                .catch(() => {
+                    errorEl.textContent = 'Error checking nickname - please try again';
+                    errorEl.style.display = 'block';
+                });
+        }
+
+        // Password Strength Check & Requirements
+        function checkPasswordStrength() {
+            const password = passwordInput.value;
+            const requirements = {
+                length: document.getElementById('req-length'),
+                upper: document.getElementById('req-upper'),
+                lower: document.getElementById('req-lower'),
+                number: document.getElementById('req-number'),
+                special: document.getElementById('req-special')
+            };
+
+            // Show/hide password requirements based on input
+            if (password.length > 0) {
+                strengthMeter.style.display = 'block';
+                passwordRequirements.style.display = 'block';
+            } else {
+                strengthMeter.style.display = 'none';
+                passwordRequirements.style.display = 'none';
+            }
+
+            const checks = {
+                length: password.length >= 6,
+                upper: /[A-Z]/.test(password),
+                lower: /[a-z]/.test(password),
+                number: /\d/.test(password),
+                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+            };
+
+            Object.keys(checks).forEach(key => {
+                if (requirements[key]) {
+                    requirements[key].className = checks[key] ? 'met' : 'unmet';
+                }
+            });
+
+            const metCount = Object.values(checks).filter(Boolean).length;
+            const strength = (metCount / 5) * 100;
+
+            if (strengthBar) {
+                strengthBar.style.width = `${strength}%`;
+                if (strength <= 40) {
+                    strengthBar.style.background = '#e74c3c';
+                } else if (strength <= 80) {
+                    strengthBar.style.background = '#f39c12';
+                } else {
+                    strengthBar.style.background = '#2ecc71';
+                }
+            }
+        }
+
+        // Validate Password Before Submission
+        function validatePassword(password) {
+            if (password.length < 6) return { isValid: false, message: 'Password must be at least 6 characters' };
+            if (!/[A-Z]/.test(password)) return { isValid: false, message: 'Password needs 1 uppercase letter (A-Z)' };
+            if (!/[a-z]/.test(password)) return { isValid: false, message: 'Password needs 1 lowercase letter (a-z)' };
+            if (!/\d/.test(password)) return { isValid: false, message: 'Password needs 1 number (0-9)' };
+            if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password))
+                return { isValid: false, message: 'Password needs 1 special character (!@#$%^&*)' };
+            return { isValid: true };
+        }
+
+        // Clear All Error Messages
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+            const formFeedback = document.getElementById('formFeedback');
+            if (formFeedback) formFeedback.style.display = 'none';
+        }
+
+        // Handle Form Submission
+        const registrationForm = document.getElementById('registrationForm');
+        if (registrationForm) {
+            registrationForm.onsubmit = async (e) => {
+                e.preventDefault();
+                clearErrors();
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                const nickname = nicknameInput.value.trim();
+                const password = passwordInput.value;
+                const formFeedback = document.getElementById('formFeedback');
+
+                // Step 1: Validate Nickname
+                if (nickname.length < 2) {
+                    document.getElementById('nicknameError').textContent = 'Nickname must be at least 2 characters';
+                    document.getElementById('nicknameError').style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register Now';
+                    return;
+                }
+
+                if (!isNicknameAvailable) {
+                    document.getElementById('nicknameError').textContent = 'Please wait for nickname validation';
+                    document.getElementById('nicknameError').style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register Now';
+                    return;
+                }
+
+                // Step 2: Validate Password
+                const passwordCheck = validatePassword(password);
+                if (!passwordCheck.isValid) {
+                    document.getElementById('passwordError').textContent = passwordCheck.message;
+                    document.getElementById('passwordError').style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register Now';
+                    return;
+                }
+
+                // Step 3: Submit Form Data
+                try {
+                    const formData = new FormData(e.target);
+                    const response = await fetch('/reg/submit', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        // Show success message
+                        formFeedback.className = 'form-feedback success';
+                        formFeedback.innerHTML = '<i class="fas fa-check-circle"></i> Registration successful! Redirecting to dashboard...';
+                        formFeedback.style.display = 'block';
+
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '/reg/dashboard';
+                        }, 2000);
+                    } else {
+                        // Show error message
+                        formFeedback.className = 'form-feedback error';
+                        formFeedback.textContent = data.error || 'Registration failed. Please try again.';
+                        formFeedback.style.display = 'block';
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register Now';
+                    }
+                } catch (error) {
+                    // Network error
+                    formFeedback.className = 'form-feedback error';
+                    formFeedback.textContent = 'Network error. Please check your connection and try again.';
+                    formFeedback.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Register Now';
+                }
+            };
+        }
+
+        // Re-attach input events
+        nicknameInput.oninput = checkNickname;
+        passwordInput.oninput = checkPasswordStrength;
+
+        console.log('Registration form initialized successfully');
+    }
+
+    // Load login form function
+    function loadLoginForm() {
+        const formContainer = document.getElementById('registrationFormContainer');
+        if (!formContainer) return;
+
+        // Show loading state
+        formContainer.innerHTML = '<div style="text-align: center; color: white;"><i class="fas fa-spinner fa-spin"></i> Loading login form...</div>';
+
+        // Fetch login form
+        fetch('/reg/login')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load login form');
+                return response.text();
+            })
+            .then(html => {
+                formContainer.innerHTML = html;
+
+                // Execute any scripts in the login form
+                const scripts = formContainer.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    Array.from(script.attributes).forEach(attr => {
+                        newScript.setAttribute(attr.name, attr.value);
+                    });
+                    newScript.textContent = script.textContent;
+                    script.parentNode.replaceChild(newScript, script);
+                });
+            })
+            .catch(error => {
+                formContainer.innerHTML = '<div style="color: var(--accent); padding: 15px; text-align: center;">Error loading login form. Please try again.</div>';
+            });
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', initRegistrationForm);
+
+    // Also initialize if form elements exist (for dynamic loading)
+    if (document.getElementById('nickname') && document.getElementById('passwordHash')) {
+        setTimeout(initRegistrationForm, 100);
+    }
+</script>
+</body>
+</html>

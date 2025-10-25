@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildebeest: The Great Migrators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #264653;
+            --accent-color: #e9c46a;
+            --text-color: #2d3748;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --highlight: #f4a261;
+            --danger: #e76f51;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f4f9f9 0%, #e4f0f0 100%);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+
+        .header h1 {
+            color: var(--secondary-color);
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+
+        .flip-container {
+            width: 90%;
+            max-width: 800px;
+            height: 450px;
+            margin: 30px auto;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .flip-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .flip-card-face.active {
+            opacity: 1;
+        }
+
+        .flip-card-face img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--primary-color);
+            transform: scale(1.3);
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 12px;
+            margin-top: 30px;
+            font-size: 2rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .content h2:first-child {
+            margin-top: 0;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #4a5568;
+        }
+
+        .content ul {
+            padding-left: 30px;
+            line-height: 1.8;
+        }
+
+        .content li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .content li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            font-size: 1.2rem;
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fact-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .fact-card h3 i {
+            margin-right: 12px;
+            color: var(--primary-color);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 18px 35px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(42, 157, 143, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(42, 157, 143, 0.4);
+        }
+
+        .back-btn:hover:before {
+            left: 100%;
+        }
+
+        .back-btn i {
+            margin-right: 12px;
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        .image-error {
+            background: linear-gradient(45deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0 100%);
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .image-error p {
+            margin: 10px 0;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .image-error .error-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .debug-info {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Fullscreen overlay styles */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .fullscreen-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .fullscreen-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 15px;
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+            max-height: 800px;
+        }
+
+        .fullscreen-item {
+            overflow: hidden;
+            border-radius: 12px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .fullscreen-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .flip-container {
+                height: 350px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header p {
+                font-size: 1.2rem;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .content h2 {
+                font-size: 1.8rem;
+            }
+
+            .fullscreen-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, 1fr);
+            }
+
+            .fact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flip-container {
+                height: 250px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1.1rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .content h2 {
+                font-size: 1.6rem;
+            }
+
+            .back-btn {
+                padding: 15px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+<!--<div class="container">-->
+<!--    <div class="header">-->
+<!--        <h1>Wildebeest: Day Trip</h1>-->
+<!--        <p>Witness the epic journey of Africa's most spectacular migration phenomenon</p>-->
+<!--    </div>-->
+
+<!--    <div class="debug-info" id="debugInfo">-->
+<!--        Image loading issues detected. Check console for details.-->
+<!--    </div>-->
+
+<!--    <div class="flip-container" id="flipContainer">-->
+<!--        <div class="flip-card-face active">-->
+<!--            <img src="/playfour/img1.png" alt="Wildebeest herd migrating across the savanna" onerror="handleImageError(this, 5)">-->
+<!--        </div>-->
+<!--        <div class="flip-card-face">-->
+<!--            <img src="/playfour/img2.png" alt="Dramatic river crossing during wildebeest migration" onerror="handleImageError(this, 6)">-->
+<!--        </div>-->
+<!--        <div class="flip-card-face">-->
+<!--            <img src="/playfour/img3.png" alt="Wildebeest grazing in the golden savanna" onerror="handleImageError(this, 7)">-->
+<!--        </div>-->
+<!--        <div class="flip-card-face">-->
+<!--            <img src="/playfour/img4.png" alt="Close-up of a wildebeest showing distinctive features" onerror="handleImageError(this, 8)">-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="dots" id="dotsContainer">-->
+<!--        <div class="dot active" data-index="0"></div>-->
+<!--        <div class="dot" data-index="1"></div>-->
+<!--        <div class="dot" data-index="2"></div>-->
+<!--        <div class="dot" data-index="3"></div>-->
+<!--    </div>-->
+
+<!--    <div class="content">-->
+<!--        <h2>About The Magnificent Wildebeest</h2>-->
+<!--        <p>Wildebeest, also known as gnus, are remarkable antelopes that inhabit the plains and woodlands of Africa. These sturdy animals are best known for their spectacular annual migration, often called the "Great Migration," which is considered one of the most impressive natural events on the planet.</p>-->
+
+<!--        <h2>Key Facts & Panda's Information</h2>-->
+
+<!--        <div class="fact-grid">-->
+<!--            <div class="fact-card">-->
+<!--                <h3><i class="fas fa-atom"></i> Day Trips & Experiences</h3>-->
+<!--                <p><span class="stat-badge">Panda offer tailored experiences</span>charter safaris, wild yoga, tennis safaris, family getaways, and romantic tours.</p>-->
+<!--                <p><span class="stat-badge">Panda creates bespoke journeys </span> treatments, nature walks, night game drives, and sundowners in the wilderness, ensuring a memorable and personalized adventure.</p>-->
+<!--&lt;!&ndash;                <p><span class="stat-badge">Family</span> Bovidae</p>&ndash;&gt;-->
+<!--            </div>-->
+
+<!--&lt;!&ndash;            <div class="fact-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h3><i class="fas fa-globe-africa"></i> Habitat & Distribution</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                <p>Wildebeest primarily inhabit the grasslands, savannas, and open woodlands of eastern and southern Africa. The Serengeti (Tanzania) and Masai Mara (Kenya) host the largest populations.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+
+
+<!--        </div>-->
+
+<!--        <h2>With a variety of activities with Panda </h2>-->
+<!--        <p>our day trips and experiences guarantee a unique, unforgettable adventure for every traveler. <span class="stat-badge">PANDA</span> </p>-->
+
+<!--&lt;!&ndash;        <h2>Ecological Importance</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p>Wildebeest play a crucial role in their ecosystem. Their grazing patterns help maintain grassland health, their migration paths create firebreaks, and their carcasses provide food for numerous scavenger species. The Great Migration also supports local economies through tourism.</p>&ndash;&gt;-->
+
+<!--        <a href="/btwo" class="back-btn" id="backBtn">-->
+<!--            <i class="fas fa-arrow-left"></i> Back-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<div class="container">
+    <div class="header">
+        <h1 th:text="#{daytrip_title}">Wildebeest: Day Trip</h1>
+        <p th:text="#{daytrip_subtitle}">Witness the epic journey of Africa's most spectacular migration phenomenon</p>
+    </div>
+
+    <div class="debug-info" id="debugInfo">
+        Image loading issues detected. Check console for details.
+    </div>
+
+    <div class="flip-container" id="flipContainer">
+        <div class="flip-card-face active">
+            <img src="/playfour/img1.png" alt="Wildebeest herd migrating across the savanna" onerror="handleImageError(this, 5)">
+        </div>
+        <div class="flip-card-face">
+            <img src="/playfour/img2.png" alt="Dramatic river crossing during wildebeest migration" onerror="handleImageError(this, 6)">
+        </div>
+        <div class="flip-card-face">
+            <img src="/playfour/img3.png" alt="Wildebeest grazing in the golden savanna" onerror="handleImageError(this, 7)">
+        </div>
+        <div class="flip-card-face">
+            <img src="/playfour/img4.png" alt="Close-up of a wildebeest showing distinctive features" onerror="handleImageError(this, 8)">
+        </div>
+    </div>
+
+    <div class="dots" id="dotsContainer">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+        <div class="dot" data-index="3"></div>
+    </div>
+
+    <div class="content">
+        <h2 th:text="#{about_title}">About The Magnificent Wildebeest</h2>
+        <p th:text="#{about_desc}">Wildebeest, also known as gnus, are remarkable antelopes that inhabit the plains and woodlands of Africa. These sturdy animals are best known for their spectacular annual migration, often called the "Great Migration," which is considered one of the most impressive natural events on the planet.</p>
+
+        <h2>Key Facts & Panda's Information</h2>
+
+        <div class="fact-grid">
+            <div class="fact-card">
+                <h3><i class="fas fa-atom"></i><span th:text="#{experiences_title}"> Day Trips & Experiences</span></h3>
+                <p><span class="stat-badge" th:text="#{experience1}">Panda offer tailored experiences</span><span th:text="#{experience1_desc}">charter safaris, wild yoga, tennis safaris, family getaways, and romantic tours.</span></p>
+                <p><span class="stat-badge" th:text="#{experience2}">Panda creates bespoke journeys </span><span th:text="#{experience2_desc}">treatments, nature walks, night game drives, and sundowners in the wilderness, ensuring a memorable and personalized adventure.</span></p>
+            </div>
+        </div>
+
+        <h2 th:text="#{activities_title}">With a variety of activities with Panda</h2>
+        <p th:text="#{activities_desc}">our day trips and experiences guarantee a unique, unforgettable adventure for every traveler. PANDA</p>
+
+        <a href="/btwo" class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+            <span th:text="#{back_button}">Back</span>
+        </a>
+    </div>
+</div>
+
+
+<!-- Fullscreen overlay for back button transition -->
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+    <div class="fullscreen-grid" id="fullscreenGrid">
+        <div class="fullscreen-item">
+            <img src="/playfour/img1.png" alt="Wildebeest herd migrating">
+        </div>
+        <div class="fullscreen-item">
+            <img src="/playfour/img2.png" alt="Wildebeest crossing river">
+        </div>
+        <div class="fullscreen-item">
+            <img src="/playfour/img3.png" alt="Wildebeest in savanna">
+        </div>
+        <div class="fullscreen-item">
+            <img src="/playfour/img4.png" alt="Close-up of wildebeest">
+        </div>
+    </div>
+</div>
+
+<script>
+    const faces = Array.from(document.querySelectorAll('.flip-card-face'));
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    const flipContainer = document.getElementById('flipContainer');
+    const debugInfo = document.getElementById('debugInfo');
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const fullscreenItems = Array.from(document.querySelectorAll('.fullscreen-item'));
+    let currentIndex = 0;
+    let intervalId;
+    let normalSpeed = 3000;
+    let isTransitioning = false;
+
+    function handleImageError(imgElement, number) {
+        console.error(`Error loading image ${number}: ${imgElement.src}`);
+        debugInfo.style.display = 'block';
+        imgElement.style.display = 'none';
+    }
+
+    function showNextImage() {
+        const nextIndex = (currentIndex + 1) % faces.length;
+        faces[currentIndex].classList.remove('active');
+        faces[nextIndex].classList.add('active');
+        dots[currentIndex].classList.remove('active');
+        dots[nextIndex].classList.add('active');
+        currentIndex = nextIndex;
+    }
+
+    function goToImage(index) {
+        faces[currentIndex].classList.remove('active');
+        faces[index].classList.add('active');
+        dots[currentIndex].classList.remove('active');
+        dots[index].classList.add('active');
+        currentIndex = index;
+    }
+
+    function startSlideshow(speed) {
+        clearInterval(intervalId);
+        intervalId = setInterval(showNextImage, speed);
+    }
+
+    function showFullscreenImages() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Show the overlay
+        fullscreenOverlay.classList.add('active');
+
+        // Show images with a slight delay between each
+        fullscreenItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = 1;
+                item.style.transform = 'scale(1)';
+            }, 100 * index);
+        });
+
+        // Hide after a brief display
+        setTimeout(() => {
+            fullscreenOverlay.classList.remove('active');
+            fullscreenItems.forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'scale(0.8)';
+            });
+            isTransitioning = false;
+        }, 1000); // Display all images for 1 second before navigation
+    }
+
+    startSlideshow(normalSpeed);
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+            goToImage(parseInt(this.dataset.index));
+            startSlideshow(normalSpeed);
+        });
+    });
+
+    flipContainer.addEventListener('mouseenter', () => clearInterval(intervalId));
+    flipContainer.addEventListener('mouseleave', () => startSlideshow(normalSpeed));
+
+    document.getElementById('backBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetUrl = this.href;
+
+        // Show fullscreen images before navigating
+        showFullscreenImages();
+
+        // Navigate after the animation completes
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 800); // Slightly shorter than the animation to ensure smooth transition
+    });
+
+    // Handle browser back button
+    window.addEventListener('popstate', function(event) {
+        // Show fullscreen images
+        showFullscreenImages();
+
+        // Delay the actual back navigation to allow the animation to play
+        setTimeout(() => {
+            window.history.back();
+        }, 800);
+    });
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

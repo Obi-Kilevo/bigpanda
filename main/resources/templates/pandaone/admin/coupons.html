@@ -1,0 +1,122 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>All Coupons</title>-->
+<!--    <style>-->
+<!--        .delete-btn { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }-->
+<!--        .delete-btn:hover { background: #c82333; }-->
+<!--        .edit-btn { background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; margin-right: 5px; }-->
+<!--        .edit-btn:hover { background: #0069d9; }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>All Coupons</h2>-->
+
+<!--<a th:href="@{/admin/coupons/add}">Add New Coupon</a>-->
+<!--<a th:href="@{/admin/tours}" style="margin-left: 20px;">Back to Tours</a>-->
+
+<!--<table border="1">-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Park ID</th>-->
+<!--        <th>Park Name</th>-->
+<!--        <th>Discount</th>-->
+<!--        <th>Expiry Date</th>-->
+<!--        <th>Status</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="coupon : ${coupons}">-->
+<!--        <td th:text="${coupon.id}">ID</td>-->
+<!--        <td th:text="${coupon.parkId}">Park ID</td>-->
+<!--        <td th:text="${parkNames.get(coupon.parkId) ?: 'Unknown Park'}">Park Name</td>-->
+<!--        <td th:text="${coupon.discountPercent + '%'}">Discount</td>-->
+<!--&lt;!&ndash;        <td th:text:text="${coupon.expiryDate != null ? #temporals.format(coupon.expiryDate, 'yyyy-MM-dd HH:mm') : 'No expiry'}">Expiry</td>&ndash;&gt;-->
+<!--        <td th:text="${coupon.expiryDate != null ? #temporals.format(coupon.expiryDate, 'yyyy-MM-dd HH:mm') : 'No expiry'}">Expiry</td>-->
+
+<!--&lt;!&ndash;        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;            <span th:if="${coupon.isActive() && coupon.expiryDate != null && #temporals.isAfter(coupon.expiryDate, #temporals.now())}" style="color: green;">Active</span>&ndash;&gt;-->
+<!--&lt;!&ndash;            <span th:unless="${coupon.isActive() && coupon.expiryDate != null && #temporals.isAfter(coupon.expiryDate, #temporals.now())}" style="color: red;">Expired</span>&ndash;&gt;-->
+<!--&lt;!&ndash;        </td>&ndash;&gt;-->
+
+<!--        <td>-->
+<!--    <span th:if="${coupon.isActive() and coupon.expiryDate != null and coupon.expiryDate.isAfter(now)}"-->
+<!--          style="color: green;">Active</span>-->
+<!--            <span th:unless="${coupon.isActive() and coupon.expiryDate != null and coupon.expiryDate.isAfter(now)}"-->
+<!--                  style="color: red;">Expired</span>-->
+<!--        </td>-->
+
+<!--        <td>-->
+<!--            <a th:href="@{/admin/coupons/edit/{id}(id=${coupon.id})}" class="edit-btn">Edit</a>-->
+<!--            <button class="delete-btn" th:attr="data-id=${coupon.id}" onclick="confirmDelete(this.getAttribute('data-id'))">Delete</button>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<!--<script>-->
+<!--    function confirmDelete(couponId) {-->
+<!--        if (confirm('Are you sure?')) {-->
+<!--            window.location.href = '/admin/coupons/delete/' + couponId;-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Coupons</title>
+    <style>
+        .delete-btn { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .delete-btn:hover { background: #c82333; }
+        .edit-btn { background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; margin-right: 5px; }
+        .edit-btn:hover { background: #0069d9; }
+    </style>
+</head>
+<body>
+<h2>All Coupons</h2>
+
+<a th:href="@{/admin/coupons/add}">Add New Coupon</a>
+<a th:href="@{/admin/tours}" style="margin-left: 20px;">Back to Tours</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Park ID</th>
+        <th>Park Name</th>
+        <th>Discount</th>
+        <th>Expiry Date</th>
+        <th>Days Left</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="coupon : ${coupons}">
+        <td th:text="${coupon.id}">ID</td>
+        <td th:text="${coupon.parkId}">Park ID</td>
+        <td th:text="${parkNames.get(coupon.parkId) ?: 'Unknown Park'}">Park Name</td>
+        <td th:text="${coupon.discountPercent + '%'}">Discount</td>
+        <td th:text="${coupon.expiryDate != null ? #temporals.format(coupon.expiryDate, 'yyyy-MM-dd HH:mm') : 'No expiry'}">Expiry</td>
+        <td th:text="${coupon.daysUntilExpiry}">Days Left</td>
+
+        <td>
+            <span th:if="${coupon.isActive() and coupon.expiryDate != null and coupon.expiryDate.isAfter(now)}"
+                  style="color: green;">Active</span>
+            <span th:unless="${coupon.isActive() and coupon.expiryDate != null and coupon.expiryDate.isAfter(now)}"
+                  style="color: red;">Expired</span>
+        </td>
+        <td>
+            <a th:href="@{/admin/coupons/edit/{id}(id=${coupon.id})}" class="edit-btn">Edit</a>
+            <button class="delete-btn" th:attr="data-id=${coupon.id}" onclick="confirmDelete(this.getAttribute('data-id'))">Delete</button>
+        </td>
+    </tr>
+</table>
+
+<script>
+    function confirmDelete(couponId) {
+        if (confirm('Are you sure?')) {
+            window.location.href = '/admin/coupons/delete/' + couponId;
+        }
+    }
+</script>
+</body>
+</html>

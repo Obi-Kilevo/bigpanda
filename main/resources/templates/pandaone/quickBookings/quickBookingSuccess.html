@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Successful</title>
+</head>
+<body>
+<h2>Booking Successful!</h2>
+
+<p th:text="'Thank you, ' + ${userName} + ', your booking has been successfully submitted!'"></p>
+
+<a th:href="@{/quick/form}">Make another booking</a>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Deleted Coupons</title>-->
+<!--    <style>-->
+<!--        .restore-btn { background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }-->
+<!--        .restore-btn:hover { background: #218838; }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Deleted Coupons</h2>-->
+
+<!--<a th:href="@{/admin/coupons}" style="margin-bottom: 20px; display:inline-block;">Back to Active Coupons</a>-->
+
+<!--<table border="1">-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Park ID</th>-->
+<!--        <th>Park Name</th>-->
+<!--        <th>Discount</th>-->
+<!--        <th>Expiry Date</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="coupon : ${coupons}">-->
+<!--        <td th:text="${coupon.id}">ID</td>-->
+<!--        <td th:text="${coupon.parkId}">Park ID</td>-->
+<!--        <td th:text="${coupon.park != null ? coupon.park.name : 'Unknown Park'}">Park Name</td>-->
+<!--        <td th:text="${coupon.discountPercent + '%'}">Discount</td>-->
+<!--        <td th:text="${coupon.expiryDate != null ? #temporals.format(coupon.expiryDate, 'yyyy-MM-dd HH:mm') : 'No expiry'}">Expiry</td>-->
+<!--        <td>-->
+<!--            <button class="restore-btn" th:attr="data-id=${coupon.id}" onclick="confirmRestore(this.getAttribute('data-id'))">Restore</button>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<!--<script>-->
+<!--    function confirmRestore(couponId) {-->
+<!--        if (confirm('Do you want to restore this coupon?')) {-->
+<!--            window.location.href = '/admin/coupons/restore/' + couponId;-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

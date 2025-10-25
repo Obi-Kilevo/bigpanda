@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Tour</title>
+</head>
+<body>
+<h2>Edit Tour</h2>
+<form th:action="@{/admin/tours/update/{id}(id=${tour.id})}" th:object="${tour}" method="post">
+
+
+
+
+    <div>
+        <label>Image Filename (from /pandaoneimages):</label>
+        <input type="text" th:field="*{imageUrl}" placeholder="e.g., serengeti.jpg">
+    </div>
+
+
+    <div>
+        <label>Tour Name:</label>
+        <input type="text" th:field="*{name}" required>
+    </div>
+    <div>
+        <label>Description:</label>
+        <textarea th:field="*{description}"></textarea>
+    </div>
+    <div>
+        <label>Price:</label>
+        <input type="number" step="0.01" th:field="*{price}" required>
+    </div>
+    <button type="submit">Update Tour</button>
+</form>
+</body>
+</html>

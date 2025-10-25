@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Parks Layout</title>
+    <style>
+        /* -------------------------- New: Search Box Styles -------------------------- */
+        .search-container {
+            max-width: 1300px;
+            margin: 20px auto;
+            padding: 0 15px;
+            position: relative;
+        }
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #8B5A2B;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .search-input:focus {
+            border-color: #A0522D;
+        }
+        .search-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .search-btn, .cancel-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-btn {
+            background-color: #A0522D;
+            color: white;
+        }
+        .search-btn:hover {
+            background-color: #804226;
+        }
+        .cancel-btn {
+            background-color: #f0f0f0;
+            color: #333;
+            display: none; /* Hidden by default */
+        }
+        .cancel-btn:hover {
+            background-color: #ddd;
+        }
+        /* Search reminder text */
+        .search-reminder {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            font-family: Arial, sans-serif;
+        }
+        /* No results / Suggestions box */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 15px;
+            right: 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none; /* Hidden by default */
+        }
+        .suggestion-item {
+            padding: 12px 20px;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #f5f5f5;
+        }
+        .suggestion-header {
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #666;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* -------------------------- Park Styles (With Sync Color Transition) -------------------------- */
+        .charts-wrapper {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            max-width: 1300px;
+            flex-wrap: wrap;
+            padding: 0 15px;
+        }
+        .park-section {
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            visibility: visible;
+            opacity: 1;
+        }
+        .park-section.hidden {
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+        }
+        /* Search results section (hidden by default) */
+        #search-results-section {
+            display: none;
+            padding: 20px 0;
+        }
+        .chart-card-container {
+            background-color: #8B5A2B;
+            border-radius: 16px;
+            padding: 10px;
+            width: 400px;
+            height: 300px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 15px;
+            /* Smooth background transition for accent line */
+            transition: background 3s ease-in-out;
+        }
+        /* Bottom accent line (syncs with inner-card-2) */
+        .chart-card-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            border-radius: 0 0 16px 16px;
+            /* Inherit color from card's background gradient */
+        }
+        .chart-text-content {
+            flex: 1;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            padding-bottom: 60px;
+        }
+        .chart-text-content h2 { font-size: 2.5rem; margin: 0 0 10px 0; }
+        .chart-text-content h3 { font-size: 1.5rem; margin: 0 0 20px 0; }
+        .chart-text-content p { font-size: 1rem; line-height: 1.5; margin: 0; }
+        .inner-cards-container {
+            position: relative;
+            width: 220px;
+            height: 280px;
+        }
+        .inner-card {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .inner-card img, .inner-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .inner-card-1 { width: 280px; height: 280px; top: -190px; right: -190px; transform: rotate(45deg); z-index: 3; }
+        .inner-card-2 {
+            width: 180px;
+            height: 180px;
+            top: -118px;
+            right: 150px;
+            transform: rotate(45deg);
+            z-index: 2;
+            /* Smooth color transition for inner-card-2 */
+            transition: background-color 3s ease-in-out;
+        }
+        .inner-card-3 { width: 190px; height: 160px; top: 40px; right: 10px; transform: rotate(45deg); z-index: 1; }
+        .chart-no-inner-container {
+            background-color: #8B5A2B;
+            border-radius: 16px;
+            padding: 10px;
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .chart-no-inner-text {
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .view-button, .view-more-button, .go-back-button {
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            background-color: #A0522D;
+        }
+        .view-button {
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+        }
+        .view-button:hover, .view-more-button:hover, .go-back-button:hover {
+            background-color: #804226;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+<!-- -------------------------- New: Search Box -------------------------- -->
+<div class="search-container">
+    <div class="search-wrapper">
+        <input
+                type="text"
+                class="search-input"
+                id="park-search"
+                placeholder="Search for a park (e.g., 'A' for Arusha, 'K' for Kilimanjaro)..."
+        >
+        <div class="search-actions">
+            <button class="search-btn" id="search-button">Search</button>
+            <button class="cancel-btn" id="cancel-button">Cancel</button>
+        </div>
+    </div>
+    <p class="search-reminder">Quick tip: Type the first letter of a park name (e.g., 'S' for Serengeti) to filter instantly!</p>
+
+    <!-- Suggestions/No Results Box -->
+    <div class="search-suggestions" id="search-suggestions">
+        <div class="suggestion-header" id="suggestion-header">Available Parks:</div>
+        <div id="suggestion-list"></div>
+    </div>
+</div>
+
+<!-- -------------------------- Existing Park Sections -------------------------- -->
+<!-- Search Results Section (Hidden by Default) -->
+<div id="search-results-section" class="park-section">
+    <div class="charts-wrapper" id="search-results-container">
+        <!-- Search results will be injected here dynamically -->
+    </div>
+</div>
+
+<!-- Primary Section (Default: 5 Parks + VIEW MORE) -->
+<div id="primary-section" class="park-section">
+    <div class="charts-wrapper">
+        <!-- Arusha -->
+        <div class="chart-card-container" data-park-name="Arusha" data-park-url="/hi/arusha">
+            <div class="chart-text-content">
+                <h2>Arusha</h2>
+                <h3>National Park</h3>
+                <p>happy</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Arusha') != null and !parkCouponDays.get('Arusha').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Arusha')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/arusha'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/1.png" alt="Arusha Park"></div>
+                <div class="inner-card inner-card-2" data-init-color="#BFF5E7"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- Ngorongoro -->
+        <div class="chart-card-container" data-park-name="Ngorongoro" data-park-url="/hi/ngorongoro">
+            <div class="chart-text-content">
+                <h2>Ngorongoro</h2>
+                <h3>National Park</h3>
+                <p>coupons</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Ngorongoro') != null and !parkCouponDays.get('Ngorongoro').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Ngorongoro')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/ngorongoro'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/3.png" alt="Ngorongoro Crater"></div>
+                <div class="inner-card inner-card-2" data-init-color="#FFD9C0"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/3.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- Serengeti -->
+        <div class="chart-card-container" data-park-name="Serengeti" data-park-url="/hi/serengeti">
+            <div class="chart-text-content">
+                <h2>Serengeti</h2>
+                <h3>National Park</h3>
+                <p>coupon</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Serengeti') != null and !parkCouponDays.get('Serengeti').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Serengeti')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/serengeti'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/6.png" alt="Serengeti Plains"></div>
+                <div class="inner-card inner-card-2" data-init-color="#FFF9C4"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="charts-wrapper">
+        <!-- Manyara -->
+        <div class="chart-card-container" data-park-name="Manyara" data-park-url="/hi/manyara">
+            <div class="chart-text-content">
+                <h2>Manyara</h2>
+                <h3>National Park</h3>
+                <p>wildlife</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Manyara') != null and !parkCouponDays.get('Manyara').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Manyara')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/manyara'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/5.png" alt="Manyara Lake"></div>
+                <div class="inner-card inner-card-2" data-init-color="#E0F7FF"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- Tarangire -->
+        <div class="chart-card-container" data-park-name="Tarangire" data-park-url="/hi/tarangire">
+            <div class="chart-text-content">
+                <h2>Tarangire</h2>
+                <h3>National Park</h3>
+                <p>elephants</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Tarangire') != null and !parkCouponDays.get('Tarangire').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Tarangire')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/tarangire'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/2.png" alt="Tarangire Elephants"></div>
+                <div class="inner-card inner-card-2" data-init-color="#FFE0B2"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- VIEW MORE Box -->
+        <div class="chart-no-inner-container">
+            <div class="chart-no-inner-text">
+                <h2>More Destinations</h2>
+                <h3>Explore Further</h3>
+            </div>
+            <button class="view-more-button" onclick="showSecondary()">VIEW MORE</button>
+        </div>
+    </div>
+</div>
+
+<!-- Secondary Section (Hidden by Default: 5 More Parks + GO BACK) -->
+<div id="secondary-section" class="park-section hidden">
+    <div class="charts-wrapper">
+        <!-- Olduvai Gorge -->
+        <div class="chart-card-container" data-park-name="Olduvai Gorge" data-park-url="/hi/olduvai">
+            <div class="chart-text-content">
+                <h2>Olduvai</h2>
+                <h3>Gorge</h3>
+                <p>archaeology</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Olduvai Gorge') != null and !parkCouponDays.get('Olduvai Gorge').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Olduvai Gorge')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/olduvai'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/3.png" alt="Olduvai Gorge"></div>
+                <div class="inner-card inner-card-2" data-init-color="#F5F0E6"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- Mount Kilimanjaro -->
+        <div class="chart-card-container" data-park-name="Mount Kilimanjaro" data-park-url="/hi/kilimanjaro">
+            <div class="chart-text-content">
+                <h2>Kilimanjaro</h2>
+                <h3>Mount</h3>
+                <p>summit</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Mount Kilimanjaro') != null and !parkCouponDays.get('Mount Kilimanjaro').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Mount Kilimanjaro')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/kilimanjaro'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/3.png" alt="Kilimanjaro Peak"></div>
+                <div class="inner-card inner-card-2" data-init-color="#F3E5F5"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- Ruaha -->
+        <div class="chart-card-container" data-park-name="Ruaha" data-park-url="/hi/ruaha">
+            <div class="chart-text-content">
+                <h2>Ruaha</h2>
+                <h3>National Park</h3>
+                <p>biodiversity</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Ruaha') != null and !parkCouponDays.get('Ruaha').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Ruaha')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/ruaha'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/5.png" alt="Ruaha River"></div>
+                <div class="inner-card inner-card-2" data-init-color="#E8F5E9"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="charts-wrapper">
+        <!-- Kikuletwa -->
+        <div class="chart-card-container" data-park-name="Kikuletwa" data-park-url="/hi/kikuletwa">
+            <div class="chart-text-content">
+                <h2>Kikuletwa</h2>
+                <h3>Hot Springs</h3>
+                <p>relaxation</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Kikuletwa') != null and !parkCouponDays.get('Kikuletwa').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Kikuletwa')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/kikuletwa'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/6.png" alt="Kikuletwa Springs"></div>
+                <div class="inner-card inner-card-2" data-init-color="#B2EBF2"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/3.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- Mkomazi -->
+        <div class="chart-card-container" data-park-name="Mkomazi" data-park-url="/hi/mkomazi">
+            <div class="chart-text-content">
+                <h2>Mkomazi</h2>
+                <h3>National Park</h3>
+                <p>giraffes</p>
+                <!-- Coupon days display added -->
+                <div th:if="${parkCouponDays.get('Mkomazi') != null and !parkCouponDays.get('Mkomazi').isEmpty()}"
+                     style="margin: 10px 0;">
+                    <span style="background: #ff9800; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;"
+                          th:text="${parkCouponDays.get('Mkomazi')}">
+                        Coupon Status
+                    </span>
+                </div>
+            </div>
+            <button class="view-button" onclick="window.top.location.href='/hi/mkomazi'">VIEW</button>
+            <div class="inner-cards-container">
+                <div class="inner-card inner-card-1"><img src="/arusha/9.png" alt="Mkomazi Giraffes"></div>
+                <div class="inner-card inner-card-2" data-init-color="#FFE0B2"></div>
+                <div class="inner-card inner-card-3">
+                    <video autoplay muted loop playsinline><source src="/arusha/1.mp4" type="video/mp4"></video>
+                </div>
+            </div>
+        </div>
+        <!-- GO BACK Box -->
+        <div class="chart-no-inner-container">
+            <div class="chart-no-inner-text">
+                <h2>Return</h2>
+                <h3>Previous Destinations</h3>
+            </div>
+            <button class="go-back-button" onclick="showPrimary()">GO BACK</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // -------------------------- New: Search Functionality --------------------------
+    const searchInput = document.getElementById('park-search');
+    const searchButton = document.getElementById('search-button');
+    const cancelButton = document.getElementById('cancel-button');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const suggestionHeader = document.getElementById('suggestion-header');
+    const suggestionList = document.getElementById('suggestion-list');
+    const searchResultsSection = document.getElementById('search-results-section');
+    const searchResultsContainer = document.getElementById('search-results-container');
+    const primarySection = document.getElementById('primary-section');
+    const secondarySection = document.getElementById('secondary-section');
+    const searchContainer = document.querySelector('.search-container');
+
+    const allParks = Array.from(document.querySelectorAll('.chart-card-container'));
+    const parkData = allParks.map(park => ({
+        name: park.dataset.parkName.toLowerCase(),
+        displayName: park.dataset.parkName,
+        url: park.dataset.parkUrl,
+        element: park.cloneNode(true)
+    }));
+
+    function toggleSuggestions(show) {
+        searchSuggestions.style.display = show ? 'block' : 'none';
+    }
+
+    function renderSuggestions(suggestions) {
+        suggestionList.innerHTML = '';
+        if (suggestions.length === 0) {
+            suggestionHeader.textContent = 'No matches found. Available parks:';
+            parkData.forEach(park => {
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                item.textContent = park.displayName;
+                item.addEventListener('click', () => {
+                    searchInput.value = park.displayName;
+                    runSearch();
+                    toggleSuggestions(false);
+                });
+                suggestionList.appendChild(item);
+            });
+        } else {
+            suggestionHeader.textContent = 'Matching parks:';
+            suggestions.forEach(park => {
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                item.textContent = park.displayName;
+                item.addEventListener('click', () => {
+                    searchInput.value = park.displayName;
+                    runSearch();
+                    toggleSuggestions(false);
+                });
+                suggestionList.appendChild(item);
+            });
+        }
+    }
+
+    function runSearch() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (!searchTerm) return;
+
+        const matchingParks = parkData.filter(park =>
+            park.name.startsWith(searchTerm) || park.name.includes(searchTerm)
+        );
+
+        searchResultsContainer.innerHTML = '';
+        if (matchingParks.length > 0) {
+            matchingParks.forEach(park => {
+                const viewButton = park.element.querySelector('.view-button');
+                viewButton.onclick = () => window.top.location.href = park.url;
+                searchResultsContainer.appendChild(park.element);
+            });
+        } else {
+            const noResults = document.createElement('div');
+            noResults.style.color = '#666';
+            noResults.style.fontFamily = 'Arial, sans-serif';
+            noResults.style.fontSize = '1.2rem';
+            noResults.textContent = `No parks found for "${searchInput.value}". Try a different term!`;
+            searchResultsContainer.appendChild(noResults);
+        }
+
+        searchResultsSection.style.display = 'block';
+        primarySection.classList.add('hidden');
+        secondarySection.classList.add('hidden');
+        cancelButton.style.display = 'block';
+    }
+
+    function cancelSearch() {
+        searchInput.value = '';
+        searchResultsSection.style.display = 'none';
+        cancelButton.style.display = 'none';
+        toggleSuggestions(false);
+        secondarySection.classList.add('hidden');
+        primarySection.classList.remove('hidden');
+    }
+
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (searchTerm) {
+            const matchingParks = parkData.filter(park =>
+                park.name.startsWith(searchTerm) || park.name.includes(searchTerm)
+            );
+            renderSuggestions(matchingParks);
+            toggleSuggestions(true);
+        } else {
+            toggleSuggestions(false);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!searchContainer.contains(e.target)) {
+            toggleSuggestions(false);
+        }
+    });
+
+    searchButton.addEventListener('click', () => {
+        runSearch();
+        toggleSuggestions(false);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            runSearch();
+            toggleSuggestions(false);
+        }
+    });
+
+    cancelButton.addEventListener('click', cancelSearch);
+
+    // -------------------------- Existing Section Swap Logic (Unchanged) --------------------------
+    function showSecondary() {
+        primarySection.classList.add('hidden');
+        secondarySection.classList.remove('hidden');
+        searchResultsSection.style.display = 'none';
+    }
+
+    function showPrimary() {
+        secondarySection.classList.add('hidden');
+        primarySection.classList.remove('hidden');
+        searchResultsSection.style.display = 'none';
+    }
+
+    // -------------------------- Synchronized Color Change Logic --------------------------
+    // 1. Color pool: Soft, pleasant colors (NO RED) - matches the "adorable" vibe
+    const colorPool = [
+        '#BFF5E7', // Soft mint
+        '#FFD9C0', // Warm peach
+        '#FFF9C4', // Soft yellow
+        '#E0F7FF', // Light sky blue
+        '#FFE0B2', // Warm terracotta
+        '#F5F0E6', // Soft taupe
+        '#F3E5F5', // Pale lavender
+        '#E8F5E9', // Mint green
+        '#B2EBF2', // Pale turquoise
+        '#FCE4EC', // Light pink
+        '#E1F5FE', // Cyan light
+        '#F3E5F5', // Lavender light
+        '#F9FBE7', // Lime light
+        '#FFECB3', // Amber light
+        '#D1C4E9'  // Indigo light
+    ];
+
+    // 2. Get all park card elements and their inner-card-2
+    const parkCardGroups = Array.from(document.querySelectorAll('.chart-card-container')).map(card => {
+        const innerCard2 = card.querySelector('.inner-card-2');
+        return {
+            card: card,
+            innerCard2: innerCard2,
+            currentColor: innerCard2.dataset.initColor // Initial color from data attribute
+        };
+    });
+
+    // 3. Function to get a random color (not red, not current color)
+    function getNextColor(currentColor) {
+        // Filter out current color to avoid immediate repetition
+        const availableColors = colorPool.filter(color => color !== currentColor);
+        // Pick random color from available
+        return availableColors[Math.floor(Math.random() * availableColors.length)];
+    }
+
+    // 4. Synchronize color change for a park (inner-card-2 + accent line)
+    function updateParkColor(parkGroup) {
+        const nextColor = getNextColor(parkGroup.currentColor);
+
+        // Update inner-card-2 color
+        parkGroup.innerCard2.style.backgroundColor = nextColor;
+
+        // Update accent line color (via card background gradient)
+        parkGroup.card.style.background = `linear-gradient(to bottom, #8B5A2B 97%, ${nextColor} 97%, ${nextColor} 100%)`;
+
+        // Update current color tracking
+        parkGroup.currentColor = nextColor;
+    }
+
+    // 5. Batch update all parks' colors (synchronized change)
+    function updateAllParkColors() {
+        parkCardGroups.forEach(parkGroup => {
+            updateParkColor(parkGroup);
+        });
+    }
+
+    // 6. Initialize initial colors on page load
+    function initParkColors() {
+        parkCardGroups.forEach(parkGroup => {
+            // Set initial color from data-init-color
+            parkGroup.innerCard2.style.backgroundColor = parkGroup.currentColor;
+            // Set initial accent line
+            parkGroup.card.style.background = `linear-gradient(to bottom, #8B5A2B 97%, ${parkGroup.currentColor} 97%, ${parkGroup.currentColor} 100%)`;
+        });
+    }
+
+    // 7. Start color cycle: Initialize first, then update every 5 minutes (300000ms)
+    document.addEventListener('DOMContentLoaded', () => {
+        initParkColors();
+        // Update every 5 minutes (300000 milliseconds)
+        // setInterval(updateAllParkColors, 300000);
+        // setInterval(updateAllParkColors, 60000);
+        setInterval(updateAllParkColors, 5000);
+    });
+</script>
+</body>
+</html>

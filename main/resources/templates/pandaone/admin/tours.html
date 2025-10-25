@@ -1,0 +1,79 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Manage Tours</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>All Tours</h2>-->
+<!--<a th:href="@{/admin/tours/add}">Add New Tour</a>-->
+
+
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Price</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="tour : ${tours}">-->
+<!--        <td th:text="${tour.id}"></td>-->
+<!--        <td th:text="${tour.name}"></td>-->
+<!--        <td th:text="${tour.description}"></td>-->
+<!--        <td th:text="${tour.price}"></td>-->
+<!--        <td>-->
+<!--            <a th:href="@{/admin/tours/edit/{id}(id=${tour.id})}">Edit</a>-->
+<!--            <a th:href="@{/admin/tours/delete/{id}(id=${tour.id})}">Delete</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Tours</title>
+    <style>
+        .original-price { text-decoration: line-through; color: #999; }
+        .discount-badge { background: #4CAF50; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+        .final-price { color: #e53935; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h2>All Tours</h2>
+<a th:href="@{/admin/tours/add}">Add New Tour</a>
+<a th:href="@{/admin/coupons/add}" style="margin-left: 20px;">Add Coupon</a>
+<a th:href="@{/admin/coupons}" style="margin-left: 20px;">View Coupons</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="tour : ${tours}">
+        <td th:text="${tour.id}"></td>
+        <td th:text="${tour.name}"></td>
+        <td th:text="${tour.description}"></td>
+        <td>
+            <div th:if="${tour.hasActiveCoupon}">
+                <span class="original-price" th:text="'$' + ${tour.price}"></span>
+                <br>
+                <span class="final-price" th:text="'$' + ${#numbers.formatDecimal(tour.finalPrice, 1, 2)}"></span>
+                <span class="discount-badge" th:text="'-' + ${tour.discountPercent} + '%'"></span>
+            </div>
+            <div th:unless="${tour.hasActiveCoupon}">
+                <span th:text="'$' + ${tour.price}"></span>
+            </div>
+        </td>
+        <td>
+            <a th:href="@{/admin/tours/edit/{id}(id=${tour.id})}">Edit</a>
+            <a th:href="@{/admin/tours/delete/{id}(id=${tour.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

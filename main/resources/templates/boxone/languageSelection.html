@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Panda Safaris - Adventure Awaits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a9d8f;
+            --secondary: #e9c46a;
+            --dark: #264653;
+            --light: #f8f9fa;
+            --accent: #e76f51;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 1200px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(38, 70, 83, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(38, 70, 83, 0.7), rgba(38, 70, 83, 0.7)),
+            url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')
+            no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        /* Welcome Text (Top Center) */
+        .welcome-text {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            opacity: 1;
+            transition: var(--transition);
+        }
+
+        .welcome-text .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        /* Left Bar: Either benefits or user greeting */
+        .benefits-sidebar, .user-greeting {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .user-greeting {
+            display: none; /* Hidden by default */
+        }
+
+        .benefits-sidebar h4, .user-greeting h4 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefits-sidebar h4 i, .user-greeting h4 i {
+            margin-right: 10px;
+        }
+
+        .benefits-sidebar ul, .user-greeting ul {
+            list-style: none;
+        }
+
+        .benefits-sidebar li, .user-greeting li {
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .benefits-sidebar li i, .user-greeting li i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 1rem;
+        }
+
+        /* Center: Language Selector + Buttons (Centered) */
+        .center-content {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .language-selector {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            min-width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .language-selector.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .language-selector h2 {
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .language-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid transparent;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .language-btn.active {
+            background: var(--primary);
+            border-color: var(--secondary);
+        }
+
+        .continue-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(231, 111, 81, 0.4);
+        }
+
+        .continue-btn:hover {
+            background: #d45a3d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 111, 81, 0.5);
+        }
+
+        /* Quick Register Button */
+        .quick-register-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(42, 157, 143, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .quick-register-btn:hover {
+            background: #23857a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(42, 157, 143, 0.5);
+        }
+
+        /* User Menu Button for logged-in users */
+        .user-menu-btn {
+            display: none; /* Hidden by default */
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(233, 196, 106, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .user-menu-btn:hover {
+            background: #d4b655;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 196, 106, 0.5);
+        }
+
+        /* Registration Form Container */
+        #registrationFormContainer {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Static sections */
+        .features, footer {
+            position: relative;
+            top: 100vh;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            .benefits-sidebar, .user-greeting {
+                text-align: center;
+                order: 1;
+            }
+            .benefits-sidebar li, .user-greeting li {
+                justify-content: center;
+            }
+            .center-content {
+                order: 0;
+            }
+            .welcome-text h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-text h1 {
+                font-size: 2.2rem;
+            }
+            .welcome-text .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<section class="hero">
+    <div class="hero-content">
+        <!-- Welcome Text (Top Center) -->
+        <div class="welcome-text">
+            <h1 id="welcome">Discover Extraordinary Adventures</h1>
+            <p class="hero-subtitle">Explore Tanzania with our exclusive safari experiences, where every park tells a story</p>
+        </div>
+
+        <!-- Left Bar: Either benefits (for guests) or user greeting (for logged-in users) -->
+        <div class="benefits-sidebar" id="benefits-sidebar">
+            <h4><i class="fas fa-star"></i> Register for Exclusive Benefits</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> Custom safari itineraries</li>
+                <li><i class="fas fa-check"></i> Early access to seasonal offers</li>
+                <li><i class="fas fa-check"></i> Personalized travel recommendations</li>
+                <li><i class="fas fa-check"></i> Saved preferences for future trips</li>
+            </ul>
+        </div>
+
+        <!-- User greeting section (hidden by default) -->
+        <div class="user-greeting" id="user-greeting">
+            <h4><i class="fas fa-user-circle"></i> <span id="username-display"></span></h4>
+            <ul>
+                <li><i class="fas fa-suitcase"></i> Your safari packages</li>
+                <li><i class="fas fa-heart"></i> Saved adventures</li>
+                <li><i class="fas fa-cog"></i> Account settings</li>
+                <li><i class="fas fa-sign-out-alt"></i> <a href="/reg/logout" style="color: white; text-decoration: none;">Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Center: Language Selector + Buttons -->
+        <div class="center-content">
+            <div class="language-selector" id="language-selector">
+                <h2>Select Your Preferred Language</h2>
+                <div class="language-options">
+                    <button class="language-btn"><i class="fas fa-check-circle"></i> Swahili</button>
+                    <button class="language-btn"><i class="fas fa-check-circle"></i> 中文</button>
+                    <button class="language-btn"><i class="fas fa-check-circle"></i> Swedish</button>
+                    <button class="language-btn"><i class="fas fa-check-circle"></i> Deutsch</button>
+                    <button class="language-btn active"><i class="fas fa-check-circle"></i> English</button>
+                </div>
+                <button class="continue-btn" onclick="redirectWithLanguage()">
+                    <i class="fas fa-arrow-right"></i> Start Your Adventure
+                </button>
+                <!-- Quick Registration Button (hidden for logged-in users) -->
+                <button id="showRegForm" class="quick-register-btn">
+                    <i class="fas fa-user-plus"></i> Quick Registration
+                </button>
+                <!-- User Menu Button (hidden by default, shown for logged-in users) -->
+                <button id="userMenuBtn" class="user-menu-btn" onclick="window.location.href='/reg/dashboard'">
+                    <i class="fas fa-tachometer-alt"></i> My Dashboard
+                </button>
+            </div>
+
+            <!-- Registration Form (Loads Here) -->
+            <div id="registrationFormContainer"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // DOM Elements
+        const welcome = document.getElementById('welcome');
+        const languageSelector = document.getElementById('language-selector');
+        const benefitsSidebar = document.getElementById('benefits-sidebar');
+        const userGreeting = document.getElementById('user-greeting');
+        const usernameDisplay = document.getElementById('username-display');
+        const showRegFormBtn = document.getElementById('showRegForm');
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const formContainer = document.getElementById('registrationFormContainer');
+        const languageBtns = document.querySelectorAll('.language-btn');
+
+        // Check if user is logged in on page load
+        checkUserLoginStatus();
+
+        // Hide elements initially
+        languageSelector.style.display = 'none';
+        benefitsSidebar.style.opacity = '0';
+        benefitsSidebar.style.transform = 'translateX(-20px)';
+        benefitsSidebar.style.transition = 'var(--transition)';
+        userGreeting.style.opacity = '0';
+        userGreeting.style.transform = 'translateX(-20px)';
+        userGreeting.style.transition = 'var(--transition)';
+
+        // Animation Sequence: Welcome → Language Selector + Content
+        setTimeout(() => {
+            // Fade out welcome text
+            welcome.style.opacity = '0';
+            setTimeout(() => {
+                welcome.style.display = 'none';
+                // Show language selector (center)
+                languageSelector.style.display = 'inline-block';
+                setTimeout(() => languageSelector.classList.add('visible'), 100);
+
+                // Show appropriate sidebar content
+                setTimeout(() => {
+                    if (userGreeting.style.display === 'block') {
+                        userGreeting.style.opacity = '1';
+                        userGreeting.style.transform = 'translateX(0)';
+                    } else {
+                        benefitsSidebar.style.opacity = '1';
+                        benefitsSidebar.style.transform = 'translateX(0)';
+                    }
+                }, 300);
+            }, 1000);
+        }, 3000);
+
+        // Language Button Selection
+        languageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                languageBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Load Registration Form
+        showRegFormBtn.addEventListener('click', () => {
+            // Loading State
+            showRegFormBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            showRegFormBtn.disabled = true;
+
+            // Fetch Form
+            fetch('/reg')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to load form');
+                    return response.text();
+                })
+                .then(html => {
+                    // Show Form
+                    formContainer.style.display = 'block';
+                    formContainer.innerHTML = html;
+
+                    // Execute Form Scripts
+                    const scripts = formContainer.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        Array.from(script.attributes).forEach(attr => {
+                            newScript.setAttribute(attr.name, attr.value);
+                        });
+                        newScript.textContent = script.textContent;
+                        script.parentNode.replaceChild(newScript, script);
+                    });
+                })
+                .catch(error => {
+                    formContainer.innerHTML = `
+                        <div style="color: var(--accent); padding: 15px; text-align: center;">
+                            Error loading form. Please try again.
+                        </div>
+                    `;
+                    formContainer.style.display = 'block';
+                    showRegFormBtn.innerHTML = '<i class="fas fa-user-plus"></i> Try Again';
+                    showRegFormBtn.disabled = false;
+                });
+        });
+    });
+
+    // Check if user is logged in and update UI accordingly
+    function checkUserLoginStatus() {
+        fetch('/reg/current')
+            .then(response => response.json())
+            .then(data => {
+                if (data.nickname) {
+                    // User is logged in - show personalized content
+                    document.getElementById('benefits-sidebar').style.display = 'none';
+                    document.getElementById('user-greeting').style.display = 'block';
+                    document.getElementById('username-display').textContent = `Hi, ${data.nickname}!`;
+
+                    // Hide register button, show user menu button
+                    document.getElementById('showRegForm').style.display = 'none';
+                    document.getElementById('userMenuBtn').style.display = 'flex';
+                } else {
+                    // User is not logged in - show default content
+                    document.getElementById('benefits-sidebar').style.display = 'block';
+                    document.getElementById('user-greeting').style.display = 'none';
+
+                    // Show register button, hide user menu button
+                    document.getElementById('showRegForm').style.display = 'flex';
+                    document.getElementById('userMenuBtn').style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking login status:', error);
+            });
+    }
+
+    // Language Redirection
+    function redirectWithLanguage() {
+        const activeBtn = document.querySelector('.language-btn.active');
+        let lang = 'en';
+        if (activeBtn) {
+            const text = activeBtn.textContent.trim();
+            if (text.includes('中文')) lang = 'zh';
+            if (text.includes('Swahili')) lang = 'sw';
+            if (text.includes('Deutsch')) lang = 'de';
+            if (text.includes('Swedish')) lang = 'sv';
+        }
+        window.location.href = `/btwo?lang=${lang}`;
+    }
+
+
+
+</script>
+</body>
+</html>

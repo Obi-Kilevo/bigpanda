@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /*name and password visibility */
+        .form-group label {
+            color: #ffd700; /* Gold/Yellow color */
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .form-control {
+            border: 2px solid #ffd700; /* Yellow border */
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .form-control:focus {
+            border-color: #ffa500; /* Orange on focus */
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3); /* Yellow glow */
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ffd700, #ffa500); /* Yellow to orange */
+        }
+
+        /* Reuse your registration form styles for consistency */
+        :root {
+            --primary: #2a9d8f;
+            --secondary: #e9c46a;
+            --dark: #264653;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: transparent;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(42, 157, 143, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), #23857a);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .form-feedback {
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .form-feedback.error {
+            background: rgba(231, 111, 81, 0.15);
+            color: var(--accent);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .register-link a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-feedback.success {
+            background: rgba(42, 157, 143, 0.15);
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+
+    <!-- Error message (e.g., invalid credentials) -->
+    <div th:if="${errorMessage}" class="form-feedback error" th:text="${errorMessage}"></div>
+
+    <form id="loginForm" method="post">
+        <div class="form-group">
+            <label for="nickname">Nickname</label>
+            <input type="text" id="nickname" name="nickname" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+    </form>
+
+    <div class="register-link">
+        <p>Don't have an account? <a href="#" onclick="loadRegistrationForm()">Register here</a></p>
+    </div>
+</div>
+
+<script>
+    // Handle login form submission
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = e.target.querySelector('.submit-btn');
+        const formFeedback = document.querySelector('.form-feedback');
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+        try {
+            const formData = new FormData(e.target);
+            console.log('Sending login request...');
+
+            const response = await fetch('/reg/login/submit', {
+                method: 'POST',
+                body: formData
+            });
+
+            console.log('Response status:', response.status);
+            const data = await response.json();
+            console.log('Response data:', data);
+
+            if (response.ok && data.success) {
+                // Login successful
+                formFeedback.className = 'form-feedback success';
+                formFeedback.innerHTML = '<i class="fas fa-check-circle"></i> Login successful! Redirecting...';
+
+                // Try to get language from parent page
+                let lang = 'en';
+                try {
+                    // Access the parent window's elements
+                    const activeBtn = window.parent.document.querySelector('.language-btn.active');
+                    if (activeBtn) {
+                        const text = activeBtn.textContent.trim();
+                        if (text.includes('中文')) lang = 'zh';
+                        else if (text.includes('Swahili')) lang = 'sw';
+                        else if (text.includes('Deutsch')) lang = 'de';
+                        else if (text.includes('Swedish')) lang = 'sv';
+                    }
+                    console.log('Selected language:', lang);
+                } catch (err) {
+                    console.log('Could not get language, using default:', err);
+                }
+
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = `/btwo?lang=${lang}`;
+                }, 1500);
+            } else {
+                // Login failed
+                formFeedback.className = 'form-feedback error';
+                formFeedback.textContent = data.error || 'Login failed. Please try again.';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            formFeedback.className = 'form-feedback error';
+            formFeedback.textContent = 'Network error. Please try again.';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        }
+    });
+</script>
+
+<script>
+    function loadRegistrationForm() {
+        // Use parent document to find the container
+        const formContainer = window.parent.document.getElementById('registrationFormContainer');
+
+        // Show loading state
+        formContainer.innerHTML = '<div style="text-align: center; color: var(--accent);"><i class="fas fa-spinner fa-spin"></i> Loading registration form...</div>';
+
+        // Fetch registration form
+        fetch('/reg')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load registration form');
+                return response.text();
+            })
+            .then(html => {
+                formContainer.innerHTML = html;
+
+                // Execute any scripts in the registration form
+                const scripts = formContainer.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    Array.from(script.attributes).forEach(attr => {
+                        newScript.setAttribute(attr.name, attr.value);
+                    });
+                    newScript.textContent = script.textContent;
+                    script.parentNode.replaceChild(newScript, script);
+                });
+            })
+            .catch(error => {
+                formContainer.innerHTML = `
+            <div style="color: var(--accent); padding: 15px; text-align: center;">
+                Error loading registration form. Please try again.
+            </div>
+        `;
+            });
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = e.target.querySelector('.submit-btn');
+        const formFeedback = document.createElement('div'); // Create feedback element if missing
+        formFeedback.className = 'form-feedback';
+        e.target.parentNode.insertBefore(formFeedback, e.target.nextSibling);
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+        formFeedback.style.display = 'none';
+
+        try {
+            const formData = new FormData(e.target);
+            const nickname = formData.get('nickname');
+            const password = formData.get('password');
+
+            // Basic validation
+            if (!nickname || !password) {
+                throw new Error('Please enter both nickname and password');
+            }
+
+            const response = await fetch('/reg/login/submit', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            // Log response for debugging
+            console.log('Login response status:', response.status);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Login response data:', data);
+
+            if (data.success) {
+                // Login successful
+                formFeedback.className = 'form-feedback success';
+                formFeedback.innerHTML = '<i class="fas fa-check-circle"></i> Login successful! Redirecting...';
+                formFeedback.style.display = 'block';
+
+                // Get language from parent
+                let lang = 'en';
+                try {
+                    const activeBtn = window.parent.document.querySelector('.language-btn.active');
+                    if (activeBtn) {
+                        const text = activeBtn.textContent.trim();
+                        if (text.includes('中文')) lang = 'zh';
+                        else if (text.includes('Swahili')) lang = 'sw';
+                        else if (text.includes('Deutsch')) lang = 'de';
+                        else if (text.includes('Swedish')) lang = 'sv';
+                    }
+                } catch (err) {
+                    console.log('Could not get language:', err);
+                }
+
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.parent.location.href = `/btwo?lang=${lang}`;
+                }, 1500);
+            } else {
+                // Login failed
+                formFeedback.className = 'form-feedback error';
+                formFeedback.textContent = data.error || 'Login failed. Please try again.';
+                formFeedback.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            formFeedback.className = 'form-feedback error';
+            formFeedback.textContent = 'An error occurred. Please check your inputs and try again.';
+            formFeedback.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Language Switcher</title>
+    <style>
+        /* Draggable container */
+        .lang-switcher {
+            position: fixed;
+            z-index: 9999; /* Stay above content */
+            cursor: move; /* Show draggable cursor */
+        }
+
+        /* Toggle icon (uses your image) */
+        .lang-toggle {
+            width: 50px; /* Adjust size as needed */
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .lang-toggle img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%; /* Match icon shape */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Language options (hidden by default) */
+        .lang-options {
+            display: none;
+            position: absolute;
+            bottom: 60px; /* Position above icon */
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            min-width: 100px;
+        }
+
+        .lang-option {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background: none;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .lang-option:hover {
+            background: #f0f0f0;
+        }
+
+        /* Example content to translate */
+        .content [data-i18n] {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Draggable Language Switcher -->
+<div class="lang-switcher">
+    <div class="lang-options">
+        <button class="lang-option" data-lang="en">English</button>
+        <button class="lang-option" data-lang="zh">中文</button>
+        <button class="lang-option" data-lang="zh">Germany</button>
+        <button class="lang-option" data-lang="zh">Swahili</button>
+        <button class="lang-option" data-lang="zh">Canadaian</button>
+    </div>
+    <button class="lang-toggle">
+        <!-- Replace "your-icon.png" with your image path -->
+        <img src="Arage/panda.jpg" alt="Language switch">
+    </button>
+</div>
+
+<!-- Example content (add data-i18n to elements you want translated) -->
+<div class="content">
+    <h1 data-i18n="title"></h1>
+    <p data-i18n="text"></p>
+</div>
+
+<script>
+    // Translation data (add more languages/keys as needed)
+    const translations = {
+        en: {
+            title: "Hello",
+            text: "This is a test"
+        },
+        zh: {
+            title: "你好",
+            text: "这是一个测试"
+        }
+    };
+
+    // DOM Elements
+    const switcher = document.querySelector('.lang-switcher');
+    const toggle = document.querySelector('.lang-toggle');
+    const options = document.querySelector('.lang-options');
+    const langButtons = document.querySelectorAll('.lang-option');
+
+    // Make switcher draggable
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // Mouse/touch start
+    switcher.addEventListener('mousedown', startDrag);
+    switcher.addEventListener('touchstart', startDrag, { passive: true });
+
+    // Mouse/touch move
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag, { passive: true });
+
+    // Mouse/touch end
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    function startDrag(e) {
+        e.preventDefault();
+        isDragging = true;
+
+        // Get click/touch position relative to switcher
+        const rect = switcher.getBoundingClientRect();
+        if (e.type === 'mousedown') {
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+        } else { // touchstart
+            offsetX = e.touches[0].clientX - rect.left;
+            offsetY = e.touches[0].clientY - rect.top;
+        }
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+
+        // Calculate new position
+        let clientX, clientY;
+        if (e.type === 'mousemove') {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        } else { // touchmove
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        }
+
+        const newX = clientX - offsetX;
+        const newY = clientY - offsetY;
+
+        // Keep switcher within window bounds
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const switcherWidth = switcher.offsetWidth;
+        const switcherHeight = switcher.offsetHeight;
+
+        const constrainedX = Math.max(0, Math.min(newX, windowWidth - switcherWidth));
+        const constrainedY = Math.max(0, Math.min(newY, windowHeight - switcherHeight));
+
+        // Update position
+        switcher.style.left = `${constrainedX}px`;
+        switcher.style.top = `${constrainedY}px`;
+    }
+
+    function endDrag() {
+        isDragging = false;
+    }
+
+    // Toggle language options
+    // toggle.addEventListener('click', () => {
+    //     options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    // });
+
+    // Toggle language options
+    toggle.addEventListener('mouseenter', () => {
+        options.style.display = 'block';
+    });
+    toggle.addEventListener('touchstart', () => {
+        options.style.display = 'block';
+    });
+
+
+    // Close options when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!switcher.contains(e.target)) {
+            options.style.display = 'none';
+        }
+    });
+
+    // Switch language
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.dataset.lang;
+            // Update all translated elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = translations[lang][el.getAttribute('data-i18n')];
+            });
+            options.style.display = 'none'; // Hide options after selection
+        });
+    });
+
+    // Initial position (bottom-right)
+    switcher.style.left = `${window.innerWidth - 70}px`;
+    switcher.style.top = `${window.innerHeight - 70}px`;
+</script>
+</body>
+</html>

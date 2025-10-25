@@ -1,0 +1,62 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Edit Coupon</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Edit Coupon</h2>-->
+
+<!--<form th:action="@{/admin/coupons/update}" th:object="${coupon}" method="post">-->
+<!--    <input type="hidden" th:field="*{id}"/>-->
+
+<!--    <label>Park ID:</label>-->
+<!--    <input type="text" th:field="*{parkId}" readonly/><br/><br/>-->
+
+<!--    <label>Discount Percent:</label>-->
+<!--    <input type="number" th:field="*{discountPercent}" min="0" max="100"/><br/><br/>-->
+
+<!--    <label>Expiry Date:</label>-->
+<!--    <input type="datetime-local" th:field="*{expiryDate}"/><br/><br/>-->
+
+<!--    <label>Active:</label>-->
+<!--    <input type="checkbox" th:field="*{active}"/><br/><br/>-->
+
+<!--    <button type="submit">Update Coupon</button>-->
+<!--</form>-->
+<!--<a th:href="@{/admin/coupons}">Back to Coupons</a>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Coupon</title>
+</head>
+<body>
+<h2>Edit Coupon</h2>
+
+<form th:action="@{/admin/coupons/update}" th:object="${coupon}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Park ID:</label>
+    <input type="text" th:field="*{parkId}" readonly/><br/><br/>
+
+    <label>Discount Percent:</label>
+    <input type="number" th:field="*{discountPercent}" min="0" max="100"/><br/><br/>
+
+    <label>Expiry Date:</label>
+    <input type="datetime-local" th:field="*{expiryDate}"/><br/><br/>
+
+    <label>Active:</label>
+    <input type="checkbox" th:field="*{active}"/><br/><br/>
+
+    <label>Status Override (for expired coupons):</label>
+    <input type="text" th:field="*{statusOverride}" placeholder="e.g., 'Coming Soon', 'Contact for Offer'"/><br/><br/>
+
+    <button type="submit">Update Coupon</button>
+</form>
+<a th:href="@{/admin/coupons}">Back to Coupons</a>
+</body>
+</html>
