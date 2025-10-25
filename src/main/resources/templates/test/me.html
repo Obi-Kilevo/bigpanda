@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Park Selector</title>
+
+    <base href="http://localhost:9000/">
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0; /* CHANGED FROM 2rem to 0 */
+            overflow-y: hidden;
+            scrollbar-width: none;
+            background-color: white;
+        }
+
+        /* For Webkit browsers (Chrome, Safari) */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .image-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .image-option {
+            position: relative;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            aspect-ratio: 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .image-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .park-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: transparent;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.6rem; /* Increased from 1.2rem to 1.4rem */
+            opacity: 1;
+            transform: translateY(0);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+
+        .image-option:hover {
+            transform: translateY(-4px);
+        }
+
+        .image-option:hover img {
+            transform: scale(1.05);
+        }
+
+        /*.image-option:hover .park-name {*/
+        /*    opacity: 1;*/
+        /*    transform: translateY(0);*/
+        /*}*/
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            /* Add these two lines */
+            overflow-y: hidden;
+            scrollbar-width: none;
+        }
+
+        /* For Webkit browsers (Chrome, Safari) */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            background-color: white;
+            /* rest of your existing body styles */
+        }
+
+
+
+/*i first aded this pa-rt, deals with search only*/
+        .search-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #004d40;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 10px rgba(0, 121, 107, 0.3);
+        }
+
+/*searching or parks here and hre too*/
+        .suggestions {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .suggestions.show {
+            display: block;
+        }
+
+        .suggestion-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .suggestion-item {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background: #004d40;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .heart-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .heart-btn:hover {
+            background: #f8f9fa;
+            transform: scale(1.1);
+        }
+
+        .heart-btn i {
+            font-size: 1.2rem;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .heart-btn .fas {
+            color: #e25555;
+        }
+
+        .heart-btn.liked {
+            background: rgba(226, 85, 85, 0.1);
+        }
+
+
+
+
+
+
+
+
+/*//kuhusu cancel button*/
+        .suggestion-item.cancel-btn {
+            background: #dc3545;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: 2px solid #c82333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            transform: scale(1.05);
+        }
+
+        .suggestion-item.cancel-btn:hover {
+            background: #c82333;
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+
+        .suggestion-item.cancel-btn i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+<div class="container">
+
+
+    <base href="http://localhost:9000/">
+
+
+    <h2>Big Panda's Premier a National Park</h2>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Quick Search for a park... (e.g., Arusha, Serengeti)" id="parkSearch">
+    </div>
+
+    <div class="suggestions" id="suggestions">
+        <p>Thanks!his park is not present at the moment.</p>
+        <p>Did you mean one of these?</p>
+        <ul class="suggestion-list" id="suggestionList"></ul>
+    </div>
+
+
+    <div class="image-options">
+        <a href="/hi/arusha" target="_top" class="image-option">
+            <img src="/test/home/arusha/1.png" alt="Arusha">
+            <div class="park-name">Arusha National Park</div>
+
+<!--            <button class="like-btn" data-park-id="1">Like</button>-->
+
+            <button class="heart-btn" data-park-id="1">
+                <i class="far fa-heart"></i>
+            </button>
+
+<!--            //i added tis line toooooo to every park-->
+            <div class="like-status">Like</div>
+
+        </a>
+
+        <a href="/hi/kilimanjaro" target="_top" class="image-option">
+            <img src="test/kilimanjaro/1.png" alt="Kilimanjaro">
+            <div class="park-name">Mount Kilimanjaro</div>
+
+<!--            <button class="like-btn" data-park-id="2">Like</button>-->
+
+
+            <button class="heart-btn" data-park-id="2">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/kikuletwa" target="_top" class="image-option">
+            <img src="test/home/kikuletwa/1.png" alt="Kikuletwa">
+            <div class="park-name">Kikuletwa Hot Spring</div>
+
+<!--            <button class="like-btn" data-park-id="3">Like</button>-->
+
+            <button class="heart-btn" data-park-id="3">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/tarangire" target="_top" class="image-option">
+            <img src="test/tarangire/1.png" alt="Tarangire">
+            <div class="park-name">Tarangire National Park</div>
+
+<!--            <button class="like-btn" data-park-id="4">Like</button>-->
+
+            <button class="heart-btn" data-park-id="4">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/olduvai" target="_top" class="image-option">
+            <img src="test/home/gorge/1.png" alt="Olduvai Gorge">
+            <div class="park-name">Olduvai Gorge</div>
+
+<!--            <button class="like-btn" data-park-id="5">Like</button>-->
+
+            <button class="heart-btn" data-park-id="5">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/ruaha" target="_top" class="image-option">
+            <img src="test/home/ruaha/1.png" alt="Ruaha">
+            <div class="park-name">Ruaha National Park</div>
+
+<!--            <button class="like-btn" data-park-id="6">Like</button>-->
+
+            <button class="heart-btn" data-park-id="6">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+        </a>
+
+
+
+        <a href="/hi/ngorongoro" target="_top" class="image-option">
+            <img src="test/home/ngorongoro/1.png" alt="Ngorongoro">
+            <div class="park-name">Ngorongoro Crater</div>
+
+<!--            <button class="like-btn" data-park-id="7">Like</button>-->
+
+            <button class="heart-btn" data-park-id="7">
+                <i class="far fa-heart"></i>
+            </button>
+
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/mkomazi" target="_top" class="image-option">
+            <img src="test/home/mkomazi/1.png" alt="Mkomazi">
+            <div class="park-name">Mkomazi National Park</div>
+
+<!--            <button class="like-btn" data-park-id="8">Like</button>-->
+
+            <button class="heart-btn" data-park-id="8">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/serengeti" target="_top" class="image-option">
+            <img src="test/home/serengeti/1.png" alt="Serengeti">
+            <div class="park-name">Serengeti National Park</div>
+
+<!--            <button class="like-btn" data-park-id="9">Like</button>-->
+
+            <button class="heart-btn" data-park-id="9">
+                <i class="far fa-heart"></i>
+            </button>
+
+
+            <div class="like-status">Like</div>
+        </a>
+
+        <a href="/hi/manyara" target="_top" class="image-option">
+            <img src="test/home/manyara/1.png" alt="Manyara">
+            <div class="park-name">Manyara National Park</div>
+
+<!--            <button class="like-btn" data-park-id="10">Like</button>-->
+
+            <button class="heart-btn" data-park-id="10">
+                <i class="far fa-heart"></i>
+            </button>
+
+            <div class="like-status">Like</div>
+
+        </a>
+
+    </div>
+</div>
+</div>
+
+<script>
+
+    // Park data for searching
+    // Park data for searching
+    const parks = [
+        { id: 1, name: "Arusha National Park" },
+        { id: 2, name: "Mount Kilimanjaro" },
+        { id: 3, name: "Kikuletwa Hot Spring" },
+        { id: 4, name: "Tarangire National Park" },
+        { id: 5, name: "Olduvai Gorge" },
+        { id: 6, name: "Ruaha National Park" },
+        { id: 7, name: "Ngorongoro Crater" },
+        { id: 8, name: "Mkomazi National Park" },
+        { id: 9, name: "Serengeti National Park" },
+        { id: 10, name: "Manyara National Park" }
+    ];
+
+    // Get DOM elements
+    const searchInput = document.getElementById('parkSearch');
+    const suggestionsDiv = document.getElementById('suggestions');
+    const suggestionList = document.getElementById('suggestionList');
+
+    // Add input event listener for search
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+
+        // If search is empty, smoothly show all parks
+        if (searchTerm === '') {
+            smoothlyShowAllParks();
+            suggestionsDiv.classList.remove('show');
+            return;
+        }
+
+        // Find matches
+        const matches = parks.filter(park =>
+            park.name.toLowerCase().includes(searchTerm)
+        );
+
+        // If exact match found, show only that park
+        if (matches.length === 1 && matches[0].name.toLowerCase() === searchTerm) {
+            filterParks(matches[0].name);
+            suggestionsDiv.classList.remove('show');
+        }
+        // If close matches found, show them
+        else if (matches.length > 0) {
+            filterParksByMultiple(matches);
+            suggestionsDiv.classList.remove('show');
+        }
+        // If no matches, show all parks as options
+        else {
+            showAllParksAsOptions();
+            suggestionsDiv.classList.add('show');
+        }
+    });
+
+    // New function to smoothly show all parks with fade effect
+    function smoothlyShowAllParks() {
+        const parkElements = document.querySelectorAll('.image-option');
+
+        parkElements.forEach(element => {
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            element.style.opacity = '1';
+            element.style.transform = 'scale(1)';
+            element.style.display = 'block';
+        });
+    }
+
+    function filterParks(parkName) {
+        const parkElements = document.querySelectorAll('.image-option');
+
+        parkElements.forEach(element => {
+            const elementParkName = element.querySelector('.park-name').textContent;
+
+            // Add fade transition
+            element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+            if (elementParkName === parkName) {
+                // Show matching park with fade in
+                element.style.opacity = '1';
+                element.style.transform = 'scale(1)';
+                element.style.display = 'block';
+            } else {
+                // Hide non-matching parks with fade out
+                element.style.opacity = '0';
+                element.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    function filterParksByMultiple(matchingParks) {
+        const parkElements = document.querySelectorAll('.image-option');
+        const matchingNames = matchingParks.map(park => park.name);
+
+        parkElements.forEach(element => {
+            const elementParkName = element.querySelector('.park-name').textContent;
+
+            element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+            if (matchingNames.includes(elementParkName)) {
+                // Show matching parks
+                element.style.opacity = '1';
+                element.style.transform = 'scale(1)';
+                element.style.display = 'block';
+            } else {
+                // Hide non-matching parks
+                element.style.opacity = '0';
+                element.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    function showAllParksAsOptions() {
+        suggestionList.innerHTML = '';
+
+        // Add larger, red cancel button
+        const cancelLi = document.createElement('li');
+        cancelLi.className = 'suggestion-item cancel-btn';
+        cancelLi.innerHTML = '<i class="fas fa-times"></i> Cancel & Show All Parks';
+        cancelLi.addEventListener('click', function() {
+            searchInput.value = '';
+            smoothlyShowAllParks();
+            suggestionsDiv.classList.remove('show');
+        });
+        suggestionList.appendChild(cancelLi);
+
+        // Add all parks as options
+        parks.forEach(park => {
+            const li = document.createElement('li');
+            li.className = 'suggestion-item';
+            li.textContent = park.name;
+            li.addEventListener('click', function() {
+                searchInput.value = park.name;
+                filterParks(park.name);
+                suggestionsDiv.classList.remove('show');
+            });
+            suggestionList.appendChild(li);
+        });
+
+        // Show all parks faded in background
+        const parkElements = document.querySelectorAll('.image-option');
+        parkElements.forEach(element => {
+            element.style.transition = 'opacity 0.3s ease';
+            element.style.opacity = '0.3';
+        });
+    }
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.search-container')) {
+            suggestionsDiv.classList.remove('show');
+            // Restore full opacity when suggestions close
+            const parkElements = document.querySelectorAll('.image-option');
+            parkElements.forEach(element => {
+                element.style.opacity = '1';
+            });
+        }
+    });
+
+    // Clear search and show all parks when escape key is pressed
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            this.value = '';
+            smoothlyShowAllParks();
+            suggestionsDiv.classList.remove('show');
+        }
+    });
+    // Add this script to your me.html
+
+
+    document.querySelectorAll('.heart-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const parkId = this.getAttribute('data-park-id');
+            const heartIcon = this.querySelector('i');
+            const customerId = localStorage.getItem('currentCustomerId');
+
+            // Toggle visual state immediately
+            const isLiked = heartIcon.classList.contains('fas');
+            const newLikedState = !isLiked;
+
+            if (isLiked) {
+                // Currently liked - unlike it
+                heartIcon.classList.replace('fas', 'far');
+                this.classList.remove('liked');
+            } else {
+                // Currently not liked - like it
+                heartIcon.classList.replace('far', 'fas');
+                this.classList.add('liked');
+            }
+
+            // ✅ ADD THIS: Update text label
+            const likeStatus = this.parentElement.querySelector('.like-status');
+            if (likeStatus) {
+                likeStatus.textContent = newLikedState ? 'Liked' : 'Like';
+            }
+
+            // Determine which endpoint to use
+            const endpoint = customerId ?
+                `/reg/likes/park/${parkId}?customerId=${customerId}` :
+                `/likes/park/${parkId}`;
+
+            const requestBody = customerId ? null : JSON.stringify({ liked: newLikedState });
+
+            // Send the like/unlike to backend
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: requestBody
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        // Revert visual state if server request failed
+                        if (!isLiked) {
+                            heartIcon.classList.replace('fas', 'far');
+                            this.classList.remove('liked');
+                            // Also revert text
+                            if (likeStatus) likeStatus.textContent = 'Like';
+                        } else {
+                            heartIcon.classList.replace('far', 'fas');
+                            this.classList.add('liked');
+                            // Also revert text
+                            if (likeStatus) likeStatus.textContent = 'Liked';
+                        }
+                        console.error('Server error:', response.status);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Response:', data);
+                })
+                .catch(error => {
+                    // Revert visual state if fetch failed
+                    if (!isLiked) {
+                        heartIcon.classList.replace('fas', 'far');
+                        this.classList.remove('liked');
+                        if (likeStatus) likeStatus.textContent = 'Like';
+                    } else {
+                        heartIcon.classList.replace('far', 'fas');
+                        this.classList.add('liked');
+                        if (likeStatus) likeStatus.textContent = 'Liked';
+                    }
+                    console.error('Fetch error:', error);
+                });
+        });
+    });
+
+
+</script>
+</body>
+</html>

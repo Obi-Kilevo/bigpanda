@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Options</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 45px 60px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      margin-bottom: 35px;
+      color: #2c3e50;
+      font-size: 2.2rem;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h1:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #28a745, #007bff);
+      border-radius: 2px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 12px 20px;
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 200px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-quick {
+      background-color: #28a745;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.25);
+    }
+
+    .btn-quick:hover {
+      background-color: #218838;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(40, 167, 69, 0.35);
+    }
+
+    .btn-registered {
+      background-color: #007bff;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-registered:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.35);
+    }
+
+    .btn-back {
+      display: block;
+      margin: 35px auto 0;
+      background-color: #6c757d;
+      color: #fff;
+      padding: 12px 24px;
+      box-shadow: 0 4px 12px rgba(108, 117, 125, 0.2);
+    }
+
+    .btn-back:hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 14px rgba(108, 117, 125, 0.3);
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      .btn {
+        display: block;
+        margin: 10px auto;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Choose Your Option</h1>
+  <button class="btn btn-quick" onclick="location.href='/quick/list'">Quick Register</button>
+  <button class="btn btn-registered" onclick="location.href='/bookings'">Registered Users</button>
+  <button class="btn btn-registered" onclick="location.href='/boxthree/submissions'">Form Fillers</button>
+  <button class="btn btn-back" onclick="history.back()">Back</button>
+</div>
+</body>
+</html>

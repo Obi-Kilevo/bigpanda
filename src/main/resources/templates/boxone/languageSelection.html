@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Panda Safaris - Adventure Awaits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a9d8f;
+            --secondary: #e9c46a;
+            --dark: #264653;
+            --light: #f8f9fa;
+            --accent: #e76f51;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(38, 70, 83, 0.7), rgba(38, 70, 83, 0.7)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center/cover;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            opacity: 1;
+            transition: var(--transition);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .language-selector.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .language-selector h2 {
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .language-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid transparent;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .language-btn.active {
+            background: var(--primary);
+            border-color: var(--secondary);
+        }
+
+        .continue-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(231, 111, 81, 0.4);
+        }
+
+        .continue-btn:hover {
+            background: #d45a3d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 111, 81, 0.5);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .language-options {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+
+
+
+        /*niliongeza hii hapa, hii ni registration part only*/
+        /* Registration Sidebar */
+        .registration-sidebar {
+            position: fixed;
+            left: -400px;
+            top: 0;
+            height: 100vh;
+            width: 380px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .registration-sidebar.active {
+            left: 0;
+        }
+
+        .registration-content {
+            padding: 40px 30px;
+            height: 100%;
+        }
+
+        .registration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .registration-header h2 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .registration-header h2 i {
+            color: var(--secondary);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--accent);
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(42, 157, 143, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.1);
+        }
+
+        .register-submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), #23857a);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(42, 157, 143, 0.4);
+            margin: 20px 0;
+        }
+
+        .register-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.5);
+        }
+
+        .benefits-list {
+            background: rgba(233, 196, 106, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .benefits-list h4 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .benefits-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            padding: 5px 0;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .benefits-list li i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .error-message {
+            color: var(--accent);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+
+        /*cancel form part */
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .registration-sidebar {
+            position: fixed;
+            left: -400px;
+            top: 0;
+            height: 100vh;
+            width: 380px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .registration-sidebar.active {
+            left: 0;
+        }
+
+
+
+        /*for password*/
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--dark);
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            opacity: 1;
+        }
+
+
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--dark);
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            opacity: 1;
+        }
+
+    </style>
+
+</head>
+<body>
+<header>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1 id="welcome">Discover Extraordinary Adventures</h1>
+        <p class="hero-subtitle">Explore Tanzania with our exclusive safari experiences,  where every park tells a story</p>
+
+        <div class="language-selector" id="language-select">
+            <h2>Select Your Preferred Language</h2>
+            <div class="language-options">
+
+                <button class="language-btn">
+                    <i class="fas fa-check-circle"></i> Swahili
+                </button>
+                <button class="language-btn">
+                    <i class="fas fa-check-circle"></i> 中文
+                </button>
+
+                <button class="language-btn">
+                    <i class="fas fa-check-circle"></i> Swedish
+                </button>
+
+                <button class="language-btn">
+                    <i class="fas fa-check-circle"></i> Deutsch
+                </button>
+
+                <button class="language-btn">
+                    <i class="fas fa-check-circle"></i> English
+                </button>
+
+
+            </div>
+
+            <button class="continue-btn" onclick="redirectWithLanguage()">
+                <i class="fas fa-arrow-right"></i> Start Your Adventure
+            </button>
+
+        </div>
+
+
+
+        <div style="text-align: center; margin-top: 20px;" id="userStatusSection">
+            <!-- Show welcome message for logged in users -->
+            <div th:if="${loggedInCustomer != null}" style="color: var(--secondary);">
+                <i class="fas fa-check-circle"></i> Welcome, <span th:text="${loggedInCustomer.nickname}">User</span>!
+                <br><small>You're ready to book your adventure!</small>
+            </div>
+
+            <!-- Show registration link for guests -->
+            <div th:unless="${loggedInCustomer != null}">
+                <a href="#" onclick="showRegisterForm()" style="color: var(--secondary); text-decoration: none;">
+                    <i class="fas fa-user-plus"></i> Register for more benefits
+                </a>
+            </div>
+        </div>
+<!--        <div style="text-align: center; margin-top: 20px;">-->
+<!--            <a href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+<!--        </div>-->
+
+        <div style="text-align: center; margin-top: 20px;">
+            <!-- Show welcome message for registered users -->
+            <p th:if="${isRegistered}" style="color: var(--secondary);">
+                <i class="fas fa-check-circle"></i> Welcome, <span th:text="${nickname}">User</span>!
+            </p>
+
+            <!-- Show registration link for guests -->
+<!--            <a th:unless="${isRegistered}" href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+        </div>
+
+<!--        <div style="text-align: center; margin-top: 20px;" id="userStatusSection">-->
+<!--            &lt;!&ndash; This will be dynamically updated &ndash;&gt;-->
+<!--            <p id="welcomeMessage" style="color: var(&#45;&#45;secondary); display: none;">-->
+<!--                <i class="fas fa-check-circle"></i> Welcome, <span id="userNickname">User</span>!-->
+<!--            </p>-->
+
+<!--            <a id="registerLink" href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+<!--        </div>    <div style="text-align: center; margin-top: 20px;">-->
+<!--            &lt;!&ndash; Show welcome message for registered users &ndash;&gt;-->
+<!--            <p th:if="${isRegistered}" style="color: var(&#45;&#45;secondary);">-->
+<!--                <i class="fas fa-check-circle"></i> Welcome, <span th:text="${nickname}">User</span>!-->
+<!--            </p>-->
+
+<!--            &lt;!&ndash; Show registration link for guests &ndash;&gt;-->
+<!--            <a th:unless="${isRegistered}" href="#" onclick="showRegisterForm()" style="color: var(&#45;&#45;secondary); text-decoration: none;">-->
+<!--                <i class="fas fa-user-plus"></i> Register for more benefits-->
+<!--            </a>-->
+<!--        </div>-->
+
+
+
+        <!-- Side Registration Form -->
+        <div id="registerFormContainer" class="registration-sidebar">
+            <div class="registration-content">
+                <div class="registration-header">
+                    <h2><i class="fas fa-crown"></i> Premium Benefits</h2>
+                    <button class="close-btn" onclick="hideRegisterForm()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="registerForm" method="post" action="/reg/submit" onsubmit="handleRegistration(event)">
+                    <div class="form-group">
+                        <label for="nickname">Choose Your Nickname</label>
+                        <input type="text" id="nickname" name="nickname" required
+                               placeholder="Enter unique nickname">
+                        <div class="error-message" id="nicknameError"></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="passwordHash">Create Password</label>
+                        <div class="password-container">
+                            <input type="password" id="passwordHash" name="passwordHash" required
+                                   placeholder="Minimum 6 characters"
+                                   autocomplete="new-password">
+                            <span class="password-toggle" onclick="togglePassword()">
+            <i class="fas fa-eye"></i>
+        </span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <script>
+                        function togglePassword() {
+                            const passwordInput = document.getElementById('passwordHash');
+                            const icon = document.querySelector('.password-toggle i');
+
+                            if (passwordInput.type === 'password') {
+                                passwordInput.type = 'text';
+                                icon.className = 'fas fa-eye-slash';
+                            } else {
+                                passwordInput.type = 'password';
+                                icon.className = 'fas fa-eye';
+                            }
+                        }
+                    </script>
+
+
+
+                    <button type="submit" class="register-submit-btn">
+                        <i class="fas fa-rocket"></i> Unlock Benefits
+                    </button>
+                </form>
+
+
+                <div class="benefits-list">
+                    <h4><i class="fas fa-star"></i> Registered Users Get:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Exclusive safari deals</li>
+                        <li><i class="fas fa-check"></i> Priority booking</li>
+                        <li><i class="fas fa-check"></i> Personal guide</li>
+                        <li><i class="fas fa-check"></i> Special discounts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="overlay" onclick="hideRegisterForm()"></div>
+    </div>
+</section>
+
+
+<!---->
+
+
+<script>
+    function showRegisterForm() {
+        document.getElementById('registerFormContainer').style.display = 'block';
+    }
+
+    function hideRegisterForm() {
+        document.getElementById('registerFormContainer').style.display = 'none';
+    }
+
+
+
+</script>
+
+<script>
+    function showRegisterForm() {
+        document.getElementById('registerFormContainer').classList.add('active');
+        document.querySelector('.overlay')?.classList.add('active');
+    }
+
+    function hideRegisterForm() {
+        document.getElementById('registerFormContainer').classList.remove('active');
+        document.querySelector('.overlay')?.classList.remove('active');
+    }
+
+    function handleRegistration(event) {
+        event.preventDefault();
+
+        // Simple validation
+        const nickname = document.getElementById('nickname').value;
+        const password = document.getElementById('passwordHash').value;
+
+        if (nickname.length < 2) {
+            showError('nicknameError', 'Nickname must be at least 2 characters');
+            return;
+        }
+
+        if (password.length < 6) {
+            showError('nicknameError', 'Password must be at least 6 characters');
+            return;
+        }
+
+        // Submit form
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Show success and fade away
+                    showSuccess();
+                } else {
+                    showError('nicknameError', 'Registration failed. Nickname may be taken.');
+                }
+            })
+            .catch(error => {
+                showError('nicknameError', 'Network error. Please try again.');
+            });
+    }
+
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function showSuccess() {
+        // Create success message
+        const successMsg = document.createElement('div');
+        successMsg.className = 'success-message';
+        successMsg.innerHTML = '<i class="fas fa-check-circle"></i> Registration Successful! Unlocking benefits...';
+        successMsg.style.display = 'block';
+
+        const form = document.getElementById('registerForm');
+        form.parentNode.insertBefore(successMsg, form);
+        form.style.display = 'none';
+
+        // Fade away after 2 seconds
+        setTimeout(() => {
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                hideRegisterForm();
+                // Reset form for next time
+                form.reset();
+                form.style.display = 'block';
+                successMsg.remove();
+            }, 1000);
+        }, 2000);
+    }
+
+
+
+
+
+
+
+
+
+
+    // Call this function when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        checkRegistrationStatus();
+
+        // Your existing DOMContentLoaded code here...
+        const welcome = document.getElementById('welcome');
+        const languageSelect = document.getElementById('language-select');
+        // ... rest of your existing code
+    });
+
+
+
+
+
+
+    // cancel form part
+
+    // Enhanced function to handle clicks outside the registration form
+    document.addEventListener('click', function(event) {
+        const registerFormContainer = document.getElementById('registerFormContainer');
+        const overlay = document.querySelector('.overlay');
+
+        // Check if click is outside the form but on the overlay
+        if (registerFormContainer.classList.contains('active') &&
+            !registerFormContainer.contains(event.target) &&
+            event.target === overlay) {
+            hideRegisterForm();
+        }
+    });
+
+    // Make sure overlay is properly styled
+    const overlay = document.querySelector('.overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+
+    function showRegisterForm() {
+        const formContainer = document.getElementById('registerFormContainer');
+        const overlay = document.querySelector('.overlay');
+
+        formContainer.classList.add('active');
+        overlay.style.display = 'block';
+    }
+
+    function hideRegisterForm() {
+        const formContainer = document.getElementById('registerFormContainer');
+        const overlay = document.querySelector('.overlay');
+
+        formContainer.classList.remove('active');
+        overlay.style.display = 'none';
+    }
+
+
+
+
+    // Add password visibility toggle, password enhancement
+
+    const passwordToggle = document.getElementById('passwordToggle');
+    const passwordInput = document.getElementById('passwordHash');
+
+    if (passwordToggle && passwordInput) {
+        passwordToggle.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = 'password';
+                this.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        });
+    }
+
+</script>
+
+
+<!--nilitolea hapa -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const welcome = document.getElementById('welcome');
+        const languageSelect = document.getElementById('language-select');
+        const languageBtns = document.querySelectorAll('.language-btn');
+        const continueBtn = document.querySelector('.continue-btn');
+
+        // After 3 seconds, transition to language selector
+        setTimeout(() => {
+            welcome.style.opacity = '0';
+
+            setTimeout(() => {
+                welcome.style.display = 'none';
+                languageSelect.classList.add('visible');
+
+                // Animate features after language selector appears
+                setTimeout(() => {
+                    document.querySelectorAll('.animated').forEach(el => {
+                        el.style.opacity = '1';
+                    });
+                }, 500);
+            }, 1000);
+        }, 3000);
+
+        // Language selection
+        languageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                languageBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Continue button
+        continueBtn.addEventListener('click', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                alert("Redirecting to the main app...");
+                // In a real app, you would redirect to the main application page
+                // window.location.href = "main-app.html";
+            }, 500);
+        });
+    });
+</script>
+
+
+<script>
+    function redirectWithLanguage() {
+        const activeBtn = document.querySelector('.language-btn.active');
+        let lang = 'en'; // default
+
+        if (activeBtn) {
+            const langText = activeBtn.textContent.trim();
+            // if (langText.includes('中文')) lang = 'zh';
+            // if (langText.includes('Swahili')) lang = 'sw';
+            // if (langText.includes('Deutsch')) lang = 'de';
+            // if (langText.includes('Swedish')) lang = 'sv';
+
+            if (langText.includes('中文')) lang = 'zh';
+            if (langText.includes('Swahili')) lang = 'sw';
+            if (langText.includes('Deutsch')) lang = 'de';
+            if (langText.includes('English')) lang = 'en';
+            if (langText.includes('Swedish')) lang = 'sv';
+        }
+
+        window.location.href = '/btwo?lang=' + lang;
+        // window.location.href = '/parkspanda/gorge?lang=' + lang;
+    }
+</script>
+
+</body>
+</html>

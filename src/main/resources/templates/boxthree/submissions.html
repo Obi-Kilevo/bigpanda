@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>All Submissions</title>
+</head>
+<body>
+<h1>All Submissions</h1>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Registration Date</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="submission : ${submissions}">
+        <td th:text="${submission.id}"></td>
+        <td th:text="${submission.firstName}"></td>
+        <td th:text="${submission.email}"></td>
+        <td th:text="${submission.subject}"></td>
+        <td th:text="${submission.registrationDate}"></td>
+        <td th:text="${submission.notes}"></td>
+    </tr>
+    </tbody>
+</table>
+<br />
+<a href="/boxthree">Back to form</a>
+</body>
+</html>

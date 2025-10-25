@@ -1,0 +1,119 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html><!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>My Like History</title>-->
+<!--  <style>-->
+<!--    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }-->
+<!--    .section { margin-bottom: 30px; }-->
+<!--    .park-card {-->
+<!--      border: 1px solid #ddd;-->
+<!--      padding: 15px;-->
+<!--      margin: 10px 0;-->
+<!--      border-radius: 8px;-->
+<!--      background-color: #f9f9f9;-->
+<!--    }-->
+<!--    .liked { border-left: 4px solid #28a745; }-->
+<!--    .disliked { border-left: 4px solid #dc3545; }-->
+<!--    .stats {-->
+<!--      background-color: #f8f9fa;-->
+<!--      padding: 20px;-->
+<!--      border-radius: 8px;-->
+<!--      margin-bottom: 20px;-->
+<!--    }-->
+<!--    .park-name { font-weight: bold; font-size: 18px; }-->
+<!--    .action-date { color: #666; font-size: 14px; }-->
+<!--    .empty-state {-->
+<!--      text-align: center;-->
+<!--      padding: 40px;-->
+<!--      color: #666;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--  <h1>My National Park Preferences</h1>-->
+
+<!--  &lt;!&ndash; Customer Info &ndash;&gt;-->
+<!--  <div class="stats">-->
+<!--    <h2>Welcome, <span th:text="${customer.nickname}">Customer</span>!</h2>-->
+<!--    <div style="display: flex; gap: 30px; margin-top: 15px;">-->
+<!--      <div>-->
+<!--        <h3 style="color: #28a745; margin: 0;">Liked Parks</h3>-->
+<!--        <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">-->
+<!--          <span th:text="${totalLiked}">0</span>-->
+<!--        </p>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <h3 style="color: #dc3545; margin: 0;">Disliked Parks</h3>-->
+<!--        <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">-->
+<!--          <span th:text="${totalDisliked}">0</span>-->
+<!--        </p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Liked Parks Section &ndash;&gt;-->
+<!--  <div class="section">-->
+<!--    <h2 style="color: #28a745;">👍 Parks I Liked</h2>-->
+
+<!--    <div th:if="${likedParks.empty}" class="empty-state">-->
+<!--      <p>You haven't liked any parks yet.</p>-->
+<!--      <a th:href="@{/parks}" style="color: #007bff;">Explore Parks</a>-->
+<!--    </div>-->
+
+<!--    <div th:each="like : ${likedParks}" class="park-card liked">-->
+<!--      <div class="park-name" th:text="${@parkService.getParkName(like.parkId)}">-->
+<!--        Park Name-->
+<!--      </div>-->
+<!--      <div class="action-date">-->
+<!--        Liked on:-->
+<!--        <span th:text="${#temporals.format(like.createdAt, 'dd MMM yyyy HH:mm')}">-->
+<!--                        01 Jan 2024 12:00-->
+<!--                    </span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Disliked Parks Section &ndash;&gt;-->
+<!--  <div class="section">-->
+<!--    <h2 style="color: #dc3545;">👎 Parks I Disliked</h2>-->
+
+<!--    <div th:if="${dislikedParks.empty}" class="empty-state">-->
+<!--      <p>You haven't disliked any parks.</p>-->
+<!--    </div>-->
+
+<!--    <div th:each="like : ${dislikedParks}" class="park-card disliked">-->
+<!--      <div class="park-name" th:text="${@parkService.getParkName(like.parkId)}">-->
+<!--        Park Name-->
+<!--      </div>-->
+<!--      <div class="action-date">-->
+<!--        Disliked on:-->
+<!--        <span th:text="${#temporals.format(like.createdAt, 'dd MMM yyyy HH:mm')}">-->
+<!--                        01 Jan 2024 12:00-->
+<!--                    </span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Navigation &ndash;&gt;-->
+<!--  <div style="margin-top: 30px; text-align: center;">-->
+<!--    <a th:href="@{/reg/likes/stats}" style="margin-right: 15px;">-->
+<!--      View Public Statistics-->
+<!--    </a>-->
+<!--    <a th:href="@{/parks}">-->
+<!--      Browse All Parks-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Olduvai Gorge</title>
+    <style>
+        .modal img {
+            width: 100vw;    /* full viewport width */
+            height: 100vh;   /* full viewport height */
+            object-fit: cover; /* cover the entire screen without stretching */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* prevent horizontal scroll */
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .description-overlay {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            right: 5%;
+            bottom: 5%;
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            word-wrap: break-word;
+            hyphens: auto;
+            text-align: center;
+            font-size: 1.5em;
+            animation: fadeColors 10s infinite alternate;
+        }
+
+        .description-overlay h3, .description-overlay h4 {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        .description-overlay h3 {
+            color: #FF5733;
+        }
+        .description-overlay h4:nth-of-type(1) {
+            color: #33FFBD;
+        }
+        .description-overlay h4:nth-of-type(2) {
+            color: #3380FF;
+        }
+
+        .description-overlay p {
+            margin-bottom: 1em;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeColors {
+            0% { color: #ffffff; }
+            25% { color: #ffb3ff; }
+            50% { color: #33ff57; }
+            75% { color: #33d4ff; }
+            100% { color: #ffdf33; }
+        }
+
+        .description-overlay::-webkit-scrollbar {
+            width: 8px;
+        }
+        .description-overlay::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+        }
+
+        /* Right side thumbnails */
+        .thumbs {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .thumbs img {
+            width: 80px;
+            height: auto;
+            cursor: pointer;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbs img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Swipe highlight effect */
+        .swipe-highlight {
+            animation: swipeHighlight 0.8s ease-out;
+            transform-origin: center center;
+        }
+
+        @keyframes swipeHighlight {
+            0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,255,255,0); }
+            50% { transform: scale(1.3); box-shadow: 0 0 20px rgba(255,255,255,0.9); }
+            100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,255,255,0); }
+        }
+
+        /* Fullscreen modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal:target {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: popUp 0.4s ease forwards;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal:not(:target) {
+            animation: fadeOut 0.3s ease forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 2.5em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .close:hover {
+            transform: scale(1.2);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .close::before {
+            content: "×";
+            display: block;
+            line-height: 1;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3em;
+            text-decoration: none;
+            padding: 20px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(0,0,0,0.6);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 30px;
+        }
+
+        .next {
+            right: 30px;
+        }
+
+        .arrow-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-top: 4px solid white;
+            border-right: 4px solid white;
+        }
+
+        .prev .arrow-icon {
+            transform: rotate(-135deg);
+            margin-right: 5px;
+        }
+
+        .next .arrow-icon {
+            transform: rotate(45deg);
+            margin-left: 5px;
+        }
+
+
+
+        /* Beautiful Back Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            animation: pulse 2s infinite;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .back-button:active {
+            transform: scale(0.98);
+        }
+
+        .back-button::before {
+            content: "←";
+            margin-right: 8px;
+            font-size: 1.3em;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .back-button {
+                padding: 10px 20px;
+                font-size: 1em;
+                top: 15px;
+                left: 15px;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+<a href="/dest/ngorongoro" class="back-button">Back</a>
+
+
+<div class="image-container">
+    <img class="hero-image" src="/kikuletwa/water.png" alt="Olduvai Gorge">
+    <div class="description-overlay">
+<!--        <h3>Kikuletwa Hot Springs – Tanzania</h3>-->
+
+<!--        <p>Also called Chemka Hot Springs, Kikuletwa Hot Springs is a natural gem in Tanzania’s Kilimanjaro region.</p>-->
+<!--        <p>Location: Nestled near the village of Rundugai, the springs lie about 70 km from Moshi</p>-->
+<!--        <p>and 125 km from Arusha, surrounded by lush greenery that creates a peaceful, scenic retreat.</p>-->
+<!--&lt;!&ndash;        <p>Trogons and Turacos, and gentle hikes along streams and waterfalls. </p>&ndash;&gt;-->
+
+<!--        <h4>Kikuletwa Hot Springs:</h4>-->
+<!--        <p>Water Features: The main pool dazzles with crystal-clear turquoise water, perfect for</p>-->
+<!--        <p>swimming and relaxation. Its mineral-rich waters are also believed to have healing properties.</p>-->
+<!--        <p>Activities: Visitors can swim, sunbathe, picnic, or explore the surrounding area through.</p>-->
+<!--        <p>nature walks and birdwatching, enjoying the rich flora and fauna of the region.</p>-->
+
+<!--        &lt;!&ndash;        <h4>Laetoli:</h4>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p>See 3.6-million-year-old hominin footprints that reveal early bipedal walking.</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p>Guided tours and replicas make this site both accessible and fascinating.</p>&ndash;&gt;-->
+
+<!--        <p>Overall, Kikuletwa Hot Springs provides a serene escape, where warm, rejuvenating waters and lush surroundings offer the perfect natural getaway.</p>-->
+    </div>
+</div>
+
+<!-- Thumbnails on the right -->
+<div class="thumbs">
+    <a href="#img1"><img src="/kikuletwadestination/1.png" alt="Udongo"></a>
+    <a href="#img2"><img src="/kikuletwadestination/2.png" alt="Mti"></a>
+    <a href="#img3"><img src="/kikuletwadestination/3.png" alt="Miamba"></a>
+    <a href="#img4"><img src="/kikuletwadestination/4.png" alt="Watu"></a>
+    <a href="#img5"><img src="/kikuletwadestination/5.png" alt="Bichwa"></a>
+    <a href="#img6"><img src="/kikuletwadestination/6.png" alt="Mlango"></a>
+    <a href="#img7"><img src="/kikuletwadestination/7.png" alt="Zuri"></a>
+    <a href="#img8"><img src="/kikuletwadestination/8.png" alt="Mfupa"></a>
+    <a href="#img9"><img src="/kikuletwadestination/9.png" alt="Simba"></a>
+    <a href="#img10"><img src="/kikuletwadestination/10.png" alt="Dreva"></a>
+</div>
+
+<!-- Modal windows -->
+<div id="img1" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img10" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img2" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/1.png" alt="Udongo">
+</div>
+
+<div id="img2" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img1" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img3" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/2.png" alt="Mti">
+</div>
+
+<div id="img3" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img2" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img4" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/3.png" alt="Miamba">
+</div>
+
+<div id="img4" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img3" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img5" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/4.png" alt="Watu">
+</div>
+
+<div id="img5" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img4" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img6" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/5.png" alt="Bichwa">
+</div>
+
+<div id="img6" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img5" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img7" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/6.png" alt="Mlango">
+</div>
+
+<div id="img7" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img6" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img8" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/7.png" alt="Zuri">
+</div>
+
+<div id="img8" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img7" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img9" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/8.png" alt="Mfupa">
+</div>
+
+<div id="img9" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img8" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img10" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/9.png" alt="Simba">
+</div>
+
+<div id="img10" class="modal">
+    <a href="#" class="close"></a>
+    <a href="#img9" class="nav-arrow prev"><span class="arrow-icon"></span></a>
+    <a href="#img1" class="nav-arrow next"><span class="arrow-icon"></span></a>
+    <img src="/kikuletwadestination/10.png" alt="Dreva">
+</div>
+
+<script>
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(event) {
+        const currentModal = document.querySelector('.modal:target');
+        if (!currentModal) return;
+
+        switch(event.key) {
+            case 'ArrowLeft':
+                const prevLink = currentModal.querySelector('.prev');
+                if (prevLink) prevLink.click();
+                break;
+            case 'ArrowRight':
+                const nextLink = currentModal.querySelector('.next');
+                if (nextLink) nextLink.click();
+                break;
+            case 'Escape':
+                const closeLink = currentModal.querySelector('.close');
+                if (closeLink) closeLink.click();
+                break;
+        }
+    });
+
+    // Random swipe effect for thumbnails
+    let swipeInterval;
+    let isModalOpen = false;
+
+    function startSwipeEffect() {
+        if (isModalOpen) return;
+
+        const thumbnails = document.querySelectorAll('.thumbs img');
+        const randomIndex = Math.floor(Math.random() * thumbnails.length);
+
+        // Remove any existing highlight classes
+        thumbnails.forEach(thumb => thumb.classList.remove('swipe-highlight'));
+
+        // Add highlight to random thumbnail
+        thumbnails[randomIndex].classList.add('swipe-highlight');
+    }
+
+    function initSwipeEffect() {
+        // Start the interval (every 2 seconds)
+        swipeInterval = setInterval(startSwipeEffect, 2000);
+
+        // Also trigger immediately
+        startSwipeEffect();
+    }
+
+    // Initialize swipe effect
+    initSwipeEffect();
+
+    // Pause swipe effect when modal is opened
+    document.addEventListener('click', function(event) {
+        if (event.target.closest('.thumbs a')) {
+            // User clicked a thumbnail
+            isModalOpen = true;
+            clearInterval(swipeInterval);
+        } else if (event.target.closest('.close')) {
+            // User closed the modal
+            isModalOpen = false;
+            initSwipeEffect();
+        }
+    });
+
+    // Also check URL hash changes (for modal navigation)
+    window.addEventListener('hashchange', function() {
+        if (window.location.hash.includes('img')) {
+            isModalOpen = true;
+            clearInterval(swipeInterval);
+        } else {
+            isModalOpen = false;
+            initSwipeEffect();
+        }
+    });
+</script>
+</body>
+</html>
