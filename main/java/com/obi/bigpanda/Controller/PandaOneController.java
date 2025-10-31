@@ -25,25 +25,9 @@ public class PandaOneController {
         model.addAttribute("languages", new String[] {"swahili", "english", "chinese"});
         return "boxone/languageSelection";  // template to display languages
     }
-//
-//    @GetMapping
-//    public String showLanguagePage(Model model, HttpSession session) {
-//        model.addAttribute("languages", new String[] {"swahili", "english", "chinese"});
-//
-//        // Check if user is already registered
-//        Long customerId = (Long) session.getAttribute("loggedInCustomerId");
-//        if (customerId != null) {
-//            Optional<CustomersEntity> customer = customersRepository.findById(customerId);
-//            if (customer.isPresent()) {
-//                model.addAttribute("nickname", customer.get().getNickname());
-//                model.addAttribute("isRegistered", true);
-//            }
-//        } else {
-//            model.addAttribute("isRegistered", false);
-//        }
-//
-//        return "boxone/languageSelection";
-//    }
+
+
+
 
 
 
@@ -56,7 +40,7 @@ public class PandaOneController {
             if (customer.isPresent()) {
                 model.addAttribute("nickname", customer.get().getNickname());
                 model.addAttribute("isRegistered", true);
-                return "home"; // Your homepage template
+                return "home";
             }
         }
 

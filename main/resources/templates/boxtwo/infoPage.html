@@ -1,62 +1,301 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Big Panda Safaris Info</title>
-<!--    -->
-<style>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <title>Big Panda Safaris Info</title>-->
+<!--&lt;!&ndash;    &ndash;&gt;-->
+<!--<style>-->
 
-        iframe {
-            background-color: white !important;
-        }
-    </style>
+<!--        iframe {-->
+<!--            background-color: white !important;-->
+<!--        }-->
+<!--    </style>-->
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-</head>
-<body>
-
-
-</header>
+<!--    &lt;!&ndash; Font Awesome &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>-->
+<!--</head>-->
+<!--<body>-->
 
 
-<!-- Add this where you want the child content in your mother HTML futa kama ni mavi-->
-<div style="width: 100%; height: 800px; margin: 20px 0;">
-    <iframe src="http://localhost:9000/dest/kid"
-            style="width: 100%; height: 100%; border: none; border-radius: 10px;"></iframe>
-</div>
+<!--</header>-->
 
 
+<!--&lt;!&ndash; Add this where you want the child content in your mother HTML futa kama ni mavi&ndash;&gt;-->
+<!--<div style="width: 100%; height: 800px; margin: 20px 0;">-->
+<!--    <iframe src="http://localhost:9000/dest/kid"-->
+<!--            style="width: 100%; height: 100%; border: none; border-radius: 10px;"></iframe>-->
+<!--</div>-->
+
+
+
+
+
+<!--&lt;!&ndash;<div style="width: 100%; height: 800px; margin: 20px 0;">&ndash;&gt;-->
+<!--&lt;!&ndash;    <iframe src="http://localhost:9000/ten"&ndash;&gt;-->
+<!--&lt;!&ndash;            style="width: 100%; height: 100%; border: none; border-radius: 10px;">&ndash;&gt;-->
+<!--&lt;!&ndash;    </iframe>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
 
 
 
 <!--<div style="width: 100%; height: 800px; margin: 20px 0;">-->
-<!--    <iframe src="http://localhost:9000/ten"-->
+<!--    <iframe src="http://localhost:9000/reg/ten"-->
 <!--            style="width: 100%; height: 100%; border: none; border-radius: 10px;">-->
 <!--    </iframe>-->
 <!--</div>-->
 
 
 
-<div style="width: 100%; height: 800px; margin: 20px 0;">
-    <iframe src="http://localhost:9000/reg/ten"
-            style="width: 100%; height: 100%; border: none; border-radius: 10px;">
-    </iframe>
+<!--<div style="width: 100%; height: 800px; margin: 20px 0;">-->
+<!--    <iframe src="http://localhost:9000/hi/hiii"-->
+<!--            style="width: 100%; height: 100%; border: none; border-radius: 10px;">-->
+<!--    </iframe>-->
+<!--</div>-->
+
+
+<!--<div style="width: 100%; height: 800px; margin: 20px 0;">-->
+<!--    <iframe src="http://localhost:9000/hi/hii"-->
+<!--            style="width: 100%; height: 100%; border: none; border-radius: 10px;">-->
+<!--    </iframe>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enhanced Smooth Fade Iframes</title>
+    <style>
+        .section {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin: 20px 0;
+            width: 100%;
+            height: 800px;
+            will-change: transform, opacity;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .section.hidden {
+            opacity: 0;
+            transform: translateY(-40px) scale(0.98);
+            transition: opacity 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53),
+            transform 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Prevent flash of unstyled content */
+        body {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="section">
+    <iframe src="http://localhost:9000/dest/kid"></iframe>
 </div>
 
-
-
-<div style="width: 100%; height: 800px; margin: 20px 0;">
-    <iframe src="http://localhost:9000/hi/hiii"
-            style="width: 100%; height: 100%; border: none; border-radius: 10px;">
-    </iframe>
+<div class="section">
+    <iframe src="http://localhost:9000/reg/ten"></iframe>
 </div>
 
-
-<div style="width: 100%; height: 800px; margin: 20px 0;">
-    <iframe src="http://localhost:9000/hi/hii"
-            style="width: 100%; height: 100%; border: none; border-radius: 10px;">
-    </iframe>
+<div class="section">
+    <iframe src="http://localhost:9000/hi/hiii"></iframe>
 </div>
+
+<div class="section">
+    <iframe src="http://localhost:9000/hi/hii"></iframe>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Mark body as loaded to prevent FOUC
+        document.body.classList.add('loaded');
+
+        const sections = document.querySelectorAll('.section');
+        let ticking = false;
+        let lastScrollY = window.scrollY;
+        let scrollDirection = 'down';
+
+        // More precise trigger points with dynamic thresholds
+        const enterThreshold = 0.75; // 75% of viewport height for entering
+        const exitThreshold = 0.25;  // 25% of viewport height for exiting
+
+        function checkSections() {
+            const viewportHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+
+            // Determine scroll direction
+            scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
+            lastScrollY = scrollY;
+
+            // Dynamic thresholds based on scroll direction
+            const triggerEnter = viewportHeight * enterThreshold;
+            const triggerExit = viewportHeight * exitThreshold;
+
+            sections.forEach((section, index) => {
+                const sectionRect = section.getBoundingClientRect();
+                const sectionTop = sectionRect.top;
+                const sectionBottom = sectionRect.bottom;
+                const sectionHeight = sectionRect.height;
+
+                // Calculate visibility percentage (0 to 1)
+                const visibleHeight = Math.min(sectionBottom, viewportHeight) - Math.max(sectionTop, 0);
+                const visibilityRatio = Math.max(0, visibleHeight / sectionHeight);
+
+                // Entering viewport (scrolling down)
+                if (scrollDirection === 'down') {
+                    if (sectionTop < triggerEnter && sectionBottom > 100) {
+                        // Progressive delay based on position
+                        const delay = Math.min(index * 80, 240);
+
+                        setTimeout(() => {
+                            section.classList.add('visible');
+                            section.classList.remove('hidden');
+                        }, delay);
+                    }
+                }
+                // Leaving viewport (scrolling up)
+                else if (scrollDirection === 'up') {
+                    // Start fading out when less than 40% visible while scrolling up
+                    if (visibilityRatio < 0.4 && sectionBottom < triggerExit) {
+                        section.classList.remove('visible');
+                        section.classList.add('hidden');
+                    }
+                    // Rebuild when coming back into view while scrolling up
+                    else if (sectionTop < triggerEnter && sectionBottom > 100) {
+                        const delay = Math.min(index * 60, 180);
+
+                        setTimeout(() => {
+                            section.classList.add('visible');
+                            section.classList.remove('hidden');
+                        }, delay);
+                    }
+                }
+
+                // Force hide sections that are completely out of view
+                if (sectionBottom < 0 || sectionTop > viewportHeight) {
+                    section.classList.remove('visible');
+                    section.classList.add('hidden');
+                }
+            });
+
+            ticking = false;
+        }
+
+        // Optimized scroll handler with requestAnimationFrame
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(checkSections);
+                ticking = true;
+            }
+        }
+
+        // Use passive scroll listener for better performance
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Initial check
+        checkSections();
+
+        // Re-check on resize with debouncing
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(checkSections, 100);
+        });
+
+        // Optional: Add intersection observer for better performance on modern browsers
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: [0, 0.1, 0.5, 0.9, 1]
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const section = entry.target;
+
+                    if (entry.isIntersecting) {
+                        const delay = Array.from(sections).indexOf(section) * 80;
+                        setTimeout(() => {
+                            section.classList.add('visible');
+                            section.classList.remove('hidden');
+                        }, Math.min(delay, 240));
+                    } else if (scrollDirection === 'up' && entry.intersectionRatio < 0.4) {
+                        section.classList.remove('visible');
+                        section.classList.add('hidden');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+    // part 2
+        // Auto-refresh interval (e.g., 5 minutes in ms)
+        const REFRESH_INTERVAL = 300000;
+
+        function refreshIframes() {
+        const iframes = document.querySelectorAll('iframe');
+
+        iframes.forEach(iframe => {
+        const parent = iframe.closest('.section');
+        // Fade out
+        parent.classList.remove('visible');
+        parent.classList.add('hidden');
+
+        // Refresh after fade completes
+        setTimeout(() => {
+        iframe.src = iframe.src; // Force reload
+        // Fade back in after load
+        iframe.onload = () => {
+        parent.classList.remove('hidden');
+        parent.classList.add('visible');
+    };
+    }, 500); // Match hidden transition duration
+    });
+    }
+
+        // Start auto-refresh loop
+        setInterval(refreshIframes, REFRESH_INTERVAL);
+
+</script>
 </body>
 </html>

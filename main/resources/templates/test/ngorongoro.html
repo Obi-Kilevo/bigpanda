@@ -125,26 +125,6 @@
       font-size: 1.1rem;
     }
 
-    /*!* UPDATED: Enhanced right-text box with thicker blue border *!*/
-    /*.right-text {*/
-    /*  position: absolute;*/
-    /*  right: 5%;*/
-    /*  top: 50%;*/
-    /*  transform: translateY(-50%);*/
-    /*  width: 750px; !* Made slightly bigger *!*/
-    /*  max-width: 95%; !* Increased max width *!*/
-    /*  padding: 100px; !* Increased padding for bigger appearance *!*/
-    /*  background: rgba(255, 255, 255, 0.98); !* Slightly more opaque *!*/
-    /*  border-radius: 15px; !* Slightly more rounded *!*/
-    /*  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2); !* Enhanced shadow *!*/
-    /*  z-index: 10;*/
-    /*  border-left: 13px solid #4a90e2; !* Thicker blue border *!*/
-    /*  backdrop-filter: blur(10px); !* Added blur effect for modern look *!*/
-
-    /*  height: 400px; !* Add fixed height *!*/
-    /*  overflow-y: auto; !* Add scroll if content overflows *!*/
-    /*}*/
-
 
 
     /* UPDATED: Enhanced right-text box with synchronized color border */
@@ -300,6 +280,94 @@
         align-self: flex-start;
       }
     }
+
+
+
+
+
+    /*new changes */
+
+    .card-overlay {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: all 0.4s ease;
+    }
+
+    .card-text {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 0 20px;
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      transform: rotate(315deg) translateY(55px);
+      animation: pulseGlow 2s ease-in-out infinite alternate,
+      breathe 3s ease-in-out infinite;
+      text-shadow: 0 0 10px rgba(255,255,255,0.7),
+      0 0 20px rgba(255,255,255,0.5),
+      0 0 30px rgba(255,215,0,0.3);
+      background: linear-gradient(45deg, #ffd700, #ffed4e, #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 15px;
+      padding: 12px 20px;
+      backdrop-filter: blur(5px);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .card:hover .card-text {
+      transform: rotate(315deg) translateY(55px) scale(1.15);
+      text-shadow: 0 0 15px rgba(255,255,255,0.9),
+      0 0 30px rgba(255,255,255,0.7),
+      0 0 45px rgba(255,215,0,0.5);
+      border-color: rgba(255,255,255,1);
+      background: linear-gradient(45deg, #ffed4e, #ffffff, #ffed4e);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .card:hover .card-overlay {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .card {
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: rotate(45deg) scale(1.02);
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 10px rgba(255,255,255,0.3);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(255,255,255,0.7);
+      }
+    }
+
+    @keyframes breathe {
+      0%, 100% {
+        transform: rotate(315deg) translateY(55px) scale(1);
+      }
+      50% {
+        transform: rotate(315deg) translateY(55px) scale(1.08);
+      }
+    }
+
+
   </style>
 </head>
 <body>
@@ -372,13 +440,30 @@
 </div>
 
 <!-- ADDED: Video card from Arusha -->
+<!--<div class="cards-container">-->
+<!--  <div class="card card-1">-->
+<!--    <video autoplay muted loop playsinline>-->
+<!--      <source src="/arusha/1.mp4" type="video/mp4" />-->
+<!--    </video>-->
+<!--  </div>-->
+<!--</div>-->
+
+
 <div class="cards-container">
-  <div class="card card-1">
-    <video autoplay muted loop playsinline>
-      <source src="/arusha/1.mp4" type="video/mp4" />
-    </video>
-  </div>
+  <a href="/beauty/obiEight" style="display: block; width: 100%; height: 100%;">
+    <div class="card card-1">
+      <div class="card-overlay">
+        <span class="card-text">View More Picture Album</span>
+      </div>
+      <picture>
+        <source srcset="/beauty/obiOne.webp" type="image/webp">
+        <img src="/arusha/1.png" alt="" />
+      </picture>
+    </div>
+  </a>
 </div>
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

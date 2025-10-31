@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/hi")
@@ -956,51 +957,6 @@ public String showOlduvai(Model model) {
 
         return "test/serengeti";
     }
-//
-//    @GetMapping("/serengeti")
-//    public String showSerengeti(Model model) {
-//        Long parkId = 22L;
-//        AdminEntity park = adminRepository.findById(parkId).orElse(null);
-//
-//        if (park != null) {
-//            if (park.getDeleted()) {
-//                model.addAttribute("price", "Closed");
-//                model.addAttribute("name", park.getName());
-//            } else {
-//                // CHECK FOR ACTIVE COUPON
-//                Optional<CouponEntity> activeCoupon = couponRepository
-//                        .findByParkIdAndIsActiveTrueAndExpiryDateAfter(parkId, LocalDateTime.now());
-//
-//                if (activeCoupon.isPresent()) {
-//                    CouponEntity coupon = activeCoupon.get();
-//                    BigDecimal parkPrice = BigDecimal.valueOf(park.getPrice());
-//                    BigDecimal discountPercent = coupon.getDiscountPercent();
-//                    BigDecimal discountAmount = parkPrice.multiply(
-//                            discountPercent.divide(BigDecimal.valueOf(100)));
-//                    BigDecimal finalPrice = parkPrice.subtract(discountAmount);
-//
-//                    // ADD COUPON INFO TO MODEL
-//                    model.addAttribute("originalPrice", park.getPrice());
-//                    model.addAttribute("finalPrice", finalPrice.doubleValue());
-//                    model.addAttribute("discountPercent", discountPercent.doubleValue());
-//                    model.addAttribute("hasCoupon", true);
-//                } else {
-//                    model.addAttribute("finalPrice", park.getPrice());
-//                    model.addAttribute("hasCoupon", false);
-//                }
-//
-//                model.addAttribute("price", park.getPrice()); // Keep original for backward compatibility
-//                model.addAttribute("name", park.getName());
-//            }
-//        } else {
-//            model.addAttribute("price", "Thanks! Serengeti National Park is closed for a while");
-//            model.addAttribute("name", "Serengeti National Park");
-//            model.addAttribute("hasCoupon", false);
-//        }
-//
-//        return "test/serengeti";
-//    }
-
 
 
     @GetMapping("/m")
@@ -1013,8 +969,55 @@ public String showOlduvai(Model model) {
         return "test/hii";
     }
 
+//    @GetMapping("/hiii")
+//    public String showhiii() {
+//        return "test/hiii";
+//    }
+
+
     @GetMapping("/hiii")
-    public String showhiii() {
+    public String showhiii(Model model) {
+        List<AdminEntity> tours = adminRepository.findAllActiveTours();
+
+        // Process coupons and calculate discounts
+        for (AdminEntity tour : tours) {
+            List<CouponEntity> activeCoupons = couponRepository
+                    .findByParkIdAndIsActiveTrueAndExpiryDateAfter(tour.getId(), LocalDateTime.now());
+
+            if (!activeCoupons.isEmpty()) {
+                CouponEntity coupon = activeCoupons.get(0);
+                BigDecimal tourPrice = BigDecimal.valueOf(tour.getPrice());
+                BigDecimal discountPercent = coupon.getDiscountPercent();
+                BigDecimal discountAmount = tourPrice.multiply(
+                        discountPercent.divide(BigDecimal.valueOf(100)));
+                BigDecimal finalPrice = tourPrice.subtract(discountAmount);
+
+                tour.setFinalPrice(finalPrice.doubleValue());
+                tour.setHasActiveCoupon(true);
+                tour.setDiscountPercent(discountPercent.doubleValue());
+                tour.setActiveCoupon(coupon);
+            } else {
+                tour.setFinalPrice(tour.getPrice());
+                tour.setHasActiveCoupon(false);
+                tour.setDiscountPercent(0.0);
+            }
+        }
+
+        // Get top 4 parks with highest coupons
+        List<AdminEntity> topParks = tours.stream()
+                .filter(AdminEntity::getHasActiveCoupon)
+                .sorted((a, b) -> Double.compare(b.getDiscountPercent(), a.getDiscountPercent()))
+                .limit(4)
+                .collect(Collectors.toList());
+
+        // Calculate min and max discounts for scaling
+        double maxDiscount = topParks.isEmpty() ? 0 : topParks.get(0).getDiscountPercent();
+        double minDiscount = topParks.isEmpty() ? 0 : topParks.get(topParks.size() - 1).getDiscountPercent();
+
+        model.addAttribute("topParks", topParks);
+        model.addAttribute("maxDiscount", maxDiscount);
+        model.addAttribute("minDiscount", minDiscount);
+
         return "test/hiii";
     }
 

@@ -12,28 +12,63 @@
         }
 
         body {
-            background: #ffffff; /* Changed to pure white */
+            background: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            position: relative;
+            overflow: hidden; /* Match the first HTML's overflow behavior */
         }
 
-        .container {
+        /* ---------------------- Only 2 Birds: Top-Left & Bottom-Right ---------------------- */
+        .bird-background {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1200px;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .bird {
+            position: absolute;
+            height: auto;
+            filter: grayscale(100%) contrast(130%);
+            max-width: 18vw;
+            width: 100%;
+        }
+
+        .bird-top-left {
+            top: 5vw;
+            left: 3vw;
+        }
+
+        .bird-bottom-right {
+            bottom: 5vw;
+            right: 3vw;
+            transform: scaleX(-1);
+        }
+
+        /* -------------------------------------------------------------------------------- */
+
+        /* Match the container dimensions from first HTML */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 40px auto 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
             display: flex;
-            gap: 50px;
+            gap: 4vw;
+            align-items: center;
+            height: calc(100vh - 80px); /* Match the carousel height */
         }
 
         .left-panel {
             flex: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 2vw;
         }
 
         .right-panel {
@@ -46,13 +81,15 @@
         .logo-title {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 1.5vw;
+            margin-bottom: 2vw;
         }
 
         .logo {
-            width: 50px;
-            height: 50px;
+            width: 8vw;
+            height: 8vw;
+            max-width: 70px;
+            max-height: 70px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #3498db;
@@ -61,7 +98,7 @@
         h1 {
             color: #2c3e50;
             font-weight: 700;
-            font-size: 48px;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             background: linear-gradient(45deg, #2c3e50, #3498db);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -69,28 +106,28 @@
         }
 
         .welcome-text {
-            font-size: 28px;
+            font-size: clamp(1.2rem, 3vw, 2rem);
             color: #2c3e50;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 1.5vw;
         }
 
         .journey-text {
-            font-size: 24px;
+            font-size: clamp(1rem, 2.5vw, 1.8rem);
             color: #e74c3c;
             font-weight: 600;
-            margin-bottom: 35px;
+            margin-bottom: 2.5vw;
         }
 
         .love-text {
-            font-size: 32px;
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
             font-weight: 700;
             color: transparent;
             background: linear-gradient(45deg, #e74c3c, #9b59b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            height: 45px;
-            margin-top: 20px;
+            height: clamp(2rem, 4vw, 3rem);
+            margin-top: 1.5vw;
         }
 
         .love-text::after {
@@ -100,9 +137,9 @@
 
         .image-container {
             position: relative;
-            width: 520px;
-            height: 360px;
-            margin-right: 2px;
+            width: 100%;
+            max-width: 500px;
+            height: clamp(200px, 40vw, 360px);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -124,9 +161,8 @@
         }
 
         .image-note {
-            margin-top: 15px;
-            margin-right: 2px;
-            font-size: 14px;
+            margin-top: 1vw;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
             color: #6c757d;
             text-align: right;
             font-style: italic;
@@ -136,9 +172,60 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
+
+        /* Mobile adjustments to match first HTML's responsive behavior */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+                min-height: calc(100vh - 80px);
+            }
+
+            .right-panel {
+                align-items: center;
+                width: 100%;
+            }
+
+            .bird {
+                max-width: 22vw;
+            }
+
+            .bird-top-left {
+                top: 3vw;
+                left: 2vw;
+            }
+
+            .bird-bottom-right {
+                bottom: 3vw;
+                right: 2vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                margin: 15px auto 0 auto;
+            }
+        }
+
+        /* Ensure iframe compatibility */
+        iframe {
+            border: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
     </style>
 </head>
 <body>
+<!-- Only 2 Birds: Top-Left & Bottom-Right -->
+<div class="bird-background">
+    <img src="/arusha/11.png" alt="Black & white bird" class="bird bird-top-left">
+    <img src="/arusha/33.png" alt="Black & white bird" class="bird bird-bottom-right">
+</div>
+
+<!-- Main Content Container -->
 <div class="container">
     <div class="left-panel">
         <div class="logo-title">
@@ -155,72 +242,49 @@
             <img src="/uploads/panda.jpg" alt="Panda" class="fade-image active">
             <img src="/uploads/swala.png" alt="Swala" class="fade-image">
         </div>
-        <!--        <div class="image-note">Images transition every 4 seconds</div>-->
         <div class="image-note"> </div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Image fading functionality
+        // Image fading
         const images = document.querySelectorAll('.fade-image');
         let currentIndex = 0;
-
         function fadeImages() {
             images.forEach(img => img.classList.remove('active'));
             images[currentIndex].classList.add('active');
             currentIndex = (currentIndex + 1) % images.length;
         }
-
         fadeImages();
         setInterval(fadeImages, 4000);
 
-        // Auto-typing text functionality
+        // Auto-typing text
         const loveText = document.getElementById('loveText');
-        const messages = [
-            "We Love You",
-            "We Care About You",
-            "You Are Special",
-            "Welcome Home",
-            "Adventure Awaits"
-        ];
-
-        let messageIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 100;
+        const messages = ["We Love You", "We Care About You", "You Are Special", "Welcome Home", "Adventure Awaits"];
+        let messageIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 100;
 
         function typeText() {
-            const currentMessage = messages[messageIndex];
-
+            const current = messages[messageIndex];
             if (isDeleting) {
-                // Deleting text
-                loveText.textContent = currentMessage.substring(0, charIndex - 1);
+                loveText.textContent = current.substring(0, charIndex - 1);
                 charIndex--;
                 typingSpeed = 50;
             } else {
-                // Typing text
-                loveText.textContent = currentMessage.substring(0, charIndex + 1);
+                loveText.textContent = current.substring(0, charIndex + 1);
                 charIndex++;
                 typingSpeed = 100;
             }
-
-            // Check if we've finished typing the current message
-            if (!isDeleting && charIndex === currentMessage.length) {
-                // Pause at the end of typing
+            if (!isDeleting && charIndex === current.length) {
                 typingSpeed = 1500;
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
-                // Move to next message after deleting
                 isDeleting = false;
                 messageIndex = (messageIndex + 1) % messages.length;
                 typingSpeed = 500;
             }
-
             setTimeout(typeText, typingSpeed);
         }
-
-        // Start the typing animation
         setTimeout(typeText, 1000);
     });
 </script>

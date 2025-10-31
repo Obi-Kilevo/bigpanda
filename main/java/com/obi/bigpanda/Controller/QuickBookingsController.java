@@ -47,28 +47,6 @@ public class QuickBookingsController {
 
 
 
-//    @GetMapping("/list")
-//    public String listBookings(Model model) {
-//        List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
-//        System.out.println("Number of bookings found: " + allBookings.size()); // Check the console output
-//        model.addAttribute("bookings", allBookings);
-//        return "pandaone/quickBookings/bookingList";
-//    }
-
-
-
-//    @PostMapping("/book")
-//    public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, Model model) {
-//        quickBooking.setCreatedAt(LocalDateTime.now());
-//        quickBooking.setCategory("Quick");
-//
-//        // Customer will be set from session/auth later
-//        // quickBooking.setCustomer(loggedInCustomer);
-//
-//        quickBookingRepository.save(quickBooking);
-//        return "pandaone/quickBookings/quickBookingSuccess";
-//    }
-
     @PostMapping("/book")
     public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, HttpSession session) {
         CustomersEntity loggedInCustomer = (CustomersEntity) session.getAttribute("loggedInCustomer");
@@ -82,15 +60,6 @@ public class QuickBookingsController {
         return "pandaone/quickBookings/quickBookingSuccess";
     }
 
-
-//    @GetMapping("/list")
-//    public String listBookings(Model model) {
-//        List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
-//        // Add this log to see how many records are found
-//        System.out.println("Number of bookings found: " + allBookings.size());
-//        model.addAttribute("bookings", allBookings);
-//        return "pandaone/quickBookings/bookingList";
-//    }
 @GetMapping("/list")
 public String listBookings(Model model) {
     List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
@@ -107,44 +76,8 @@ public String listBookings(Model model) {
     return "pandaone/quickBookings/bookingList";
 }
 
-//    @GetMapping("/list")
-//    public String listBookings(Model model) {
-//        List<QuickBookingEntity> allBookings = quickBookingRepository.findAllWithCustomer();
-//        // Add this log to see how many records are found
-//        System.out.println("Number of bookings found: " + allBookings.size());
-//        model.addAttribute("bookings", allBookings);
-//        return "pandaone/quickBookings/bookingList";
-//    }
-    // List bookings
-//    @GetMapping("/list")
-//    public String listBookings(Model model) {
-//        model.addAttribute("bookings", quickBookingRepository.findAll());
-//        return "pandaone/quickBookings/bookingList";
-//    }
 
 
-
-
-//    @GetMapping("/list")
-//    public String listBookings(Model model) {
-//        model.addAttribute("bookings", quickBookingRepository.findAllWithCustomer());
-//        return "pandaone/quickBookings/bookingList";
-//    }
 }
 
 
-
-//    @PostMapping("/book")
-//    public String submitForm(@ModelAttribute QuickBookingEntity quickBooking, HttpSession session) {
-//        CustomersEntity loggedInCustomer = (CustomersEntity) session.getAttribute("loggedInCustomer");
-//
-//        if (loggedInCustomer != null) {
-//            quickBooking.setCustomer(loggedInCustomer);
-//        }
-//
-//        quickBooking.setCreatedAt(LocalDateTime.now());
-//        quickBooking.setCategory("Quick");
-//
-//        quickBookingRepository.save(quickBooking);
-//        return "pandaone/quickBookings/quickBookingSuccess";
-//    }

@@ -6,6 +6,7 @@ import com.obi.bigpanda.Entity.CustomersEntity;
 import com.obi.bigpanda.Repository.AdminRepository;
 import com.obi.bigpanda.Repository.CouponRepository;
 import com.obi.bigpanda.Repository.CustomersRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,6 +40,8 @@ public class CustomersControllers {
 
     @Autowired
     private AdminRepository adminRepository ;
+
+
 
 
     @PostMapping("/submit")
@@ -126,88 +129,6 @@ public class CustomersControllers {
 
 
 
-//    @GetMapping("/ten")
-//    public String showTen() {
-//        return "usersProfile/registeredUsersProfiles";
-//    }
-
-
-
-
-//    @GetMapping("/ten")
-//    public String showTen(Model model) {
-//        Map<String, String> parkCouponDays = new HashMap<>();
-//
-//        System.out.println("=== DEBUG /ten endpoint ===");
-//
-//        // Map parks to their actual IDs from your coupon data
-//        String arushaDays = getCouponDays(12L);          // Arusha National (ID:12)
-//        String ngorongoroDays = getCouponDays(14L);      // Ngorongoro Crater (ID:14)
-//        String serengetiDays = getCouponDays(22L);       // Serengeti National Parks (ID:22)
-//        String manyaraDays = getCouponDays(15L);        // No active coupon in your data (placeholder)
-//        String tarangireDays = getCouponDays(7L);        // Tarangire National Park (ID:7)
-//        String olduvaiDays = getCouponDays(19L);         // Olduvai Gorge (ID:19)
-//        String kilimanjaroDays = getCouponDays(20L);     // Mount Kilimanjaro (ID:20)
-//        String ruahaDays = getCouponDays(17L);           // Ruaha National Park (ID:17)
-//        String kikuletwaDays = getCouponDays(23L);       // Kikuletwa (ID:23) - Note: Coupon is expired
-//        String mkomaziDays = getCouponDays(21L);         // Mkomazi ParkS (ID:21)
-//
-//        // Debug logs for all parks
-//        System.out.println("Arusha days: " + arushaDays);
-//        System.out.println("Ngorongoro days: " + ngorongoroDays);
-//        System.out.println("Serengeti days: " + serengetiDays);
-//        System.out.println("Manyara days: " + manyaraDays);
-//        System.out.println("Tarangire days: " + tarangireDays);
-//        System.out.println("Olduvai Gorge days: " + olduvaiDays);
-//        System.out.println("Mount Kilimanjaro days: " + kilimanjaroDays);
-//        System.out.println("Ruaha days: " + ruahaDays);
-//        System.out.println("Kikuletwa days: " + kikuletwaDays);
-//        System.out.println("Mkomazi days: " + mkomaziDays);
-//
-//        // Add all parks to the map (keys match HTML data-park-name)
-//        parkCouponDays.put("Arusha", arushaDays);
-//        parkCouponDays.put("Ngorongoro", ngorongoroDays);
-//        parkCouponDays.put("Serengeti", serengetiDays);
-//        parkCouponDays.put("Manyara", manyaraDays);
-//        parkCouponDays.put("Tarangire", tarangireDays);
-//        parkCouponDays.put("Olduvai Gorge", olduvaiDays);
-//        parkCouponDays.put("Mount Kilimanjaro", kilimanjaroDays);
-//        parkCouponDays.put("Ruaha", ruahaDays);
-//        parkCouponDays.put("Kikuletwa", kikuletwaDays);
-//        parkCouponDays.put("Mkomazi", mkomaziDays);
-//
-//        System.out.println("Final parkCouponDays map: " + parkCouponDays);
-//
-//        model.addAttribute("parkCouponDays", parkCouponDays);
-//        return "usersProfile/registeredUsersProfiles";
-//    }
-//
-//    private String getCouponDays(Long parkId) {
-//        // Handle parks with no coupon data (e.g., Manyara)
-//        if (parkId == null) {
-//            System.out.println("No park ID provided - no coupon");
-//            return "";
-//        }
-//
-//        System.out.println("Fetching coupon days for parkId: " + parkId);
-//
-//        List<CouponEntity> activeCoupons = couponRepository
-//                .findByParkIdAndIsActiveTrueAndExpiryDateAfter(parkId, LocalDateTime.now());
-//
-//        System.out.println("Found " + activeCoupons.size() + " active coupons");
-//
-//        if (!activeCoupons.isEmpty()) {
-//            CouponEntity coupon = activeCoupons.get(0);
-//            String days = coupon.getDaysUntilExpiry();
-//            System.out.println("Coupon days: " + days);
-//            return days;
-//        }
-//
-//        System.out.println("No active coupons found");
-//        return "";  // Empty string hides the badge (matches th:if condition)
-//    }
-
-
     @GetMapping("/ten")
     public String showTen(Model model) {
         Map<String, String> parkCouponDays = new HashMap<>();
@@ -257,6 +178,12 @@ public class CustomersControllers {
         return "";  // Empty string hides the badge (matches th:if condition)
     }
 
+
+
+//    @GetMapping("/ten")
+//    public String sho() {
+//        return "usersProfile/registeredUsersProfiles";
+//    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

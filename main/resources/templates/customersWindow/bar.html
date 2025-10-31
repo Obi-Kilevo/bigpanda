@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sidebar with Social Icons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --sidebar-width: 110px;
+            --sidebar-expanded-width: 250px;
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #ecf0f1;
+            --transition-speed: 0.3s;
+            --hover-color: #1abc9c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar: Near top/bottom (5% gap) + rounded corners */
+        .sidebar {
+            position: fixed;
+            top: 5%; /* Avoids top edge */
+            bottom: 5%; /* Avoids taskbar/bottom edge */
+            left: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-color) 0%, #1a252f 100%);
+            color: var(--text-color);
+            padding: 15px 10px;
+            box-sizing: border-box;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-radius: 0 20px 20px 0; /* Modern rounded right edges */
+        }
+
+        .sidebar:hover {
+            width: var(--sidebar-expanded-width);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        /* Logo Container */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-color), var(--hover-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo i {
+            font-size: 20px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            opacity: 0;
+            white-space: nowrap;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .sidebar:hover .logo-text {
+            opacity: 1;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            background-color: rgba(52, 73, 94, 0.7);
+            border-radius: 20px;
+            padding: 8px 15px;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid transparent;
+        }
+
+        .search-bar:focus-within {
+            background-color: rgba(52, 73, 94, 0.9);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 6px;
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 13px;
+            outline: none;
+            width: 0;
+            opacity: 0;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .sidebar:hover .search-bar input {
+            width: 100%;
+            opacity: 1;
+        }
+
+        .search-bar button {
+            padding: 6px;
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .search-bar button:hover {
+            color: var(--accent-color);
+        }
+
+        /* Menu Items */
+        .menu-item {
+            padding: 12px 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+            color: var(--hover-color);
+        }
+
+        .menu-item i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .menu-item:hover i {
+            transform: scale(1.2);
+            color: var(--hover-color);
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .sidebar:hover .menu-text {
+            opacity: 1;
+        }
+
+        .menu-item select {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 12px;
+            width: 0;
+            opacity: 0;
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .sidebar:hover .menu-item select {
+            width: 100%;
+            opacity: 1;
+        }
+
+        .menu-item select option {
+            background-color: var(--primary-color);
+        }
+
+        /* Reservations Button */
+        .reservations-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-color), #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin: 25px 0;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .reservations-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .reservations-btn:hover::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(0, 0); opacity: 0.5; }
+            100% { transform: scale(20, 20); opacity: 0; }
+        }
+
+        .reservations-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--hover-color), #16a085);
+        }
+
+        .reservations-btn i {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .btn-text {
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .sidebar:hover .btn-text {
+            opacity: 1;
+        }
+
+        /* Enhanced Social Icons */
+        .social-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: var(--text-color);
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px) rotate(8deg) scale(1.15);
+            color: white;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: margin-left var(--transition-speed) ease;
+            min-height: 100vh;
+        }
+
+        .sidebar:hover ~ .main-content {
+            margin-left: var(--sidebar-expanded-width);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            max-width: 800px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 70px;
+                --sidebar-expanded-width: 250px;
+            }
+
+            .sidebar {
+                top: 3%;
+                bottom: 3%;
+            }
+
+            .main-content {
+                margin-left: 70px;
+                padding: 20px 15px;
+            }
+
+            .sidebar:hover ~ .main-content {
+                margin-left: 250px;
+            }
+
+            .social-icon {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar: Merged Functionality -->
+<div class="sidebar">
+    <div class="logo-container">
+        <div class="logo">
+            <i class="fas fa-mountain"></i>
+        </div>
+        <div class="logo-text">Tordrillo</div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search Tordrillo">
+        <button><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="menu-item">
+        <i class="fas fa-snowflake"></i>
+        <span class="menu-text">WINTER</span>
+        <select>
+            <option> Skiing </option>
+            <option> Snowboarding </option>
+            <option> Ice Fishing </option>
+        </select>
+    </div>
+
+    <div class="menu-item">
+        <i class="fas fa-sun"></i>
+        <span class="menu-text">SUMMER IN ALASKA</span>
+        <select>
+            <option> Hiking </option>
+            <option> Fishing </option>
+            <option> Camping </option>
+        </select>
+    </div>
+
+    <div class="menu-item">
+        <i class="fas fa-crown"></i>
+        <span class="menu-text">KINGS & CORN</span>
+    </div>
+
+    <div class="menu-item">
+        <i class="fas fa-envelope"></i>
+        <span class="menu-text">CONTACT US</span>
+    </div>
+
+    <button class="reservations-btn">
+        <i class="fas fa-calendar-check"></i>
+        <span class="btn-text">RESERVATIONS</span>
+    </button>
+
+    <!-- Social Icons (Including WhatsApp/WeChat) -->
+    <div class="social-icons">
+        <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-icon" title="WeChat"><i class="fab fa-weixin"></i></a>
+        <a href="#" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <h1>Welcome to Tordrillo</h1>
+    <p>Discover unforgettable adventures in the heart of Alaska. Our curated experiences blend wilderness exploration with luxury, whether you’re chasing fresh powder in winter or reeling in king salmon in summer.</p>
+    <p>Use the sidebar to browse seasonal activities, search for specific trips, or connect with us via social media. Ready to book? Click the "Reservations" button to secure your spot today.</p>
+    <p>Follow our social channels for real-time updates, customer stories, and exclusive offers—stay connected with the Tordrillo community!</p>
+</div>
+
+<script>
+    // Full Interactive Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Menu Item Active State & Staggered Load Animation
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach((item, index) => {
+            // Initial hidden state for animation
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+
+            // Staggered fade-in on load
+            setTimeout(() => {
+                item.style.transition = `all var(--transition-speed) ease ${index * 0.05}s`;
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Active state on click
+            item.addEventListener('click', function() {
+                menuItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 2. Social Icon Bounce-In Animation
+        const socialIcons = document.querySelectorAll('.social-icon');
+        socialIcons.forEach((icon, index) => {
+            // Initial hidden state
+            icon.style.opacity = '0';
+            icon.style.transform = 'scale(0.8)';
+
+            // Staggered bounce-in after menu loads
+            setTimeout(() => {
+                icon.style.transition = `all 0.4s ease ${0.3 + index * 0.1}s`;
+                icon.style.opacity = '1';
+                icon.style.transform = 'scale(1)';
+            }, 300);
+        });
+
+        // 3. Reservations Button Pulse Animation (Subtle)
+        const resBtn = document.querySelector('.reservations-btn');
+        setInterval(() => {
+            resBtn.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                resBtn.style.transform = 'scale(1)';
+            }, 500);
+        }, 3000);
+
+        // 4. Search Bar Input Focus Effect
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.style.boxShadow = '0 0 0 3px rgba(52, 152, 219, 0.3)';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.style.boxShadow = 'none';
+        });
+    });
+</script>
+</body>
+</html>
